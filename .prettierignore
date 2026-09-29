@@ -1,0 +1,12 @@
+.next
+node_modules
+pnpm-lock.yaml
+wireframe
+drizzle
+playwright-report
+test-results
+
+# The approved phase-1 artifacts are read-only records, not source.
+docs/superpowers
+docs/screenshots
+CLAUDE_CODE_KICKOFF.md

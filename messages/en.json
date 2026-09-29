@@ -1,0 +1,184 @@
+{
+  "app": {
+    "name": "Project Management",
+    "org": "Nuwa Group",
+    "mark": "PM",
+    "skipToContent": "Skip to content"
+  },
+  "nav": {
+    "mainLabel": "Main navigation",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "openMenu": "Open menu",
+    "groups": {
+      "overview": "Overview",
+      "tasks": "Tasks",
+      "people": "People",
+      "org": "Organization",
+      "insights": "Insights",
+      "system": "System"
+    },
+    "dashboard": "Dashboard",
+    "myWork": "My work",
+    "allTasks": "All tasks",
+    "review": "Review queue",
+    "rejected": "Rejected & revisions",
+    "employees": "Employees",
+    "teams": "Teams",
+    "departments": "Departments",
+    "structure": "Org structure",
+    "heads": "Department heads",
+    "leaders": "Team leaders",
+    "reports": "Reports",
+    "activity": "Activity log",
+    "settings": "Settings"
+  },
+  "topbar": {
+    "searchPlaceholder": "Search tasks, people or pages",
+    "searchHint": "Ctrl K",
+    "notifications": "Notifications",
+    "notificationsUnread": "Notifications, {count} unread",
+    "density": "Table density",
+    "theme": "Appearance",
+    "toggleTheme": "Toggle appearance",
+    "toggleDensity": "Toggle table density",
+    "profile": "My profile",
+    "security": "Security & trusted devices",
+    "notificationPrefs": "Notification preferences",
+    "signOut": "Sign out"
+  },
+  "fab": {
+    "programming": "Programming task",
+    "uiux": "UI/UX task"
+  },
+  "placeholder": {
+    "badge": "Shell only",
+    "body": "This route is part of the application shell and has not been built yet. It ships in session {session} — see docs/07-ROADMAP.md.",
+    "wireframe": "Wireframe reference: {file}"
+  },
+  "pages": {
+    "dashboard": {
+      "title": "Dashboard",
+      "sub": "Every task the SEO department created and dispatched to Programming and UI/UX, with status, quality and owner."
+    },
+    "myWork": {
+      "title": "My work",
+      "sub": "Your tasks, ordered by what deserves attention first."
+    },
+    "tasks": { "title": "All tasks", "sub": "Every task, with filtering and sorting." },
+    "taskDetail": {
+      "title": "Task detail",
+      "sub": "Requirements, delivery, attachments and comments."
+    },
+    "taskHistory": {
+      "title": "Task history",
+      "sub": "The full path of the task from creation to approval."
+    },
+    "createProgramming": {
+      "title": "New programming task",
+      "sub": "Create a task directed at the Programming department."
+    },
+    "createUiux": {
+      "title": "New UI/UX task",
+      "sub": "Create a task directed at the UI/UX department."
+    },
+    "review": {
+      "title": "Review queue",
+      "sub": "Submitted tasks awaiting your judgement. Check requirements against delivery."
+    },
+    "rejected": {
+      "title": "Rejected & revisions",
+      "sub": "Every rejected task with its reason and the changes required."
+    },
+    "employees": {
+      "title": "Employees",
+      "sub": "Every employee with performance and current load."
+    },
+    "employeeProfile": {
+      "title": "Employee profile",
+      "sub": "Metrics, tasks, revisions and activity."
+    },
+    "teams": { "title": "Teams", "sub": "Teams, their leaders and current load." },
+    "teamDetail": {
+      "title": "Team detail",
+      "sub": "Members, their permissions, load and performance."
+    },
+    "departments": { "title": "Departments", "sub": "Departments, their performance and size." },
+    "departmentDetail": {
+      "title": "Department detail",
+      "sub": "The department, its teams, members and statistics."
+    },
+    "structure": {
+      "title": "Org structure",
+      "sub": "The organization from departments down to employees."
+    },
+    "heads": {
+      "title": "Department heads",
+      "sub": "Manage department heads and their departments' performance."
+    },
+    "leaders": {
+      "title": "Team leaders",
+      "sub": "Team leaders, their performance and employee distribution."
+    },
+    "reports": { "title": "Reports", "sub": "Performance and quality reports across the org." },
+    "activity": {
+      "title": "Activity & audit log",
+      "sub": "Every significant action: who did it, what, when, and the value before and after."
+    },
+    "settingsRoles": { "title": "Roles", "sub": "System roles and how many users hold each." },
+    "settingsPermissions": { "title": "Permissions", "sub": "The permission matrix per role." },
+    "settingsSecurity": {
+      "title": "Security & sessions",
+      "sub": "Security posture, active sessions and protection policies."
+    },
+    "settingsTwoFactor": {
+      "title": "Two-factor authentication",
+      "sub": "Two-step verification and trusted-device lifetime."
+    },
+    "settingsTrustedDevices": {
+      "title": "Trusted devices",
+      "sub": "Devices that skip the verification code."
+    },
+    "settingsNotifications": {
+      "title": "Notifications",
+      "sub": "Notification preferences and channels."
+    },
+    "settingsTasks": {
+      "title": "Task settings",
+      "sub": "Quality weights, task rules and deadlines."
+    },
+    "settingsStatuses": {
+      "title": "Statuses & workflow",
+      "sub": "Task statuses and the transitions allowed between them."
+    },
+    "settingsDepartments": {
+      "title": "Departments & task types",
+      "sub": "Department settings, task types and their fields."
+    },
+    "login": { "title": "Sign in", "sub": "Sign in to the project management system." },
+    "twoFactor": {
+      "title": "Enter your code",
+      "sub": "Enter the verification code sent to your email."
+    },
+    "forgotPassword": { "title": "Reset your password", "sub": "Send a password reset link." },
+    "resetPassword": {
+      "title": "Choose a new password",
+      "sub": "Pick a new password for the account."
+    }
+  },
+  "roles": {
+    "agent": "Employee",
+    "lead": "Team leader",
+    "head": "Department head",
+    "manager": "Manager",
+    "admin": "System administrator"
+  },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The link you opened does not point at a page in this system.",
+    "backToDashboard": "Back to the dashboard",
+    "errorTitle": "Something went wrong",
+    "errorBody": "This page could not be rendered. Try again, and tell an administrator if it keeps happening.",
+    "retry": "Try again"
+  }
+}

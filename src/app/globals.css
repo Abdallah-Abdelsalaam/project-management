@@ -1,0 +1,410 @@
+@import "tailwindcss";
+
+/* `dark:` follows the same rule as the tokens: an explicit data-theme wins,
+   otherwise the system preference decides. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+/* ==========================================================================
+   Design tokens — ported verbatim from wireframe/assets/css/01-tokens.css.
+   Nothing else in the app defines a raw colour, size or duration.
+
+   Three rules this token set encodes (docs/06-DESIGN-SYSTEM.md):
+     1. Borders, not shadows. No shadow token exists for cards.
+     2. Radius encodes role: data 4px, control 6px, panel 8px, overlay 10px.
+     3. Brand red is never a status. Rejection is a distinct deep crimson.
+   ========================================================================== */
+
+@theme {
+  /* ---- Brand ------------------------------------------------------------
+     #e7033e as small text on white measures ~4.5:1, which is borderline, so
+     the ramp splits by use: -500 for fills (always white text), -700 for
+     small text and links on light surfaces. */
+  --color-brand-50: #fff1f4;
+  --color-brand-100: #ffe0e7;
+  --color-brand-200: #ffc6d2;
+  --color-brand-300: #ff9db1;
+  --color-brand-400: #fb5f81;
+  --color-brand-500: #e7033e;
+  --color-brand-600: #c90235;
+  --color-brand-700: #a8022d;
+  --color-brand-800: #8a0626;
+  --color-brand-900: #740c24;
+
+  /* ---- Neutrals — cool violet cast, so they sit with the crimson brand. */
+  --color-ink: #14121a;
+  --color-ink-2: #3b3747;
+  --color-ink-3: #625d72;
+  --color-ink-4: #8b8599;
+  --color-neutral-50: #fbfafc;
+  --color-neutral-100: #f4f2f7;
+  --color-neutral-200: #e9e6ef;
+  --color-neutral-300: #e4e1e9;
+  --color-neutral-400: #cbc6d4;
+  --color-neutral-500: #a39daf;
+  --color-neutral-600: #7d7689;
+  --color-neutral-700: #575265;
+  --color-neutral-800: #363243;
+  --color-neutral-900: #1f1c28;
+
+  /* ---- Semantic surfaces — these are the ones components should use.
+     Their values are reassigned per theme below. */
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-sunk: var(--surface-sunk);
+  --color-surface-alt: var(--surface-alt);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-soft: var(--line-soft);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-invert: var(--text-invert);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+
+  /* ---- Feedback */
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  /* ---- Task lifecycle — twelve statuses, deliberately separate from brand. */
+  --color-st-draft: var(--st-draft);
+  --color-st-created: var(--st-created);
+  --color-st-assigned: var(--st-assigned);
+  --color-st-progress: var(--st-progress);
+  --color-st-submitted: var(--st-submitted);
+  --color-st-review: var(--st-review);
+  --color-st-approved: var(--st-approved);
+  --color-st-closed: var(--st-closed);
+  --color-st-rejected: var(--st-rejected);
+  --color-st-revision: var(--st-revision);
+  --color-st-hold: var(--st-hold);
+  --color-st-cancelled: var(--st-cancelled);
+
+  /* ---- Departments — dispatch strip and department chips only. */
+  --color-dept-seo: var(--dept-seo);
+  --color-dept-prog: var(--dept-prog);
+  --color-dept-uiux: var(--dept-uiux);
+
+  /* ---- Data visualisation — a non-red sequence, so charts never imply error. */
+  --color-viz-1: var(--viz-1);
+  --color-viz-2: var(--viz-2);
+  --color-viz-3: var(--viz-3);
+  --color-viz-4: var(--viz-4);
+  --color-viz-5: var(--viz-5);
+  --color-viz-6: var(--viz-6);
+
+  /* ---- Typography — one family, genuine Arabic design intent. */
+  --font-sans:
+    var(--font-plex-arabic), "IBM Plex Sans Arabic", "Segoe UI", system-ui, -apple-system,
+    "Helvetica Neue", sans-serif;
+
+  --text-3xs: 0.6875rem; /* 11px  dense table meta */
+  --text-2xs: 0.75rem; /* 12px  labels, chips */
+  --text-xs: 0.8125rem; /* 13px  table body, secondary */
+  --text-sm: 0.875rem; /* 14px  UI default */
+  --text-md: 0.9375rem; /* 15px  body */
+  --text-lg: 1.0625rem; /* 17px  card titles */
+  --text-xl: 1.25rem; /* 20px  page titles */
+  --text-2xl: 1.5rem; /* 24px  section heroes */
+  --text-3xl: 1.875rem; /* 30px  stat figures */
+  --text-4xl: 2.5rem; /* 40px  auth wordmark, big metrics */
+
+  /* ---- Radii — encodes role, not fashion. */
+  --radius-data: 4px;
+  --radius-control: 6px;
+  --radius-panel: 8px;
+  --radius-overlay: 10px;
+  --radius-pill: 999px;
+
+  /* ---- Elevation — floating surfaces only. There is no card shadow. */
+  --shadow-overlay: 0 4px 16px -4px rgb(20 18 26 / 0.14), 0 2px 4px -2px rgb(20 18 26 / 0.08);
+  --shadow-modal: 0 24px 48px -12px rgb(20 18 26 / 0.24), 0 8px 16px -8px rgb(20 18 26 / 0.12);
+
+  /* ---- Layout */
+  --spacing-sidebar: 264px;
+  --spacing-rail: 68px;
+  --spacing-topbar: 56px;
+  --spacing-content: 1560px;
+
+  /* ---- Motion */
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Theme values. Only semantic tokens are reassigned; the brand ramp and the
+   neutral ramp are theme-independent.
+   ========================================================================== */
+
+:root {
+  --paper: #fbfafc;
+  --surface: #ffffff;
+  --surface-sunk: #f4f2f7;
+  --surface-alt: #fbfafc;
+  --line: #e4e1e9;
+  --line-strong: #cbc6d4;
+  --line-soft: #e9e6ef;
+
+  --text: #14121a;
+  --text-muted: #625d72;
+  --text-subtle: #8b8599;
+  --text-invert: #ffffff;
+
+  --accent: #e7033e;
+  --accent-text: #a8022d;
+  --accent-soft: #fff1f4;
+  --accent-line: #ffc6d2;
+
+  --success: #15803d;
+  --success-soft: #eaf7ee;
+  --warning: #b45309;
+  --warning-soft: #fdf4e7;
+  --danger: #a8022d;
+  --danger-soft: #fdeef1;
+  --info: #0369a1;
+  --info-soft: #eaf4fb;
+
+  --st-draft: #64748b;
+  --st-created: #6d28d9;
+  --st-assigned: #3730a3;
+  --st-progress: #0e7c86;
+  --st-submitted: #0369a1;
+  --st-review: #b45309;
+  --st-approved: #15803d;
+  --st-closed: #475569;
+  --st-rejected: #a8022d;
+  --st-revision: #c2410c;
+  --st-hold: #78716c;
+  --st-cancelled: #94a3b8;
+
+  --dept-seo: #6d28d9;
+  --dept-prog: #0e7c86;
+  --dept-uiux: #c2410c;
+
+  --viz-1: #0e7c86;
+  --viz-2: #3730a3;
+  --viz-3: #b45309;
+  --viz-4: #6d28d9;
+  --viz-5: #0369a1;
+  --viz-6: #15803d;
+
+  --focus-ring: rgb(231 3 62 / 0.28);
+
+  /* Density — overridden by [data-density="compact"] for managers scanning
+     hundreds of rows. */
+  --row-h: 48px;
+  --cell-pad-y: 0.75rem;
+  --cell-pad-x: 1rem;
+
+  color-scheme: light;
+}
+
+:root[data-density="compact"] {
+  --row-h: 36px;
+  --cell-pad-y: 0.25rem;
+  --cell-pad-x: 0.75rem;
+}
+
+:root[data-theme="dark"] {
+  --paper: #100e15;
+  --surface: #1a1822;
+  --surface-sunk: #14121a;
+  --surface-alt: #201d29;
+  --line: #2e2a3a;
+  --line-strong: #423d52;
+  --line-soft: #252231;
+
+  --text: #f2f0f6;
+  --text-muted: #a8a2b6;
+  --text-subtle: #7d7689;
+  --text-invert: #14121a;
+
+  --accent: #ff2e5f;
+  --accent-text: #ff7d9a;
+  --accent-soft: #2b1119;
+  --accent-line: #5e1128;
+
+  --success: #4ade80;
+  --success-soft: #11241a;
+  --warning: #fbbf24;
+  --warning-soft: #261c0c;
+  --danger: #ff6b85;
+  --danger-soft: #2b1018;
+  --info: #60a5fa;
+  --info-soft: #0f1c2b;
+
+  --st-draft: #94a3b8;
+  --st-created: #a78bfa;
+  --st-assigned: #818cf8;
+  --st-progress: #2dd4bf;
+  --st-submitted: #60a5fa;
+  --st-review: #fbbf24;
+  --st-approved: #4ade80;
+  --st-closed: #94a3b8;
+  --st-rejected: #ff6b85;
+  --st-revision: #fb923c;
+  --st-hold: #a8a29e;
+  --st-cancelled: #64748b;
+
+  --dept-seo: #a78bfa;
+  --dept-prog: #2dd4bf;
+  --dept-uiux: #fb923c;
+
+  --viz-1: #2dd4bf;
+  --viz-2: #818cf8;
+  --viz-3: #fbbf24;
+  --viz-4: #a78bfa;
+  --viz-5: #60a5fa;
+  --viz-6: #4ade80;
+
+  --focus-ring: rgb(255 46 95 / 0.36);
+
+  color-scheme: dark;
+}
+
+/* System preference, only when the user has not chosen explicitly. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #100e15;
+    --surface: #1a1822;
+    --surface-sunk: #14121a;
+    --surface-alt: #201d29;
+    --line: #2e2a3a;
+    --line-strong: #423d52;
+    --line-soft: #252231;
+
+    --text: #f2f0f6;
+    --text-muted: #a8a2b6;
+    --text-subtle: #7d7689;
+    --text-invert: #14121a;
+
+    --accent: #ff2e5f;
+    --accent-text: #ff7d9a;
+    --accent-soft: #2b1119;
+    --accent-line: #5e1128;
+
+    --success: #4ade80;
+    --success-soft: #11241a;
+    --warning: #fbbf24;
+    --warning-soft: #261c0c;
+    --danger: #ff6b85;
+    --danger-soft: #2b1018;
+    --info: #60a5fa;
+    --info-soft: #0f1c2b;
+
+    --st-draft: #94a3b8;
+    --st-created: #a78bfa;
+    --st-assigned: #818cf8;
+    --st-progress: #2dd4bf;
+    --st-submitted: #60a5fa;
+    --st-review: #fbbf24;
+    --st-approved: #4ade80;
+    --st-closed: #94a3b8;
+    --st-rejected: #ff6b85;
+    --st-revision: #fb923c;
+    --st-hold: #a8a29e;
+    --st-cancelled: #64748b;
+
+    --dept-seo: #a78bfa;
+    --dept-prog: #2dd4bf;
+    --dept-uiux: #fb923c;
+
+    --viz-1: #2dd4bf;
+    --viz-2: #818cf8;
+    --viz-3: #fbbf24;
+    --viz-4: #a78bfa;
+    --viz-5: #60a5fa;
+    --viz-6: #4ade80;
+
+    --focus-ring: rgb(255 46 95 / 0.36);
+
+    color-scheme: dark;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--text-md);
+    line-height: 1.6;
+  }
+
+  /* Numeric alignment without a second font: columns lock into vertical
+     rhythm via tabular figures. Digits stay Latin, per the design spec. */
+  [data-numeric],
+  td,
+  th {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px var(--focus-ring);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skip link — required on every page by the quality floor. */
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--spacing-4, 1rem);
+    inset-block-start: -3rem;
+    z-index: 100;
+    border-radius: var(--radius-control);
+    background-color: var(--accent);
+    padding: 0.5rem 1rem;
+    color: #fff;
+    transition: inset-block-start var(--duration-fast) var(--ease-standard);
+  }
+
+  .skip-link:focus {
+    inset-block-start: 0.5rem;
+  }
+}
