@@ -2,7 +2,7 @@
 
 The write path is **Server Actions**. The read path is direct queries from Server Components. Route handlers exist only where an external caller needs one.
 
-**Status after session 1:** one route handler (Better Auth's catch-all). No Server Actions yet. Each session adds its own and documents them here in the same shape.
+**Status after session 2:** one route handler (Better Auth's catch-all) and six shipped Server Actions, all in `src/features/auth/actions.ts`. Each session adds its own and documents them here in the same shape.
 
 ## Contract every Server Action follows
 
@@ -36,10 +36,10 @@ Every action gets a row in the table for its area:
 
 ## Route handlers
 
-| Route                | Methods   | Auth                 | Purpose                                                               | Session |
-| -------------------- | --------- | -------------------- | --------------------------------------------------------------------- | ------- |
-| `/api/auth/[...all]` | GET, POST | public               | Better Auth: sign-in, sign-out, session, verification, password reset | 1       |
-| `/api/cron/digest`   | POST      | `CRON_SECRET` header | Daily notification digest, invoked by Vercel Cron                     | 19      |
+| Route                | Methods   | Auth                 | Purpose                                                                           | Session       |
+| -------------------- | --------- | -------------------- | --------------------------------------------------------------------------------- | ------------- |
+| `/api/auth/[...all]` | GET, POST | public               | Better Auth: sign-in, sign-out, session, verification, password reset, two-factor | 1, extended 2 |
+| `/api/cron/digest`   | POST      | `CRON_SECRET` header | Daily notification digest, invoked by Vercel Cron                                 | 19            |
 
 Nothing else is planned. A route handler that only wraps a query a Server Component could run directly adds a network hop and a serialization boundary for nothing.
 
@@ -49,9 +49,24 @@ Nothing else is planned. A route handler that only wraps a query a Server Compon
 
 Listed so each session knows its surface before it starts. Signatures are confirmed and moved into the tables above as they ship.
 
-### Auth — session 2
+### Auth — session 2 ✅ shipped
 
-`signIn`, `signOut`, `requestPasswordReset`, `resetPassword`, `verifyTwoFactor`, `resendCode`, `trustDevice`, `revokeDevice`, `revokeAllDevices`, `endSession`, `endAllOtherSessions`.
+`src/features/auth/actions.ts`. These are the exception to the contract above, and deliberately so: **no capability check and no scope check**, because every one of them runs for someone who is not yet authenticated. Authorisation is the thing they produce, not a thing they can require.
+
+They also return a **state key**, not `{ ok, data }`. The screens translate the key, which is what keeps every string in `messages/{ar,en}.json` and lets a test assert a state without matching Arabic prose.
+
+| Action                | Input (Zod)                                   | Returns                                                                                              | Notes                                                                     |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `signInAction`        | `locale, email, password, trustDevice, next?` | redirect, or `invalidCredentials` \| `locked{minutes}` \| `invalidInput` \| `unavailable`            | A trusted device lands on the role's page; otherwise `/two-factor`        |
+| `verifyCodeAction`    | `locale, code, trustDevice, next?`            | redirect, or `invalidCode` \| `expiredCode` \| `attemptsExhausted` \| `locked` \| `challengeExpired` | Four distinct refusals, one per Better Auth error code                    |
+| `resendCodeAction`    | `locale`                                      | `sent{sentAt}` \| `tooSoon` \| `challengeExpired`                                                    | Cooldown held in an `httpOnly` cookie, so the client cannot lift the gate |
+| `requestResetAction`  | `locale, email`                               | **always** `sent`                                                                                    | Never discloses whether the address exists                                |
+| `resetPasswordAction` | `locale, token, password, confirm`            | redirect, or `mismatch` \| `policy{rules}` \| `reused` \| `invalidToken`                             | `rules` names the checklist rows that failed                              |
+| `signOutAction`       | `locale` (FormData)                           | redirect to `/login`                                                                                 | A POST, not a link — a prefetch must not end a session                    |
+
+The rules these actions appear to enforce are in fact enforced in Better Auth **hooks** (`src/lib/auth.ts`), because `/api/auth/*` is reachable directly and a check that lived only here would be one an attacker skips. The actions decode the refusal; the hooks make it. See ADR-014.
+
+**Still to come, in session 20:** `trustDevice`, `revokeDevice`, `revokeAllDevices`, `endSession`, `endAllOtherSessions` — the settings screens that manage what session 2 creates. `revokeTrustedDevice` and `revokeAllTrustedDevices` already exist as functions in `src/features/auth/trusted-devices.ts` and `password-history.ts`; session 20 puts actions in front of them.
 
 ### Roles and permissions — session 3
 

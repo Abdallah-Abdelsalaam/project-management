@@ -1,9 +1,11 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Bell, Menu, Moon, Rows3, Search, Sun } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Bell, LogOut, Menu, Moon, Rows3, Search, Sun } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { ROLES, type RoleKey } from "@/lib/permissions";
+import type { SignedInUser } from "@/features/auth/session";
+import { signOutAction } from "@/features/auth/actions";
 
 /**
  * Reads an attribute off <html> reactively. The theme and density toggles
@@ -23,9 +25,6 @@ function useHtmlAttribute(name: string, serverValue = "") {
   );
 }
 
-/** Removed in session 2, when the layout passes the real session down. */
-const PLACEHOLDER_USER = { name: "أحمد سالم", initials: "أ س" };
-
 function persist(key: string, value: string) {
   try {
     localStorage.setItem(key, value);
@@ -42,14 +41,17 @@ function persist(key: string, value: string) {
  */
 export function Topbar({
   role,
+  user,
   onOpenNav,
   unreadCount = 3,
 }: {
   role: RoleKey;
+  user: SignedInUser;
   onOpenNav: () => void;
   unreadCount?: number;
 }) {
   const t = useTranslations();
+  const locale = useLocale();
   const density = useHtmlAttribute("data-density", "comfortable");
   const compact = density === "compact";
 
@@ -140,21 +142,36 @@ export function Topbar({
 
         <span aria-hidden="true" className="bg-line mx-1 h-5 w-px" />
 
-        {/* Placeholder identity until session 2 resolves the real session.
-            This is sample data, not UI copy, which is why it is not in
-            messages/*.json — it disappears entirely when auth lands. */}
+        {/* The signed-in user, resolved by the (app) layout. The role label
+            comes from ROLES rather than from the session, so one rename changes
+            it everywhere. */}
         <div className="rounded-control flex items-center gap-2 px-2 py-1">
           <span
             aria-hidden="true"
             className="bg-dept-seo rounded-pill text-3xs grid size-8 shrink-0 place-items-center font-semibold text-white"
           >
-            {PLACEHOLDER_USER.initials}
+            {user.initials}
           </span>
           <span className="hidden flex-col leading-tight sm:flex">
-            <span className="text-xs font-semibold">{PLACEHOLDER_USER.name}</span>
+            <span className="text-xs font-semibold">{user.name}</span>
             <span className="text-text-subtle text-3xs">{ROLES[role].label}</span>
           </span>
         </div>
+
+        {/* Sign out is a form, not a link: it changes server state, and a
+            prefetching browser must never be able to end someone's session by
+            looking at it. */}
+        <form action={signOutAction}>
+          <input type="hidden" name="locale" value={locale} />
+          <button
+            type="submit"
+            aria-label={t("topbar.signOut")}
+            title={t("topbar.signOut")}
+            className="hover:bg-surface-sunk rounded-control grid size-9 place-items-center"
+          >
+            <LogOut size={18} aria-hidden="true" className="rtl:-scale-x-100" />
+          </button>
+        </form>
       </div>
     </header>
   );

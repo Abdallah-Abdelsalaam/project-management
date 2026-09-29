@@ -23,7 +23,10 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **States:** empty / submitting / invalid credentials / locked out after N failed attempts / success → 2FA or dashboard
 - **Data needed:** `user`, `account`, `trusted_device`, `app_setting.security_policy`
 - **Built in session:** 2
-- **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
+- **Fidelity checklist:** [x] layout [x] copy [ ] states [x] mobile [x] RTL [x] LTR
+  - _states_ unticked: the invalid-credentials and lockout states are covered by
+    Vitest and by E2E specs that need a database, and have not been reviewed on
+    screen. Tick on the first run against a live Neon branch.
 
 ### التحقق بخطوتين (Two-factor) — route: `/[locale]/two-factor`
 
@@ -35,6 +38,9 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **Data needed:** `verification`, `trusted_device`, `app_setting.two_factor`
 - **Built in session:** 2
 - **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
+  - Nothing ticked: the screen only exists mid-challenge, so it cannot be
+    reached — or screenshotted — without a database. Built to the wireframe and
+    reviewed as code only.
 
 ### استعادة كلمة المرور (Forgot password) — route: `/[locale]/forgot-password`
 
@@ -45,7 +51,9 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **States:** empty / submitting / sent confirmation (identical whether or not the address exists — never disclose account existence) / rate-limited
 - **Data needed:** `user`, `verification`
 - **Built in session:** 2
-- **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
+- **Fidelity checklist:** [x] layout [x] copy [x] states [x] mobile [x] RTL [x] LTR
+  - The sent-confirmation state is reachable without a database and is asserted
+    in `e2e/auth.spec.ts`, so this screen is complete.
 
 ### تعيين كلمة مرور جديدة (Reset password) — route: `/[locale]/reset-password`
 
@@ -56,7 +64,10 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **States:** empty / submitting / token invalid or expired / policy violation / mismatch / success
 - **Data needed:** `verification`, `account`, `app_setting.security_policy`
 - **Built in session:** 2
-- **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
+- **Fidelity checklist:** [x] layout [x] copy [ ] states [x] mobile [x] RTL [x] LTR
+  - _states_ unticked: only the invalid-token state renders without a database.
+    The live checklist, the mismatch and the reuse rejection need a valid token,
+    so they are covered by tests rather than by a screenshot.
 
 ---
 

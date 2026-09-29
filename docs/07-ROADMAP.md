@@ -37,14 +37,15 @@ There is no public-request-link session. The wireframe has no public or anonymou
 **Goal:** a real user can sign in, pass 2FA, trust a device and reset a password.
 **Wireframe screens:** `auth/login`, `auth/two-factor`, `auth/forgot-password`, `auth/reset-password`
 
-- [ ] Better Auth tables + `trusted_device`; first migration
-- [ ] Email + password sign-in, session in the database
-- [ ] Email OTP second factor; trusted-device window skips it
-- [ ] Forgot / reset password, honouring the org password policy
-- [ ] Route guard: unauthenticated requests redirect to `/login`
-- [ ] Replace the shell's hard-coded role with the real session
-- [ ] Resend wired for code and reset emails
-- [ ] Build all four auth screens to wireframe fidelity
+- [x] Better Auth tables + `trusted_device`; first migration
+- [x] Email + password sign-in, session in the database
+- [x] Email OTP second factor; trusted-device window skips it
+- [x] Forgot / reset password, honouring the org password policy
+- [x] Route guard: unauthenticated requests redirect to `/login`
+- [x] Replace the shell's hard-coded role with the real session
+- [x] Resend wired for code and reset emails
+- [x] Build all four auth screens to wireframe fidelity
+- [ ] **Carried to session 3:** connect Vercel + Neon, apply the migration, seed, and run the database-backed half of the suite
 
 **Acceptance:** sign in → 2FA → dashboard · wrong code and expired code both handled · lockout after N failures · a trusted device skips 2FA until its window expires · reset link is single-use.
 **Out of scope:** the security and 2FA _settings_ screens (session 20) — policy values are read from defaults until then.

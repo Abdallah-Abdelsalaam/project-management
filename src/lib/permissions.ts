@@ -56,7 +56,14 @@ export type Capability = (typeof CAPABILITIES)[number];
 /** A granted entry may be an exact capability or a wildcard such as "tasks.*". */
 export type Grant = Capability | `${string}.*` | "*";
 
-export type RoleKey = "agent" | "lead" | "head" | "manager" | "admin";
+/**
+ * The five seed roles, in ascending order of reach. Declared as a tuple
+ * because the `user.role` column enumerates it — the database and the
+ * capability engine cannot drift apart.
+ */
+export const ROLE_KEYS = ["agent", "lead", "head", "manager", "admin"] as const;
+
+export type RoleKey = (typeof ROLE_KEYS)[number];
 
 export type RoleDefinition = {
   key: RoleKey;

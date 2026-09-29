@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Sidebar, SidebarDrawer } from "@/components/shell/sidebar";
 import { Topbar } from "@/components/shell/topbar";
 import { can, type RoleKey } from "@/lib/permissions";
+import type { SignedInUser } from "@/features/auth/session";
 
 /**
  * The application shell: sidebar + topbar + the fixed task-creation dock.
@@ -14,11 +15,18 @@ import { can, type RoleKey } from "@/lib/permissions";
  * collapses to an icon rail at ≥768px, and an off-canvas drawer below it.
  * One button drives both — which one depends on the viewport.
  *
- * `role` is resolved on the server and passed down; this component never
- * decides who the user is. Until session 2 wires Better Auth, the layout
- * passes a fixed role — see docs/OPEN_QUESTIONS.md Q13.
+ * The role and the user are resolved on the server by the `(app)` layout and
+ * passed down; nothing here decides who the user is.
  */
-export function AppShell({ role, children }: { role: RoleKey; children: React.ReactNode }) {
+export function AppShell({
+  role,
+  user,
+  children,
+}: {
+  role: RoleKey;
+  user: SignedInUser;
+  children: React.ReactNode;
+}) {
   const t = useTranslations();
   const [collapsed, setCollapsed] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -53,7 +61,7 @@ export function AppShell({ role, children }: { role: RoleKey; children: React.Re
       {drawerOpen && <SidebarDrawer role={role} onClose={closeDrawer} />}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <Topbar role={role} onOpenNav={() => setDrawerOpen(true)} />
+        <Topbar role={role} user={user} onOpenNav={() => setDrawerOpen(true)} />
 
         <main id="main" className="max-w-content mx-auto w-full flex-1 p-4 md:p-6">
           {children}
