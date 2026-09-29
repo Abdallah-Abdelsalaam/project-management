@@ -98,11 +98,32 @@ The app is deployed to **Hostinger**, on the same host as its MySQL database, at
 `https://pm.apqrinu-co.com`. Git remote:
 `github.com/Abdallah-Abdelsalaam/project-management`, branch `main`.
 
-### Do not build on the host
+### Why the build is webpack, and why one worker
 
-`pnpm build` uses Turbopack, which spawns worker processes for the PostCSS
-transform. Shared and cloud Hostinger plans cap process count and memory, and
-the workers are killed before they connect — the build dies with
+The host is **shared** hosting — `de-fra-web2235.main-hosting.eu` — so the
+account runs inside a CloudLinux container. Two consequences, both diagnosed on
+the host itself during session 3, and both non-obvious because the error
+messages point at the wrong thing.
+
+**1. Next sizes its worker pool from the machine it can see, and that is the
+physical host.** Inside the container `os.cpus()` reports 64 and
+`os.freemem()` about 39 GB, so `memoryBasedWorkersCount` asks for **39 build
+workers**. Spawning them fails at the container's process limit and the build
+dies partway through page-data collection:
+
+```
+  Collecting page data using 39 workers ...
+OS can't spawn worker thread: Resource temporarily unavailable (os error 11)
+```
+
+`experimental.cpus: 1` plus `memoryBasedWorkersCount: false` in
+`next.config.ts` fixes it — `getNumberOfWorkers` treats a non-default `cpus` as
+a hard override. Set unconditionally, so local and deploy builds behave
+identically.
+
+**2. Turbopack cannot build here at all, and `cpus` does not help it.** It
+spawns its own child process for the PostCSS transform, outside anything
+`experimental.cpus` governs, and the container kills it:
 
 ```
 FATAL: An unexpected Turbopack error occurred
@@ -110,31 +131,27 @@ Caused by: creating new process
 - node process exited before we could connect to it with exit status: 0
 ```
 
-which names `src/app/globals.css` and looks like a CSS problem. It is not; it is
-a resource limit.
+The message names `src/app/globals.css` and reads like a CSS fault. It is not —
+that is simply the file being transformed when the process died. Confirmed by
+testing on the host: with `cpus: 1`, **webpack builds cleanly and Turbopack
+still fails.**
 
-Two ways around it, in order of reliability:
+So `pnpm build` is `next build --webpack`. `pnpm build:turbo` keeps Turbopack
+available locally, where nothing is constrained.
 
-1. **Build elsewhere, ship the output.** `output: "standalone"` in
-   `next.config.ts` emits `.next/standalone` — a server with only the traced
-   dependencies, so the host needs no toolchain and no `node_modules` install.
-   **`next build` does not copy two directories into it**, and the app 404s on
-   every asset without them:
+### If the host ever stops building at all
 
-   ```bash
-   pnpm build
-   cp -r public       .next/standalone/public
-   cp -r .next/static .next/standalone/.next/static
-   # upload .next/standalone/, start with:  node server.js
-   ```
+Container limits on shared plans are shared and can tighten. `output:
+"standalone"` is already configured, so the fallback is to build elsewhere and
+upload only the output. **`next build` does not copy two directories into it,
+and the app boots and then 404s every asset without them:**
 
-2. **`pnpm build:webpack` on the host.** Webpack does not spawn the worker
-   processes Turbopack does, and it built cleanly here. If it still dies, memory
-   is the cap rather than process count — try
-   `NODE_OPTIONS=--max-old-space-size=2048 pnpm build:webpack`.
-
-Turbopack remains the default for local development and for `pnpm check`; it is
-faster and nothing local is constrained.
+```bash
+pnpm build
+cp -r public       .next/standalone/public
+cp -r .next/static .next/standalone/.next/static
+# upload .next/standalone/ — start it with:  node server.js
+```
 
 ### Environment on the host
 
