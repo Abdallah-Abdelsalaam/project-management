@@ -46,7 +46,7 @@ project-management/
    │  └─ ui/                     shared primitives (shadcn components land here)
    ├─ config/nav.ts              single source of truth for nav + command palette
    ├─ db/
-   │  ├─ index.ts                lazy Neon + Drizzle client
+   │  ├─ index.ts                lazy mysql2 pool + Drizzle client, pinned to UTC
    │  └─ schema/                 one file per area, re-exported from index.ts
    ├─ i18n/                      routing, request config, locale-aware navigation
    ├─ lib/
@@ -78,7 +78,7 @@ Steps 1 and 3 are not optional and are never inherited from the client. The UI h
 
 ## Auth flow
 
-Better Auth with email + password and sessions stored in Postgres via the Drizzle adapter.
+Better Auth with email + password and sessions stored in MySQL via the Drizzle adapter (`provider: "mysql"` since session 3).
 
 ```
 /login  ─ credentials ─→  valid?

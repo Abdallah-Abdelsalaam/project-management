@@ -27,7 +27,7 @@
 
 ## Stack
 
-Next.js 16 (App Router) · TypeScript strict · Tailwind v4 · next-intl (`ar` default, `en`) · Drizzle + Neon Postgres · Better Auth · Zod · React Hook Form · Vitest + Playwright. Versions and env vars: `docs/01-TECH-STACK.md`.
+Next.js 16 (App Router) · TypeScript strict · Tailwind v4 · next-intl (`ar` default, `en`) · Drizzle + MySQL (Hostinger) · Better Auth · Zod · React Hook Form · Vitest + Playwright. Versions and env vars: `docs/01-TECH-STACK.md`.
 
 ## Folders
 

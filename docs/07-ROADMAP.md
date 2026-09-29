@@ -57,12 +57,14 @@ There is no public-request-link session. The wireframe has no public or anonymou
 **Goal:** permissions become data, editable by an admin, enforced on the server.
 **Wireframe screens:** `settings/roles`, `settings/permissions`
 
-- [ ] `role`, `permission`, `role_permission`; seed the 5 roles and 22 capabilities
-- [ ] `requireCapability` / `requireScope` server helpers
-- [ ] Roles screen: list, create, edit, delete-when-unused
-- [ ] Permission matrix: 22 × 5 grid, search, dirty state, save, restore defaults
-- [ ] One audit row per changed cell
-- [ ] Nav and shell gating driven by the real role
+- [x] **Unplanned: ported the whole stack from Neon Postgres to MySQL on Hostinger** — ADR-019
+- [x] `role`, `permission`, `role_permission`, `audit_log`; seed the 5 roles and 30 capabilities (Q19)
+- [x] `user.role` (text) → `user.role_id` (fk), in the regenerated baseline migration
+- [x] `requireCapability` / `requireScope` server helpers, reading the tables
+- [x] Roles screen: list, create, edit, delete-when-unused
+- [x] Permission matrix: 30 × 5 grid, search, dirty state, save, restore defaults
+- [x] One audit row per changed cell, in the same transaction as the change
+- [x] Nav and shell gating driven by the stored grants, not a role key
 
 **Acceptance:** granting a capability changes what that role sees on the next request · the admin column cannot be edited · every change is in the audit log · an agent hitting an admin route is refused server-side, not just hidden.
 **Out of scope:** the audit _log screen_ (session 18); rows are written now, read later.

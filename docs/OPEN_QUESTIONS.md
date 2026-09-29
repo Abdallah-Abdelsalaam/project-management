@@ -295,6 +295,88 @@ the same file on disk in the runner.
 
 ---
 
+## Q19 · The wireframe's matrix shows 22 capabilities; the code checks 30
+
+**Status:** open · raised session 3 · **decided and built, flagged for review**
+
+`settings/permissions.html` lists 22 capabilities in 4 groups. `CAPABILITIES`
+in `src/lib/permissions.ts` — ported from the wireframe's own `role.js` in
+session 1 — has **30**. The eight the matrix omits are `tasks.comment`,
+`tasks.reassign`, `tasks.submit`, `team.view`, `dept.view`,
+`profile.view.own`, `profile.view.team` and `profile.view.dept`.
+
+They are not decorative: `tasks.submit` is what an agent does to hand work in,
+and `tasks.comment` gates the discussion on every task detail screen.
+
+**Assumption:** the matrix shows all 30. A capability the server enforces while
+the administrator cannot see it is exactly the kind of invisible rule this
+screen exists to abolish, and omitting the eight would leave them permanently
+at their seeded values with no way to change them. The eight extra labels were
+written in the wireframe's register; the 22 it does list are transcribed from
+it verbatim. The footer's "22 صلاحية في 4 مجموعات" is now computed, so it reads
+"30 صلاحية في 4 مجموعات".
+
+**Cost of changing:** small. Hiding the eight is a filter in
+`loadMatrix`; deleting them is a change to `CAPABILITIES`, the seed and every
+grant that names them, and would lose distinctions sessions 7+ need.
+
+**Answer:** _(pending)_
+
+---
+
+## Q20 · `settings.view` is the only thing guarding the permission matrix
+
+**Status:** open · raised session 3 · **security-relevant**
+
+`04-SCREENS.md` states that all settings routes require `settings.view`, which
+is what the wireframe models — it defines no `permissions.manage` or
+equivalent. Taken literally, anyone who can open Settings can edit the matrix,
+and the manager role holds `settings.view`.
+
+**Assumption:** `settings.view` guards both screens, as written, **plus** a
+server rule that nobody may grant a capability they do not themselves hold
+(ADR-022). That keeps `settings.view` from being a blank cheque without adding
+a capability the wireframe does not contain. The admin column is refused
+server-side on top of it.
+
+Note what this still permits: a manager can grant the **manager** role any of
+the thirty concrete capabilities, because they already hold all thirty. What
+they cannot do is hand out `*`, which only the admin holds.
+
+**Cost of changing:** adding a distinct `permissions.manage` capability is one
+row in `CAPABILITIES`, one seed change, one constant in
+`src/features/access/actions.ts` and one matrix row. Cheap now, cheaper than
+after departments and teams have screens of their own.
+
+**Answer:** _(pending)_
+
+---
+
+## Q21 · The add-role modal has no description, glyph or English name
+
+**Status:** open · raised session 3 · cosmetic, but it shows
+
+The roles list gives each of the five seeded roles a distinct glyph and a
+sentence of description ("يوزّع الموظفين على قادة الفرق وينقلهم ويرى إحصاءات
+القسم"). The **إضافة دور** modal collects four fields: name, key, base role and
+scope. So a role an administrator creates has no sentence and no glyph, and its
+row is visibly shorter than the five above it.
+
+The name is also a single field, while the app ships in two locales — so a
+custom role shows the same name in Arabic and English.
+
+**Assumption:** built as the wireframe draws it. `role.description` and
+`role.icon` are columns, seeded for the five and null for anything new; a new
+role renders scope and permission count only, and falls back to the generic
+`badge` glyph. The name is stored once and shown in both locales.
+
+**Cost of changing:** two more fields in one modal and one migration adding
+`name_en`. Worth doing together if the answer to Q2 is "both languages ship".
+
+**Answer:** _(pending)_
+
+---
+
 ## Resolved
 
 _(none yet)_

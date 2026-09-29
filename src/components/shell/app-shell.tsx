@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Sidebar, SidebarDrawer } from "@/components/shell/sidebar";
 import { Topbar } from "@/components/shell/topbar";
-import { can, type RoleKey } from "@/lib/permissions";
+import { grantsInclude } from "@/lib/permissions";
 import type { SignedInUser } from "@/features/auth/session";
 
 /**
@@ -15,18 +15,12 @@ import type { SignedInUser } from "@/features/auth/session";
  * collapses to an icon rail at ≥768px, and an off-canvas drawer below it.
  * One button drives both — which one depends on the viewport.
  *
- * The role and the user are resolved on the server by the `(app)` layout and
- * passed down; nothing here decides who the user is.
+ * The user and the grants their role holds are resolved on the server by the
+ * `(app)` layout and passed down; nothing here decides who the user is or what
+ * they may do. Gating below is a usability affordance — every route and action
+ * re-checks on the server.
  */
-export function AppShell({
-  role,
-  user,
-  children,
-}: {
-  role: RoleKey;
-  user: SignedInUser;
-  children: React.ReactNode;
-}) {
+export function AppShell({ user, children }: { user: SignedInUser; children: React.ReactNode }) {
   const t = useTranslations();
   const [collapsed, setCollapsed] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -54,21 +48,21 @@ export function AppShell({
   return (
     <div className="flex min-h-dvh">
       <Sidebar
-        role={role}
+        grants={user.grants}
         collapsed={collapsed}
         onToggleCollapse={() => setCollapsed((value) => !value)}
       />
-      {drawerOpen && <SidebarDrawer role={role} onClose={closeDrawer} />}
+      {drawerOpen && <SidebarDrawer grants={user.grants} onClose={closeDrawer} />}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <Topbar role={role} user={user} onOpenNav={() => setDrawerOpen(true)} />
+        <Topbar user={user} onOpenNav={() => setDrawerOpen(true)} />
 
         <main id="main" className="max-w-content mx-auto w-full flex-1 p-4 md:p-6">
           {children}
         </main>
       </div>
 
-      {can(role, "tasks.create") && (
+      {grantsInclude(user.grants, "tasks.create") && (
         <div className="fixed start-5 bottom-5 z-40 flex flex-col gap-2">
           <Link
             href="/tasks/new/programming"

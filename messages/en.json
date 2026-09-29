@@ -402,5 +402,148 @@
     "errorTitle": "Something went wrong",
     "errorBody": "This page could not be rendered. Try again, and tell an administrator if it keeps happening.",
     "retry": "Try again"
+  },
+  "settings": {
+    "nav": {
+      "label": "Settings sections",
+      "people": "People and permissions",
+      "roles": "Roles",
+      "permissions": "Permissions",
+      "security": "Security",
+      "securitySessions": "Security and sessions",
+      "twoFactor": "Two-factor authentication",
+      "devices": "Trusted devices",
+      "work": "Work",
+      "tasks": "Task settings",
+      "statuses": "Statuses and workflow",
+      "departments": "Departments and task types",
+      "notifications": "Notifications"
+    },
+    "crumbs": {
+      "label": "Breadcrumb",
+      "settings": "Settings"
+    },
+    "counts": {
+      "users": "{count, plural, =0 {No users} one {# user} other {# users}}",
+      "roles": "{count, plural, =0 {No roles} one {# role} other {# roles}}",
+      "permissions": "{count, plural, =0 {No permissions} one {# permission} other {# permissions}}",
+      "groups": "{count, plural, =0 {no groups} one {# group} other {# groups}}",
+      "changes": "{count, plural, =0 {No changes} one {# change} other {# changes}}"
+    },
+    "scopes": {
+      "own": "Their own tasks",
+      "team": "Their team",
+      "dept": "Their department",
+      "all": "All departments"
+    },
+    "roles": {
+      "title": "Roles",
+      "sub": "A role is a set of permissions and nothing else. Adding one needs no change to the structure of the system — only a decision about what it may do.",
+      "add": "Add a role",
+      "panelTitle": "System roles",
+      "summary": "{roles} · {users}",
+      "permissionsLink": "Permissions",
+      "editLabel": "Edit the {name} role",
+      "protected": "Protected",
+      "fullAccess": "Full access",
+      "meta": {
+        "scope": "Access scope: {scope}",
+        "counted": "{count, plural, =0 {no permissions} one {# permission} other {# permissions}}",
+        "wildcard": "Extended permissions",
+        "all": "Every permission"
+      },
+      "explainer": {
+        "title": "How the permission model works",
+        "stringTitle": "A permission is a string, not a test on the role",
+        "stringBody": "Every control asks for a permission by name, such as <code>tasks.assign</code>, and never asks “is this user a manager?”. That is why a sixth role needs no screen to change.",
+        "groupsTitle": "Permission groups",
+        "groupsNote": "A star means everything under the group. <code>tasks.*</code>, for instance, covers assigning, reviewing, approving and rejecting.",
+        "hideTitle": "Hiding a button is not protection",
+        "hideBody": "What you set here controls the interface only. In the running system every permission is checked again on the server when the action is performed, because hiding a control in the browser does not stop the request being sent."
+      },
+      "create": {
+        "title": "Add a role",
+        "sub": "Start from an existing role and adjust its permissions, or start from nothing.",
+        "name": "Role name",
+        "namePlaceholder": "For example: Quality reviewer",
+        "key": "Programmatic key",
+        "keyPlaceholder": "quality_reviewer",
+        "keyHelp": "Used in code and cannot be changed after creation.",
+        "base": "Start from",
+        "baseEmpty": "An empty role — no permissions",
+        "scope": "Access scope",
+        "scopeHelp": "Scope decides which data is visible; permissions decide which actions are available.",
+        "cancel": "Cancel",
+        "submit": "Create the role and set its permissions",
+        "submitting": "Creating…"
+      },
+      "edit": {
+        "title": "Edit the role",
+        "sub": "Name and scope only. Permissions are set on the permissions screen.",
+        "cancel": "Cancel",
+        "submit": "Save changes",
+        "submitting": "Saving…",
+        "keyLocked": "The programmatic key {key} is fixed and cannot be changed."
+      },
+      "delete": {
+        "action": "Delete the role",
+        "confirm": "The role “{name}” will be deleted permanently. This cannot be undone.",
+        "submit": "Confirm deletion",
+        "submitting": "Deleting…",
+        "blockedInUse": "A role held by {count} cannot be deleted. Move those people to another role first.",
+        "blockedSystem": "This is a system role and cannot be deleted."
+      },
+      "errors": {
+        "invalid": "Check the required fields.",
+        "keyTaken": "That programmatic key is already in use.",
+        "keyFormat": "Lower-case letters, digits and underscores only, starting with a letter.",
+        "roleMissing": "That role no longer exists. Refresh the page.",
+        "roleProtected": "This role is protected and cannot be changed.",
+        "roleInUse": "A role somebody holds cannot be deleted.",
+        "forbidden": "You do not have permission to make this change.",
+        "error": "The change could not be saved. Try again."
+      }
+    },
+    "permissions": {
+      "title": "Permissions",
+      "sub": "One permission per row, one role per column. The permission name is fixed in code, so editing this screen is enough to change how the whole system behaves.",
+      "restore": "Restore defaults",
+      "save": "Save changes",
+      "cancel": "Discard changes",
+      "saving": "Saving…",
+      "saved": "Changes saved.",
+      "lockedTitle": "The system administrator column cannot be edited",
+      "lockedBody": "That role always holds every permission, because a system with no administrator able to repair it becomes unmanageable. The trade is that everything it does is written to the audit log.",
+      "matrixTitle": "Permission matrix",
+      "search": "Search for a permission",
+      "tableCaption": "Permission matrix by role",
+      "columnCapability": "Permission",
+      "cellLabel": "{role} — {capability}",
+      "alwaysGranted": "{role} — always granted",
+      "groups": {
+        "tasks": "Tasks",
+        "team": "Teams and people",
+        "management": "Management",
+        "system": "Reports and system"
+      },
+      "foot": "{permissions} in {groups}",
+      "lastChange": "Last changed {when} by {actor}",
+      "lastChangeUnknown": "Last changed {when}",
+      "neverChanged": "Never changed",
+      "dirty": "{changes} unsaved",
+      "noResults": "No permission matches your search.",
+      "note": "<strong>Why permissions are strings and not numbers:</strong> a string explains itself in the code and in the log, so a line like <code>data-perm=\"tasks.approve\"</code> can be read without a reference table. Numbers need one, and break when the order changes.",
+      "restoreConfirm": "The five original roles will go back to their default permissions and every change to them will be discarded. Roles you created are not affected.",
+      "restoreSubmit": "Restore defaults",
+      "restoreTitle": "Restore the default permissions",
+      "restoring": "Restoring…",
+      "errors": {
+        "forbidden": "You cannot grant a permission you do not hold yourself.",
+        "roleProtected": "The system administrator column cannot be edited.",
+        "roleMissing": "The roles changed since you opened this page. Refresh it.",
+        "invalid": "The submitted changes could not be read.",
+        "error": "The changes could not be saved. Try again."
+      }
+    }
   }
 }

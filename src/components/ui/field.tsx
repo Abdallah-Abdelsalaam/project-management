@@ -122,3 +122,33 @@ export function Checkbox({
     </label>
   );
 }
+
+/**
+ * Select — `.select` from `wireframe/assets/css/components/forms.css`.
+ *
+ * The caret is a pair of gradients rather than an image, exactly as the
+ * wireframe draws it, and it is positioned from the *logical* end so it lands
+ * on the left under RTL and the right under LTR without a direction-specific
+ * rule in a component.
+ */
+export function Select({ className, ...props }: React.ComponentProps<"select">) {
+  return (
+    <select
+      className={cn(
+        "bg-surface border-line-strong text-text rounded-control min-h-[38px] w-full appearance-none border py-2 text-sm",
+        "ps-3 pe-8",
+        "duration-fast transition-[border-color,box-shadow]",
+        "hover:border-text-subtle",
+        "focus:border-accent focus:outline-none",
+        "disabled:bg-surface-sunk disabled:text-text-subtle",
+        "aria-invalid:border-danger",
+        "bg-[linear-gradient(45deg,transparent_50%,currentColor_50%),linear-gradient(135deg,currentColor_50%,transparent_50%)]",
+        "bg-[length:5px_5px,5px_5px] bg-no-repeat",
+        "bg-[position:right_1rem_calc(50%-2px),right_calc(1rem+5px)_calc(50%-2px)]",
+        "rtl:bg-[position:left_1rem_calc(50%-2px),left_calc(1rem+5px)_calc(50%-2px)]",
+        className,
+      )}
+      {...props}
+    />
+  );
+}

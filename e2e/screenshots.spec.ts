@@ -8,7 +8,7 @@ import { databaseMissingReason, SEEDED, signIn, submitCredentials } from "./fixt
  *
  * Run with: pnpm test:e2e screenshots
  */
-const SESSION = "session-02";
+const SESSION = "session-03";
 
 /** The screens a signed-out visitor can reach. No database required. */
 const PUBLIC_SCREENS = [
@@ -22,6 +22,7 @@ const PRIVATE_SCREENS = [
   { name: "dashboard", path: "/dashboard" },
   { name: "tasks", path: "/tasks" },
   { name: "settings-roles", path: "/settings/roles" },
+  { name: "settings-permissions", path: "/settings/permissions" },
 ] as const;
 
 async function shoot(

@@ -93,8 +93,11 @@ export async function recordTrustedDevice({
         lastSeenAt: now,
         expiresAt,
       })
-      .onConflictDoUpdate({
-        target: trustedDevice.trustIdentifier,
+      // MySQL keys the upsert off whichever unique index the row collides
+      // with, and `trust_identifier` is the only one on this table — so this
+      // is the same "insert, or refresh the grant we already have" as the
+      // Postgres `ON CONFLICT (trust_identifier)` it replaces.
+      .onDuplicateKeyUpdate({
         set: { lastSeenAt: now, expiresAt, ipAddress: clientIp(headers) },
       });
 
@@ -124,7 +127,11 @@ export async function refreshTrustedDevice({
 }): Promise<void> {
   try {
     if (previousIdentifier && previousIdentifier !== trustIdentifier) {
-      const updated = await db()
+      // MySQL has no `RETURNING`, so the update reports how many rows it
+      // touched instead. `affectedRows` counts rows *matched* under mysql2's
+      // default flags, not rows changed, which is the number wanted here: a
+      // row that already carried these values was still the right row.
+      const [result] = await db()
         .update(trustedDevice)
         .set({
           trustIdentifier,
@@ -137,10 +144,9 @@ export async function refreshTrustedDevice({
             eq(trustedDevice.userId, userId),
             eq(trustedDevice.trustIdentifier, previousIdentifier),
           ),
-        )
-        .returning({ id: trustedDevice.id });
+        );
 
-      if (updated.length > 0) return;
+      if (result.affectedRows > 0) return;
     }
 
     await recordTrustedDevice({ userId, trustIdentifier, headers, now });

@@ -30,9 +30,39 @@ function flatten(messages: Messages, prefix = ""): Map<string, string> {
   return flat;
 }
 
-/** ICU placeholders, ignoring the plural/select bodies we do not use yet. */
+/**
+ * The ICU **arguments** of a message — `{count}`, `{count, plural, …}` — and
+ * not the category labels inside a plural body.
+ *
+ * Scanned with a depth counter rather than matched with a regex, because the
+ * two locales legitimately use different categories: Arabic needs `zero`,
+ * `two`, `few` and `many`, English needs none of them. Counting those as
+ * placeholders would make correct Arabic pluralisation fail this test, which
+ * is the opposite of what it is for.
+ */
 function placeholders(message: string): string[] {
-  return [...message.matchAll(/\{(\w+)/g)].map((match) => match[1]).sort();
+  const names: string[] = [];
+  let depth = 0;
+
+  for (let index = 0; index < message.length; index += 1) {
+    const char = message[index];
+
+    if (char === "}") {
+      depth = Math.max(0, depth - 1);
+      continue;
+    }
+    if (char !== "{") continue;
+
+    depth += 1;
+    // Only a top-level brace opens an argument; a nested one opens the body
+    // of a plural category.
+    if (depth !== 1) continue;
+
+    const name = /^\s*(\w+)\s*[},]/.exec(message.slice(index + 1))?.[1];
+    if (name) names.push(name);
+  }
+
+  return names.sort();
 }
 
 const arabic = flatten(ar);

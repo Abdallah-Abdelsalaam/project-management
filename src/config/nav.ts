@@ -42,7 +42,11 @@ export type NavIcon =
   | "chart"
   | "history"
   | "cog"
-  | "swatch";
+  | "swatch"
+  | "shield"
+  | "clock"
+  | "flag"
+  | "bell";
 
 export const NAV: NavGroup[] = [
   {
@@ -149,3 +153,87 @@ export const NAV: NavGroup[] = [
 
 /** Every nav item, flattened — used by the command palette. */
 export const NAV_ITEMS: NavItem[] = NAV.flatMap((group) => group.items);
+
+/* -------------------------------------------------------------------------- */
+/*  Settings sub-navigation                                                   */
+/* -------------------------------------------------------------------------- */
+
+export type SettingsNavGroup = {
+  id: string;
+  messageKey: string;
+  items: Array<{ id: string; messageKey: string; href: string; icon: NavIcon }>;
+};
+
+/**
+ * The list every settings screen renders down its start edge — ported from
+ * `SETTINGS_NAV` in the wireframe's `assets/js/shell.js`, which exists there
+ * for the same reason it exists here: "so the eight settings screens share one
+ * list instead of eight copies that drift".
+ *
+ * Every entry is behind `settings.view`, which the routes check on the server;
+ * there are no per-item capabilities, because the wireframe draws none.
+ */
+export const SETTINGS_NAV: SettingsNavGroup[] = [
+  {
+    id: "people",
+    messageKey: "settings.nav.people",
+    items: [
+      { id: "roles", messageKey: "settings.nav.roles", href: "/settings/roles", icon: "badge" },
+      {
+        id: "permissions",
+        messageKey: "settings.nav.permissions",
+        href: "/settings/permissions",
+        icon: "shield",
+      },
+    ],
+  },
+  {
+    id: "security",
+    messageKey: "settings.nav.security",
+    items: [
+      {
+        id: "security",
+        messageKey: "settings.nav.securitySessions",
+        href: "/settings/security",
+        icon: "shield",
+      },
+      {
+        id: "two-factor",
+        messageKey: "settings.nav.twoFactor",
+        href: "/settings/two-factor",
+        icon: "clock",
+      },
+      {
+        id: "devices",
+        messageKey: "settings.nav.devices",
+        href: "/settings/trusted-devices",
+        icon: "grid",
+      },
+    ],
+  },
+  {
+    id: "work",
+    messageKey: "settings.nav.work",
+    items: [
+      { id: "tasks", messageKey: "settings.nav.tasks", href: "/settings/tasks", icon: "list" },
+      {
+        id: "statuses",
+        messageKey: "settings.nav.statuses",
+        href: "/settings/statuses",
+        icon: "flag",
+      },
+      {
+        id: "departments",
+        messageKey: "settings.nav.departments",
+        href: "/settings/departments",
+        icon: "building",
+      },
+      {
+        id: "notifications",
+        messageKey: "settings.nav.notifications",
+        href: "/settings/notifications",
+        icon: "bell",
+      },
+    ],
+  },
+];

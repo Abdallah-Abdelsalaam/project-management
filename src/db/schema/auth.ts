@@ -2,22 +2,23 @@ import { relations } from "drizzle-orm";
 import {
   boolean,
   index,
-  integer,
-  pgTable,
+  int,
+  mysqlTable,
   text,
-  timestamp,
   uniqueIndex,
-} from "drizzle-orm/pg-core";
-import { ROLE_KEYS, type RoleKey } from "@/lib/permissions";
+  varchar,
+} from "drizzle-orm/mysql-core";
+import { ID_LENGTH, id, ref, ts, tsNow } from "./columns";
+import { role } from "./access";
 
 /**
  * Authentication tables.
  *
  * The first five are Better Auth's own contract (`user`, `session`, `account`,
- * `verification`, `two_factor`) — their column names and types are dictated by
- * the adapter, so they are transcribed rather than designed. Better Auth's
- * `casing: "snake_case"` in `src/db/index.ts` maps its camelCase field names
- * onto these columns.
+ * `verification`, `two_factor`) — their column names are dictated by the
+ * adapter, so they are transcribed rather than designed. `casing:
+ * "snake_case"` in `src/db/index.ts` maps its camelCase field names onto these
+ * columns.
  *
  * The last three are this project's, and each exists because the wireframe
  * promises something Better Auth does not model:
@@ -31,6 +32,9 @@ import { ROLE_KEYS, type RoleKey } from "@/lib/permissions";
  *                     has no password-attempt ledger.
  *   password_history  pages/auth/reset-password.html promises "لا تطابق آخر
  *                     خمس كلمات مرور استخدمتها" — the last five, as hashes.
+ *
+ * Column types follow `./columns.ts`; the reasoning for the lengths and the
+ * `DATETIME(3)`-in-UTC convention lives there.
  */
 
 /* -------------------------------------------------------------------------- */
@@ -38,42 +42,47 @@ import { ROLE_KEYS, type RoleKey } from "@/lib/permissions";
 /* -------------------------------------------------------------------------- */
 
 /**
- * `role` is a plain key here, not a foreign key. The role and permission
- * tables land in session 3; until then this column carries one of
- * `ROLE_KEYS` and `src/lib/permissions.ts` resolves its capabilities. Session
- * 3 migrates it to a `role_id` reference.
+ * `role_id` is a foreign key, as of session 3. It was a text role key through
+ * session 2, while the role tables did not yet exist; the capabilities a user
+ * holds are now resolved from `role_permission` rather than from a constant in
+ * the source, which is what makes the permission matrix screen mean anything.
  */
-export const user = pgTable(
+export const user = mysqlTable(
   "user",
   {
-    id: text().primaryKey(),
-    name: text().notNull(),
-    email: text().notNull(),
+    id: id(),
+    name: varchar({ length: 255 }).notNull(),
+    email: varchar({ length: 255 }).notNull(),
     emailVerified: boolean().notNull().default(false),
     image: text(),
-    role: text({ enum: ROLE_KEYS }).notNull().default("agent").$type<RoleKey>(),
+    roleId: ref()
+      .notNull()
+      .references(() => role.id, { onDelete: "restrict" }),
     twoFactorEnabled: boolean().notNull().default(false),
     /** Set on every successful password change; drives the 90-day expiry. */
-    passwordChangedAt: timestamp({ withTimezone: true }),
-    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    passwordChangedAt: ts(),
+    createdAt: tsNow(),
+    updatedAt: tsNow().$onUpdateFn(() => new Date()),
   },
-  (table) => [uniqueIndex("user_email_key").on(table.email)],
+  (table) => [
+    uniqueIndex("user_email_key").on(table.email),
+    index("user_role_id_idx").on(table.roleId),
+  ],
 );
 
-export const session = pgTable(
+export const session = mysqlTable(
   "session",
   {
-    id: text().primaryKey(),
-    token: text().notNull(),
-    userId: text()
+    id: id(),
+    token: varchar({ length: 255 }).notNull(),
+    userId: ref()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    expiresAt: timestamp({ withTimezone: true }).notNull(),
-    ipAddress: text(),
+    expiresAt: ts().notNull(),
+    ipAddress: varchar({ length: 64 }),
     userAgent: text(),
-    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    createdAt: tsNow(),
+    updatedAt: tsNow().$onUpdateFn(() => new Date()),
   },
   (table) => [
     uniqueIndex("session_token_key").on(table.token),
@@ -83,24 +92,25 @@ export const session = pgTable(
   ],
 );
 
-export const account = pgTable(
+export const account = mysqlTable(
   "account",
   {
-    id: text().primaryKey(),
-    userId: text()
+    id: id(),
+    userId: ref()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    accountId: text().notNull(),
-    providerId: text().notNull(),
+    accountId: varchar({ length: ID_LENGTH }).notNull(),
+    providerId: varchar({ length: 64 }).notNull(),
     accessToken: text(),
     refreshToken: text(),
-    accessTokenExpiresAt: timestamp({ withTimezone: true }),
-    refreshTokenExpiresAt: timestamp({ withTimezone: true }),
+    accessTokenExpiresAt: ts(),
+    refreshTokenExpiresAt: ts(),
     scope: text(),
     idToken: text(),
-    password: text(),
-    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    /** `salt:hash`, hex, from Better Auth's own scrypt. Never a plaintext. */
+    password: varchar({ length: 255 }),
+    createdAt: tsNow(),
+    updatedAt: tsNow().$onUpdateFn(() => new Date()),
   },
   (table) => [
     index("account_user_id_idx").on(table.userId),
@@ -114,15 +124,15 @@ export const account = pgTable(
  * attempt counter and the trusted-device grant — all keyed by `identifier`,
  * which is what every lookup filters on.
  */
-export const verification = pgTable(
+export const verification = mysqlTable(
   "verification",
   {
-    id: text().primaryKey(),
-    identifier: text().notNull(),
+    id: id(),
+    identifier: varchar({ length: 255 }).notNull(),
     value: text().notNull(),
-    expiresAt: timestamp({ withTimezone: true }).notNull(),
-    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    expiresAt: ts().notNull(),
+    createdAt: tsNow(),
+    updatedAt: tsNow().$onUpdateFn(() => new Date()),
   },
   (table) => [
     index("verification_identifier_idx").on(table.identifier),
@@ -137,18 +147,18 @@ export const verification = pgTable(
  * account-level failure budget (`failedVerificationCount`, `lockedUntil`) that
  * enforces "بعد 5 محاولات خاطئة … إيقاف مؤقت 15 دقيقة".
  */
-export const twoFactor = pgTable(
+export const twoFactor = mysqlTable(
   "two_factor",
   {
-    id: text().primaryKey(),
-    userId: text()
+    id: id(),
+    userId: ref()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     secret: text().notNull(),
     backupCodes: text().notNull(),
     verified: boolean().notNull().default(true),
-    failedVerificationCount: integer().notNull().default(0),
-    lockedUntil: timestamp({ withTimezone: true }),
+    failedVerificationCount: int().notNull().default(0),
+    lockedUntil: ts(),
   },
   (table) => [index("two_factor_user_id_idx").on(table.userId)],
 );
@@ -169,24 +179,24 @@ export type DeviceKind = (typeof DEVICE_KINDS)[number];
  * wireframe's list needs. Keeping one authority avoids the failure mode where
  * a row here says trusted and the cookie says otherwise.
  */
-export const trustedDevice = pgTable(
+export const trustedDevice = mysqlTable(
   "trusted_device",
   {
-    id: text().primaryKey(),
-    userId: text()
+    id: id(),
+    userId: ref()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     /** Better Auth's `verification.identifier` for this grant. */
-    trustIdentifier: text().notNull(),
+    trustIdentifier: varchar({ length: 255 }).notNull(),
     /** "Windows 11 · Chrome" — what the list shows as the row title. */
-    label: text().notNull(),
-    os: text().notNull(),
-    browser: text().notNull(),
-    kind: text({ enum: DEVICE_KINDS }).notNull().default("unknown").$type<DeviceKind>(),
-    ipAddress: text(),
-    lastSeenAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
-    expiresAt: timestamp({ withTimezone: true }).notNull(),
-    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    label: varchar({ length: 255 }).notNull(),
+    os: varchar({ length: 64 }).notNull(),
+    browser: varchar({ length: 64 }).notNull(),
+    kind: varchar({ length: 16, enum: DEVICE_KINDS }).notNull().default("unknown"),
+    ipAddress: varchar({ length: 64 }),
+    lastSeenAt: tsNow(),
+    expiresAt: ts().notNull(),
+    createdAt: tsNow(),
   },
   (table) => [
     uniqueIndex("trusted_device_trust_identifier_key").on(table.trustIdentifier),
@@ -205,15 +215,15 @@ export const trustedDevice = pgTable(
  * becomes an account-existence oracle. There is no foreign key for the same
  * reason.
  */
-export const loginAttempt = pgTable(
+export const loginAttempt = mysqlTable(
   "login_attempt",
   {
-    id: text().primaryKey(),
-    email: text().notNull(),
-    ipAddress: text(),
+    id: id(),
+    email: varchar({ length: 255 }).notNull(),
+    ipAddress: varchar({ length: 64 }),
     userAgent: text(),
     succeeded: boolean().notNull().default(false),
-    attemptedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    attemptedAt: tsNow(),
   },
   (table) => [
     // The lockout check counts failures for one email inside a time window.
@@ -226,15 +236,15 @@ export const loginAttempt = pgTable(
  * five. Only hashes — the plaintext is never stored, as the reset screen's
  * "كيف تُخزَّن كلمة المرور" panel states.
  */
-export const passwordHistory = pgTable(
+export const passwordHistory = mysqlTable(
   "password_history",
   {
-    id: text().primaryKey(),
-    userId: text()
+    id: id(),
+    userId: ref()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    passwordHash: text().notNull(),
-    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    passwordHash: varchar({ length: 255 }).notNull(),
+    createdAt: tsNow(),
   },
   (table) => [
     index("password_history_user_id_idx").on(table.userId),
@@ -247,7 +257,8 @@ export const passwordHistory = pgTable(
 /*  Relations                                                                 */
 /* -------------------------------------------------------------------------- */
 
-export const userRelations = relations(user, ({ many }) => ({
+export const userRelations = relations(user, ({ one, many }) => ({
+  role: one(role, { fields: [user.roleId], references: [role.id] }),
   sessions: many(session),
   accounts: many(account),
   trustedDevices: many(trustedDevice),

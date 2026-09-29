@@ -42,7 +42,7 @@ export default async function Page({
   // where they were going.
   const session = await currentSession();
   if (session) {
-    redirectLocale({ href: landingPathFor(session.user.role), locale });
+    redirectLocale({ href: landingPathFor(session.user.grants), locale });
   }
 
   const t = await getTranslations({ locale, namespace: "auth" });

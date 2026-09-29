@@ -3,7 +3,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Bell, LogOut, Menu, Moon, Rows3, Search, Sun } from "lucide-react";
 import { useSyncExternalStore } from "react";
-import { ROLES, type RoleKey } from "@/lib/permissions";
 import type { SignedInUser } from "@/features/auth/session";
 import { signOutAction } from "@/features/auth/actions";
 
@@ -40,12 +39,10 @@ function persist(key: string, value: string) {
  * see docs/DECISIONS.md ADR-004.
  */
 export function Topbar({
-  role,
   user,
   onOpenNav,
   unreadCount = 3,
 }: {
-  role: RoleKey;
   user: SignedInUser;
   onOpenNav: () => void;
   unreadCount?: number;
@@ -142,9 +139,9 @@ export function Topbar({
 
         <span aria-hidden="true" className="bg-line mx-1 h-5 w-px" />
 
-        {/* The signed-in user, resolved by the (app) layout. The role label
-            comes from ROLES rather than from the session, so one rename changes
-            it everywhere. */}
+        {/* The signed-in user, resolved by the (app) layout. The role name is
+            a row in `role`, not a message key: an admin names a role when they
+            create it, so it is data and there is nothing to translate. */}
         <div className="rounded-control flex items-center gap-2 px-2 py-1">
           <span
             aria-hidden="true"
@@ -154,7 +151,7 @@ export function Topbar({
           </span>
           <span className="hidden flex-col leading-tight sm:flex">
             <span className="text-xs font-semibold">{user.name}</span>
-            <span className="text-text-subtle text-3xs">{ROLES[role].label}</span>
+            <span className="text-text-subtle text-3xs">{user.roleName}</span>
           </span>
         </div>
 

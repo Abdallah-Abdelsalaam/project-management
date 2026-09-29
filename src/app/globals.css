@@ -150,6 +150,22 @@
   --duration-slow: 320ms;
   --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* The modal entrance from wireframe/assets/css/components/overlays.css.
+     The global prefers-reduced-motion rule below neutralises it, so there is
+     no per-component motion guard to remember. */
+  --animate-modal-in: modal-in var(--duration-base) var(--ease-out-soft);
+
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 }
 
 /* ==========================================================================

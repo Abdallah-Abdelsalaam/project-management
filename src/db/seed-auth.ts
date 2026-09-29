@@ -1,23 +1,19 @@
 import { randomUUID } from "node:crypto";
-import { config } from "dotenv";
 import { eq } from "drizzle-orm";
-import { hashPassword } from "better-auth/crypto";
-import { generateRandomString } from "better-auth/crypto";
-import { db } from "@/db";
+import { hashPassword, generateRandomString } from "better-auth/crypto";
+import { db, type Executor } from "@/db";
 import { account, twoFactor, user } from "@/db/schema";
-import { ROLE_KEYS, type RoleKey } from "@/lib/permissions";
-
-config({ path: ".env.local", quiet: true });
+import { type RoleKey } from "@/lib/permissions";
 
 /**
- * Seeds one account per role, so session 2's flow can be exercised end to end
+ * Seeds one account per role, so the auth flow can be exercised end to end
  * and the E2E suite has something to sign in as.
  *
  * This is **not** the reference organisation. `docs/OPEN_QUESTIONS.md` Q10 asks
  * whether to seed نُوى's 18 employees, 5 teams and 284 tasks; that decision is
  * needed by session 4 and this seed deliberately does not pre-empt it. Five
- * accounts is what session 2 needs to resolve a user's role, and no more — the
- * brief's own boundary.
+ * accounts is what the auth and permission work needs to resolve a user's
+ * role, and no more.
  *
  * Every account is created with:
  *   - a `credential` row holding the scrypt hash (Better Auth's own hasher, so
@@ -26,13 +22,11 @@ config({ path: ".env.local", quiet: true });
  *     code; and a `two_factor` row, which is where the plugin keeps the
  *     account-level failure budget that enforces the lockout
  *   - `emailVerified: true`, since an admin created the account
- *
- * Run with: pnpm db:seed
  */
 
-const PASSWORD = process.env.SEED_PASSWORD ?? "Nuwa!Ops2026x";
+export const SEED_PASSWORD = process.env.SEED_PASSWORD ?? "Nuwa!Ops2026x";
 
-const PEOPLE: ReadonlyArray<{ role: RoleKey; name: string; email: string }> = [
+export const SEED_PEOPLE: ReadonlyArray<{ role: RoleKey; name: string; email: string }> = [
   { role: "admin", name: "نورة العتيبي", email: "n.alotaibi@nuwa.sa" },
   { role: "manager", name: "أحمد سالم", email: "a.salem@nuwa.sa" },
   { role: "head", name: "ريم القحطاني", email: "r.alqahtani@nuwa.sa" },
@@ -40,12 +34,21 @@ const PEOPLE: ReadonlyArray<{ role: RoleKey; name: string; email: string }> = [
   { role: "agent", name: "سارة الحربي", email: "s.alharbi@nuwa.sa" },
 ];
 
-async function seed() {
-  const client = db();
-  const passwordHash = await hashPassword(PASSWORD);
+/**
+ * Creates the five accounts. Takes the role ids rather than looking them up,
+ * because `user.role_id` is now a foreign key and the roles must already
+ * exist — `src/db/seed.ts` enforces that ordering.
+ */
+export async function seedUsers(
+  idByKey: Record<RoleKey, string>,
+  client: Executor = db(),
+): Promise<{ created: number; skipped: number }> {
+  const passwordHash = await hashPassword(SEED_PASSWORD);
   const now = new Date();
+  let created = 0;
+  let skipped = 0;
 
-  for (const person of PEOPLE) {
+  for (const person of SEED_PEOPLE) {
     const email = person.email.toLowerCase();
 
     const [existing] = await client
@@ -56,6 +59,7 @@ async function seed() {
 
     if (existing) {
       console.log(`· ${email} already exists — skipped`);
+      skipped += 1;
       continue;
     }
 
@@ -66,7 +70,7 @@ async function seed() {
       name: person.name,
       email,
       emailVerified: true,
-      role: person.role,
+      roleId: idByKey[person.role],
       twoFactorEnabled: true,
       passwordChangedAt: now,
     });
@@ -91,19 +95,8 @@ async function seed() {
     });
 
     console.log(`✓ ${person.role.padEnd(8)} ${email}`);
+    created += 1;
   }
 
-  console.log(
-    `\nAll five roles seeded (${ROLE_KEYS.join(", ")}).\n` +
-      `Password: ${PASSWORD}\n` +
-      `Every account requires the emailed second factor; without RESEND_API_KEY the code is written to the server log.`,
-  );
+  return { created, skipped };
 }
-
-seed().then(
-  () => process.exit(0),
-  (error) => {
-    console.error("Seed failed:", error);
-    process.exit(1);
-  },
-);
