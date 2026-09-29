@@ -41,9 +41,5 @@ export default async function AppLayout({
 
   const session = await requireSession(locale);
 
-  return (
-    <AppShell role={session.user.role} user={session.user}>
-      {children}
-    </AppShell>
-  );
+  return <AppShell user={session.user}>{children}</AppShell>;
 }

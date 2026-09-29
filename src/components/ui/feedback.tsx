@@ -201,3 +201,39 @@ export function BrandLockup({ name, org, mark }: { name: string; org: string; ma
     </div>
   );
 }
+
+/**
+ * Panel head — title on the start side, a note or a control on the end.
+ * `.panel__head`.
+ */
+export function PanelHead({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        "border-line bg-surface flex items-center justify-between gap-4 border-b px-5 py-4",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function PanelTitle({ className, ...props }: React.ComponentProps<"h2">) {
+  return <h2 className={cn("text-sm font-semibold", className)} {...props} />;
+}
+
+/**
+ * Panel foot — `.panel__foot`. Sunk background and a top border, so a row of
+ * actions reads as attached to the panel rather than floating after it.
+ */
+export function PanelFoot({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        "border-line bg-surface-alt flex flex-wrap items-center justify-between gap-4 border-t px-5 py-3",
+        className,
+      )}
+      {...props}
+    />
+  );
+}

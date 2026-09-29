@@ -5,22 +5,24 @@ import { ChevronsLeft } from "lucide-react";
 import { usePathname, Link } from "@/i18n/navigation";
 import { NAV } from "@/config/nav";
 import { NavIcon } from "@/components/shell/nav-icon";
-import { can, type RoleKey } from "@/lib/permissions";
+import { grantsInclude } from "@/lib/permissions";
 import { cn } from "@/lib/utils";
 
 /**
  * The navigation list. Shared by the inline desktop sidebar and the
  * off-canvas mobile drawer so there is exactly one nav implementation.
  *
- * Permission gating here is a usability affordance, not a boundary — the
- * routes themselves re-check on the server (session 3).
+ * Gating takes the grants the server resolved, not a role key, so the nav
+ * reflects whatever the permission matrix currently says. It remains a
+ * usability affordance and not a boundary — the routes re-check on the
+ * server.
  */
 function NavList({
-  role,
+  grants,
   collapsed,
   onNavigate,
 }: {
-  role: RoleKey;
+  grants: readonly string[];
   collapsed: boolean;
   onNavigate?: () => void;
 }) {
@@ -30,7 +32,7 @@ function NavList({
   return (
     <nav aria-label={t("nav.mainLabel")} className="flex-1 overflow-y-auto px-2 py-3">
       {NAV.map((group) => {
-        const items = group.items.filter((item) => !item.perm || can(role, item.perm));
+        const items = group.items.filter((item) => !item.perm || grantsInclude(grants, item.perm));
         // A group whose every item is gated away must not leave an orphan heading.
         if (items.length === 0) return null;
 
@@ -115,11 +117,11 @@ function Brand({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () 
 
 /** Inline sidebar, ≥768px. Collapses to a 68px icon rail from its own foot. */
 export function Sidebar({
-  role,
+  grants,
   collapsed,
   onToggleCollapse,
 }: {
-  role: RoleKey;
+  grants: readonly string[];
   collapsed: boolean;
   onToggleCollapse: () => void;
 }) {
@@ -134,7 +136,7 @@ export function Sidebar({
       data-collapsed={collapsed}
     >
       <Brand collapsed={collapsed} />
-      <NavList role={role} collapsed={collapsed} />
+      <NavList grants={grants} collapsed={collapsed} />
 
       <div className="border-line shrink-0 border-t p-2">
         <button
@@ -163,7 +165,13 @@ export function Sidebar({
 }
 
 /** Off-canvas drawer, <768px. Rendered only while open. */
-export function SidebarDrawer({ role, onClose }: { role: RoleKey; onClose: () => void }) {
+export function SidebarDrawer({
+  grants,
+  onClose,
+}: {
+  grants: readonly string[];
+  onClose: () => void;
+}) {
   const t = useTranslations();
 
   return (
@@ -181,7 +189,7 @@ export function SidebarDrawer({ role, onClose }: { role: RoleKey; onClose: () =>
         className="border-line bg-surface w-sidebar shadow-modal fixed inset-y-0 start-0 z-70 flex flex-col border-e"
       >
         <Brand collapsed={false} onNavigate={onClose} />
-        <NavList role={role} collapsed={false} onNavigate={onClose} />
+        <NavList grants={grants} collapsed={false} onNavigate={onClose} />
       </aside>
     </div>
   );

@@ -8,7 +8,7 @@ Chosen for Vercel: fastest cold starts, edge caching, one deployable, horizontal
 | ----------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Runtime     | Node.js, pnpm                                           | Current LTS on Vercel; pnpm is fast and strict                                     |
 | Framework   | Next.js (App Router) + TypeScript strict                | Frontend and backend in one app; Server Components, Server Actions, streaming, ISR |
-| Database    | PostgreSQL on Neon (Vercel Marketplace)                 | Serverless Postgres, autoscaling, pooling, a DB branch per preview deploy          |
+| Database    | MySQL on Hostinger                                      | The organisation hosts it. Session 3 moved off Neon Postgres — DECISIONS ADR-019   |
 | ORM         | Drizzle ORM + drizzle-kit                               | Lightweight, SQL-first, fast cold starts, fully typed                              |
 | Auth        | Better Auth (email + password, sessions in DB)          | Modern, self-hosted, role support, no vendor lock-in                               |
 | Validation  | Zod, shared client and server                           | One schema per form and action                                                     |
@@ -34,7 +34,7 @@ As of session 1 (2026-09-29).
 | next-intl                          | 4.14.8          |
 | drizzle-orm                        | 0.45.3          |
 | drizzle-kit                        | 0.31.11         |
-| @neondatabase/serverless           | 1.1.0           |
+| mysql2                             | 3.24.5          |
 | better-auth                        | 1.7.6           |
 | resend                             | 6.31.0          |
 | zod                                | 4.6.5           |
@@ -67,18 +67,18 @@ As of session 1 (2026-09-29).
 
 The template is `.env.example`. Copy it to `.env.local`; never commit a filled-in file. On Vercel, set the same keys per environment.
 
-| Variable                | Required            | Purpose                                                                                                                                                         |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DATABASE_URL`          | yes, from session 2 | Neon Postgres connection string                                                                                                                                 |
-| `BETTER_AUTH_SECRET`    | yes, from session 2 | Session signing key — `openssl rand -base64 32`                                                                                                                 |
-| `BETTER_AUTH_URL`       | yes, from session 2 | Canonical app URL for auth callbacks                                                                                                                            |
-| `PLAYWRIGHT_BASE_URL`   | no                  | Point E2E at a deployed preview instead of localhost                                                                                                            |
-| `RESEND_API_KEY`        | no, from session 2  | 2FA codes and reset links. Without it they go to the server log, so the flow still works locally.                                                               |
-| `EMAIL_FROM`            | no, from session 2  | Sending address. Defaults to Resend's sandbox sender — see `OPEN_QUESTIONS.md` Q5.                                                                              |
-| `AUTH_MAIL_OUTBOX`      | test runs only      | Appends every outgoing email to a JSON-lines file so the E2E suite can read a code. **Never set this in a deployed environment** — see `OPEN_QUESTIONS.md` Q18. |
-| `SEED_PASSWORD`         | no                  | Overrides the password `pnpm db:seed` gives every seeded account.                                                                                               |
-| `BLOB_READ_WRITE_TOKEN` | session 9           | Attachment storage                                                                                                                                              |
-| `CRON_SECRET`           | session 19          | Shared secret for the digest cron route                                                                                                                         |
+| Variable                | Required            | Purpose                                                                                                                                                                       |
+| ----------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`          | yes, from session 2 | MySQL connection string, `mysql://user:pass@host:3306/db`. Remote MySQL must be enabled for the connecting IP in hPanel — see ADR-019 on the deployment problem this creates. |
+| `BETTER_AUTH_SECRET`    | yes, from session 2 | Session signing key — `openssl rand -base64 32`                                                                                                                               |
+| `BETTER_AUTH_URL`       | yes, from session 2 | Canonical app URL for auth callbacks                                                                                                                                          |
+| `PLAYWRIGHT_BASE_URL`   | no                  | Point E2E at a deployed preview instead of localhost                                                                                                                          |
+| `RESEND_API_KEY`        | no, from session 2  | 2FA codes and reset links. Without it they go to the server log, so the flow still works locally.                                                                             |
+| `EMAIL_FROM`            | no, from session 2  | Sending address. Defaults to Resend's sandbox sender — see `OPEN_QUESTIONS.md` Q5.                                                                                            |
+| `AUTH_MAIL_OUTBOX`      | test runs only      | Appends every outgoing email to a JSON-lines file so the E2E suite can read a code. **Never set this in a deployed environment** — see `OPEN_QUESTIONS.md` Q18.               |
+| `SEED_PASSWORD`         | no                  | Overrides the password `pnpm db:seed` gives every seeded account.                                                                                                             |
+| `BLOB_READ_WRITE_TOKEN` | session 9           | Attachment storage                                                                                                                                                            |
+| `CRON_SECRET`           | session 19          | Shared secret for the digest cron route                                                                                                                                       |
 
 `src/lib/env.ts` parses the server variables with Zod **lazily**, so the shell still builds and renders before a database exists. The first query against a misconfigured environment fails with a readable message naming the missing keys — and, since session 2, `currentSession()` catches that failure and treats it as "not signed in", so a misconfigured deployment shows the sign-in screen rather than a stack trace on every route. Email is parsed separately by `mailEnv()` and is entirely optional.
 

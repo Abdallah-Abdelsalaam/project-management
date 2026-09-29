@@ -7,7 +7,6 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { serverEnv } from "@/lib/env";
 import { securityPolicy, twoFactorPolicy } from "@/lib/policy";
-import { ROLE_KEYS } from "@/lib/permissions";
 import { sendPasswordResetLink, sendTwoFactorCode } from "@/features/auth/mail";
 import { assertSignInAllowed, recordSignInSuccess } from "@/features/auth/attempts";
 import { assertPasswordAcceptable, onPasswordChanged } from "@/features/auth/password-history";
@@ -60,7 +59,7 @@ function createAuth() {
     baseURL: env.BETTER_AUTH_URL,
 
     database: drizzleAdapter(db(), {
-      provider: "pg",
+      provider: "mysql",
       schema,
       usePlural: false,
     }),
@@ -68,15 +67,19 @@ function createAuth() {
     user: {
       additionalFields: {
         /**
-         * The role key, resolved to capabilities by `src/lib/permissions.ts`.
-         * `input: false` so no request body can ever set it — roles are
-         * granted by an administrator (session 3), never self-assigned.
+         * The user's role, as a foreign key into `role`. The capabilities it
+         * carries are resolved from `role_permission` by
+         * `src/features/access/model.ts` — this column holds no policy of its
+         * own, which is the point of session 3.
+         *
+         * `input: false` so no request body can ever set it. A role is granted
+         * by an administrator, never self-assigned, and the public sign-up
+         * endpoint is shut in any case.
          */
-        role: {
-          type: ROLE_KEYS as unknown as string[],
+        roleId: {
+          type: "string",
           required: false,
           input: false,
-          defaultValue: "agent",
         },
         passwordChangedAt: {
           type: "date",

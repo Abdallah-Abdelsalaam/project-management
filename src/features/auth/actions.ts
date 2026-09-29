@@ -10,7 +10,8 @@ import { lockoutFor, normaliseEmail } from "./attempts";
 import { minutesUntil } from "./lockout";
 import { normaliseDigits, resendCooldownSeconds } from "./challenge";
 import { failedPasswordRules, type ClientPasswordRule } from "./password-policy";
-import { safeNextPath } from "./session";
+import { accessModel } from "@/features/access/model";
+import { landingPathFor, safeNextPath } from "./session";
 import { parseTrustIdentifier, recordTrustedDevice, refreshTrustedDevice } from "./trusted-devices";
 
 /**
@@ -32,7 +33,32 @@ import { parseTrustIdentifier, recordTrustedDevice, refreshTrustedDevice } from 
  * the minutes remaining, and nothing else.
  */
 
-const ROLE_FALLBACK = "agent" as const;
+/**
+ * Where a sign-in lands when the role cannot be resolved — the narrowest
+ * landing page there is. A redirect is not an authorization decision (the
+ * destination re-checks), but guessing *upward* would still flash a manager
+ * screen at someone on their way to being refused.
+ */
+const LANDING_FALLBACK = "/my-work";
+
+/**
+ * The landing path for a role id, resolved from the cached access model.
+ *
+ * Read from the model rather than from the sign-in response because the
+ * response carries a role *id*, and where that role lands depends on the
+ * capabilities it currently holds — which is exactly the thing session 3 moved
+ * out of the source and into rows.
+ */
+async function landingFor(roleId: string | null): Promise<string> {
+  if (!roleId) return LANDING_FALLBACK;
+  try {
+    const resolved = (await accessModel()).byId[roleId];
+    return resolved ? landingPathFor(resolved.grants) : LANDING_FALLBACK;
+  } catch (error) {
+    console.error("[access] could not resolve a landing path:", error);
+    return LANDING_FALLBACK;
+  }
+}
 
 /* -------------------------------------------------------------------------- */
 /*  Schemas                                                                   */
@@ -219,13 +245,13 @@ export async function signInAction(
     });
   }
 
-  redirectLocale({ href: safeNextPath(next, result.role ?? ROLE_FALLBACK), locale });
+  redirectLocale({ href: safeNextPath(next, await landingFor(result.roleId)), locale });
 }
 
 type SignInOutcome = {
   twoFactorRedirect: boolean;
   userId: string | null;
-  role: "agent" | "lead" | "head" | "manager" | "admin" | null;
+  roleId: string | null;
 };
 
 async function signIn({
@@ -249,24 +275,14 @@ async function signIn({
 
   const user =
     typeof response === "object" && response !== null
-      ? (response as { user?: { id?: unknown; role?: unknown } }).user
+      ? (response as { user?: { id?: unknown; roleId?: unknown } }).user
       : undefined;
 
   return {
     twoFactorRedirect,
     userId: typeof user?.id === "string" ? user.id : null,
-    role: isRole(user?.role) ? user.role : null,
+    roleId: typeof user?.roleId === "string" ? user.roleId : null,
   };
-}
-
-function isRole(value: unknown): value is SignInOutcome["role"] & string {
-  return (
-    value === "agent" ||
-    value === "lead" ||
-    value === "head" ||
-    value === "manager" ||
-    value === "admin"
-  );
 }
 
 /**
@@ -341,7 +357,7 @@ export async function verifyCodeAction(
 
     const verified =
       typeof response === "object" && response !== null
-        ? (response as { user?: { id?: unknown; role?: unknown } }).user
+        ? (response as { user?: { id?: unknown; roleId?: unknown } }).user
         : undefined;
 
     const userId = typeof verified?.id === "string" ? verified.id : null;
@@ -356,9 +372,9 @@ export async function verifyCodeAction(
     // The role comes from the verify response, not from a fresh `getSession`.
     // The session cookie was set on the *outgoing* response a moment ago, so
     // `requestHeaders` still carries no session and a re-read would resolve to
-    // nobody — sending every user to the agent landing page.
-    const role = isRole(verified?.role) ? verified.role : ROLE_FALLBACK;
-    redirectLocale({ href: safeNextPath(next, role), locale });
+    // nobody — sending every user to the narrowest landing page.
+    const roleId = typeof verified?.roleId === "string" ? verified.roleId : null;
+    redirectLocale({ href: safeNextPath(next, await landingFor(roleId)), locale });
   } catch (error) {
     if (isRedirect(error)) throw error;
     return decodeVerifyError(error);
