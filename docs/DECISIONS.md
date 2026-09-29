@@ -154,7 +154,11 @@ The sign-in lockout and the password composition/history rules run in `hooks.bef
 
 **Why:** `/api/auth/*` is a live catch-all route. A rule enforced only in a Server Action is a rule an attacker skips by POSTing to the endpoint directly. The hook sits on the endpoint, so every caller gets it.
 
-The lockout ledger records the attempt in the `before` hook and clears it in the `after` hook, which is an inversion forced by the library: Better Auth throws on bad credentials, and a thrown endpoint skips its `after` hooks, so there is no "on failure" hook to write from. Counting first and clearing on success over-counts only when a request dies between the two — the safe direction.
+The lockout ledger records the attempt in the `before` hook and withdraws it in the `after` hook, which is an inversion forced by the library: there is no "on failure" hook to write from. Counting first and clearing on success over-counts only when a request dies between the two — the safe direction.
+
+> **Correction, session 3.** The sentence that used to stand here — "Better Auth throws on bad credentials, and a thrown endpoint skips its `after` hooks" — **is wrong**, and it was load-bearing. `dispatch.mjs` catches an `APIError`, converts it into a result, and runs the `after` hooks anyway. So `recordSignInSuccess` ran on _failed_ sign-ins too, deleted the pessimistic row and wrote a success in its place: the ledger recorded failures as successes and **the lockout could never fire**. There was no brute-force protection between session 2 and this correction.
+>
+> Found by probing the deployed app — three wrong passwords produced three `succeeded = 1` rows — which is exactly the class of fact a written-but-never-executed test cannot establish. The fix is `signInSucceeded()` in `src/features/auth/attempts.ts`, which reads `ctx.context.returned` (the endpoint's body on success, the `APIError` on failure) and is a pure function with five unit tests so the rule is no longer an assumption about library internals.
 
 ---
 

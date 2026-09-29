@@ -15,14 +15,39 @@ import { evaluateLockout, minutesUntil, type LockoutState } from "./lockout";
  *
  * ## Why the failure is recorded *before* the password is checked
  *
- * Better Auth throws on invalid credentials, and a thrown endpoint skips the
- * `after` hooks — so there is no "on failure" hook to write to. Recording the
- * attempt pessimistically in the `before` hook and clearing it in the `after`
- * hook inverts that problem into a safe one: the ledger over-counts only if a
+ * There is no "on failure" hook in Better Auth, so the attempt is recorded
+ * pessimistically in the `before` hook and withdrawn in the `after` hook once
+ * the sign-in is known to have worked. Over-counting then only happens if a
  * request dies between the two, and over-counting fails closed.
  *
  * It also means the count is kept for callers that never touch our Server
  * Actions — anything POSTing straight to `/api/auth/sign-in/email`.
+ *
+ * ## The `after` hook must check whether the endpoint actually succeeded
+ *
+ * Session 2 assumed reaching an `after` hook was itself proof of success,
+ * because a thrown endpoint would skip it. **That is not how Better Auth
+ * behaves.** `dispatch.mjs` catches an `APIError`, turns it into a result, and
+ * runs the `after` hooks anyway:
+ *
+ *     const result = await endpoint(ctx).catch((e) => {
+ *       if (isAPIError(e)) return { response: e, status: e.statusCode, … };
+ *       throw e;
+ *     });
+ *     internalContext.context.returned = result.response;
+ *     const after = await runAfterHooks(…);
+ *
+ * So the unguarded version ran `clearFailures()` on every *failed* sign-in —
+ * deleting the pessimistic row and writing a success in its place. The ledger
+ * recorded failures as successes and the lockout could never fire: there was
+ * no brute-force protection at all. Found by probing the deployed app in
+ * session 3 (three wrong passwords, three `succeeded = 1` rows), which is
+ * precisely what a test that has never run cannot tell you.
+ *
+ * The failure is visible on the context: `ctx.context.returned` carries the
+ * `APIError` instead of the endpoint's body. `signInSucceeded()` below is the
+ * guard, and it is a pure function so the rule is unit-tested rather than
+ * re-derived from a deployment.
  *
  * ## Why the ledger is keyed by email and not by user
  *
@@ -108,7 +133,44 @@ function emailFromBody(body: unknown): string | null {
 type SignInHookContext = {
   body?: unknown;
   headers?: Headers | undefined;
+  /** Better Auth puts the endpoint's body — or its `APIError` — here. */
+  context?: { returned?: unknown } | undefined;
 };
+
+/**
+ * Whether the sign-in endpoint actually succeeded.
+ *
+ * Reads `ctx.context.returned`: the endpoint's body on success, an `APIError`
+ * on failure. Three checks rather than one `instanceof`, because the identity
+ * of the `APIError` class is not guaranteed across module instances and an
+ * authorization ledger is the wrong place to rely on it:
+ *
+ *   1. `instanceof APIError` — the normal case.
+ *   2. A numeric `statusCode` of 400 or more — any error-shaped result.
+ *   3. A `code`/`message` pair with no body — belt and braces.
+ *
+ * A missing `returned` is treated as **success**, deliberately. Better Auth
+ * always sets it, so the only way to get here without one is a shape change in
+ * a future version — and in that case leaving the pessimistic row behind would
+ * lock a legitimate user out after five ordinary sign-ins. A silent lockout of
+ * real users is a worse failure than a silent loss of lockout, because the
+ * second is still caught by `assertSignInAllowed` refusing a locked account.
+ */
+export function signInSucceeded(ctx: SignInHookContext): boolean {
+  const returned = ctx.context?.returned;
+  if (returned === undefined || returned === null) return true;
+  if (returned instanceof APIError) return false;
+  if (typeof returned !== "object") return true;
+
+  const shape = returned as { statusCode?: unknown; status?: unknown; code?: unknown };
+  if (typeof shape.statusCode === "number" && shape.statusCode >= 400) return false;
+  if (typeof shape.status === "number" && shape.status >= 400) return false;
+  // `APIError` carries `status` as a name — "UNAUTHORIZED", "BAD_REQUEST".
+  if (typeof shape.status === "string" && shape.status !== "OK" && typeof shape.code === "string") {
+    return false;
+  }
+  return true;
+}
 
 /**
  * `before /sign-in/email`: refuse a locked account, then count the attempt.
@@ -136,13 +198,21 @@ export async function assertSignInAllowed(ctx: SignInHookContext): Promise<void>
 }
 
 /**
- * `after /sign-in/email`: the hook only runs when the endpoint did not throw,
- * so reaching it *is* the proof that the password was correct — including on
- * the 2FA branch, where no session is issued yet.
+ * `after /sign-in/email`: withdraw the pessimistic failure, but **only** when
+ * the endpoint really succeeded.
+ *
+ * The hook runs whether the sign-in worked or not — see the note at the top of
+ * this file — so the guard is what makes the ledger mean anything. A failure
+ * leaves the `before` hook's row exactly where it is, which is what lets five
+ * consecutive failures add up to a lock.
+ *
+ * Success includes the 2FA branch, where no session is issued yet: the password
+ * was still correct, so the budget is still cleared.
  */
 export async function recordSignInSuccess(ctx: SignInHookContext): Promise<void> {
   const email = emailFromBody(ctx.body);
   if (!email) return;
+  if (!signInSucceeded(ctx)) return;
 
   await clearFailures(email);
   await record({ email, succeeded: true, headers: ctx.headers ?? new Headers() });

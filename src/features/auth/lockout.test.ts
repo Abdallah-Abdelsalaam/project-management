@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { APIError } from "better-auth/api";
 import { evaluateLockout, minutesUntil, type AttemptRecord } from "./lockout";
+import { signInSucceeded } from "./attempts";
 import { securityPolicy } from "@/lib/policy";
 
 const POLICY = securityPolicy();
@@ -101,5 +103,51 @@ describe("minutesUntil", () => {
 
   it("never reports less than one minute while still locked", () => {
     expect(minutesUntil(new Date(NOW.getTime() + 500), NOW)).toBe(1);
+  });
+});
+
+describe("signInSucceeded — the guard on the after hook", () => {
+  /**
+   * The bug this function exists for: Better Auth runs `after` hooks even when
+   * the endpoint threw, so an unguarded `after` hook cleared the failure ledger
+   * on every failed sign-in and the lockout could never fire. Found by probing
+   * the deployed app in session 3; these are the cases that keep it fixed.
+   */
+  it("treats the endpoint's body as success", () => {
+    expect(signInSucceeded({ context: { returned: { token: "t", user: { id: "u" } } } })).toBe(
+      true,
+    );
+  });
+
+  it("treats the 2FA branch as success — the password was still right", () => {
+    expect(
+      signInSucceeded({
+        context: { returned: { twoFactorRedirect: true, twoFactorMethods: ["otp"] } },
+      }),
+    ).toBe(true);
+  });
+
+  it("treats a real APIError as failure", () => {
+    const error = new APIError("UNAUTHORIZED", {
+      code: "INVALID_EMAIL_OR_PASSWORD",
+      message: "Invalid email or password",
+    });
+    expect(signInSucceeded({ context: { returned: error } })).toBe(false);
+  });
+
+  it("treats an error-shaped object as failure even without the class", () => {
+    // The class identity is not guaranteed across module instances, so the
+    // shape is checked too.
+    expect(signInSucceeded({ context: { returned: { statusCode: 401, code: "X" } } })).toBe(false);
+    expect(signInSucceeded({ context: { returned: { status: 403, code: "X" } } })).toBe(false);
+    expect(
+      signInSucceeded({ context: { returned: { status: "UNAUTHORIZED", code: "INVALID" } } }),
+    ).toBe(false);
+  });
+
+  it("treats a missing context as success, so a shape change cannot lock real users out", () => {
+    expect(signInSucceeded({})).toBe(true);
+    expect(signInSucceeded({ context: {} })).toBe(true);
+    expect(signInSucceeded({ context: { returned: undefined } })).toBe(true);
   });
 });
