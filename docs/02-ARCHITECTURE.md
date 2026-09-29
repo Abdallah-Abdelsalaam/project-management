@@ -91,13 +91,35 @@ Better Auth with email + password and sessions stored in Postgres via the Drizzl
 
 On every request the locale proxy runs first, then the `(app)` layout resolves the session and the user's role. Unauthenticated requests are redirected to `/login`; the layout passes the resolved role down to the shell, which is why no component ever decides who the user is.
 
-Session 1 ships the skeleton only: the Better Auth instance, the Drizzle adapter wiring and the catch-all route exist, but no route is guarded and the shell renders as `manager` so every nav group is reviewable. Session 2 replaces that constant with the real session.
+**Session 2 built this.** The guard lives in `src/app/[locale]/(app)/layout.tsx` and nowhere else: it resolves the session, redirects to `/login` when there is none, and passes the role and the user down to the shell as props. Putting a cookie-presence check in `src/proxy.ts` as well was considered and rejected — it could only ever be a hint, since the cookie may be expired, revoked or past the absolute session ceiling, and one authoritative check beats a fast one plus a real one that can drift apart. The cost is that every `(app)` route is now dynamic, which is what an authenticated shell means.
+
+### The division of labour with Better Auth
+
+Better Auth owns password hashing, session records and cookies, the single-use reset token, and the second-factor challenge (the half-authenticated cookie, the hashed code, the per-challenge attempt budget, the trusted-device grant). The `twoFactor` plugin with email OTP is configured entirely from `src/lib/policy.ts` — not one lifetime or limit in `src/lib/auth.ts` is a literal.
+
+Three things Better Auth does not model are this project's, and each is added through a **hook** rather than in a Server Action, so it applies to every caller including anything POSTing straight to `/api/auth/*`:
+
+| Concern                          | Where                                  | Why it exists                                     |
+| -------------------------------- | -------------------------------------- | ------------------------------------------------- |
+| Sign-in lockout                  | `before /sign-in/email`                | `/settings/security` promises N failures → a lock |
+| Password composition and history | `before /reset-password`               | the reset screen lists five requirements          |
+| Trusted-device register          | `src/features/auth/trusted-devices.ts` | `/settings/trusted-devices` lists OS, browser, IP |
+
+The lockout ledger records the attempt in the `before` hook and clears it in the `after` hook. That inversion is forced: Better Auth throws on bad credentials and a thrown endpoint skips its `after` hooks, so there is no "on failure" hook to write from. Counting first and clearing on success over-counts only if a request dies between the two — which fails closed.
+
+### Failing closed
+
+`currentSession()` turns every failure — a missing `DATABASE_URL`, an unreachable database, a forged cookie — into `null`, and logs it. The function can deny access but never grant it, so a swallowed error costs a signed-in user a redirect to `/login` and nothing more. Letting the error escape would turn a database blip into a 500 on every page including the sign-in screen: less useful to an operator and no more secure.
+
+### Two session lifetimes, one expiry
+
+The policy has an idle timeout (ساعتان) and an absolute ceiling (7 أيام). Better Auth models one expiry refreshed on activity, so the idle window is `session.expiresIn` and the ceiling is enforced against `session.createdAt` in `src/features/auth/session.ts`. `updateAge` bounds how often the refresh writes, which makes the effective idle window `sessionIdleHours` plus at most `updateAge` — one write per quarter hour instead of one per request.
 
 The organisation-wide policies on `/settings/security` and `/settings/two-factor` — password length and expiry, failed-attempt lockout, idle and maximum session age, code lifetime and length, trusted-device window and count, forced periodic re-verification — are **stored settings**, not constants. Better Auth is configured from them at runtime.
 
 ## Caching strategy
 
-Static by default: with `next-intl`'s `setRequestLocale`, every shell route that does not read per-user data prerenders per locale. Session 1's build produces 61 static pages.
+Static where it can be: with `next-intl`'s `setRequestLocale`, a route that reads no per-user data prerenders per locale. Since session 2 that is the auth screens and the error pages — everything inside `(app)` reads the session in its layout and is therefore dynamic, as an authenticated shell must be. Session 1's 61 static pages were static only because nobody was signed in.
 
 Once data lands, reads are tagged and mutations revalidate:
 

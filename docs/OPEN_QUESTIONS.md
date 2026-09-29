@@ -182,13 +182,16 @@ The dashboard is explicitly manager-shaped ("لوحة التحكم تعرض ال
 
 ## Q13 · The shell currently renders as `manager`
 
-**Status:** open · **resolves itself in session 2** · informational
+**Status:** **resolved** session 2 · informational
 
 Until Better Auth is wired, `src/app/[locale]/(app)/layout.tsx` passes a hard-coded `manager` role so every nav group is visible for review. This is a placeholder, marked in the code, and session 2 replaces it with the real session.
 
 **Cost of changing:** none — it is one constant, and removing it is a session-2 acceptance criterion.
 
-**Answer:** resolved by session 2 by construction.
+**Answer:** **resolved.** Session 2 deleted `PLACEHOLDER_ROLE` and
+`PLACEHOLDER_USER`. `src/app/[locale]/(app)/layout.tsx` resolves the real
+session through `requireSession()` and passes the role and the user down to the
+shell.
 
 ---
 
@@ -217,6 +220,76 @@ The wireframe's own README states its rendered appearance was never verified ("C
 **Assumption:** match the wireframe exactly for now, and flag it. The fix, if wanted, is to offset the dock by the sidebar width on desktop.
 
 **Cost of changing:** one class.
+
+**Answer:** _(pending)_
+
+---
+
+## Q16 · The reset screen's fifth requirement cannot be checked in the browser
+
+**Status:** open · raised session 2 · fidelity note
+
+`pages/auth/reset-password.html` lists five password requirements, each with its
+own pass/fail mark, and the fifth is **لا تطابق آخر خمس كلمات مرور استخدمتها**.
+The first four are decidable from the password alone. The fifth needs the
+account's password history, which the browser does not have and must not be
+given — that would be an oracle for five of the user's previous passwords.
+
+**Assumption:** the row renders in a third state, _pending_, until the server
+answers, and turns red only when the server rejects the password as reused. The
+other four tick live as the user types, exactly as wireframed. A row that
+claimed a pass it had not checked would be worse than one that waits.
+
+**Options:** (a) keep the pending state; (b) drop the row from the live
+checklist and surface reuse only as a submit error; (c) check it live against a
+server endpoint on every keystroke — rejected, it is a password oracle.
+
+**Cost of changing:** one function in `src/features/auth/password-policy.ts` and
+one branch in the reset form. Minutes.
+
+**Answer:** _(pending)_
+
+---
+
+## Q17 · The login aside's numbers are copy, not data
+
+**Status:** open · raised session 2 · low impact
+
+The "مسار العمل في النظام" panel on the sign-in screen shows 284 / 168 / 116
+tasks and "3 فرق · 11 موظفًا". On a screen shown to someone who is _not_ signed
+in, those are either sample figures or a public disclosure of the organisation's
+size.
+
+**Assumption:** sample figures, living in `messages/{ar,en}.json` as part of the
+copy. They stay frozen at the wireframe's values rather than becoming live
+counts, because a sign-in page should not answer questions for an anonymous
+visitor — and because a live count would make the page uncacheable.
+
+**Cost of changing:** if they should be live, it is one cached query and moving
+three strings out of the message files. Small, but it changes the page from
+static to dynamic.
+
+**Answer:** _(pending)_
+
+---
+
+## Q18 · The E2E suite needs a mail outbox to read a verification code
+
+**Status:** open · raised session 2 · informational
+
+The second factor is stored hashed and delivered by email, so no test can learn
+a code by reading the database. `src/features/auth/mail.ts` therefore writes
+every message to a JSON-lines file when `AUTH_MAIL_OUTBOX` is set, and the
+Playwright fixtures read it from there.
+
+**Assumption:** this is an acceptable test seam. It is opt-in by environment
+variable, nothing sets it outside a test run, it logs loudly whenever it is
+active, and the alternative — storing codes in plain text so a test can read
+them — weakens the product to suit the tests.
+
+**Cost of changing:** the alternative is a Resend sandbox inbox polled over
+their API, which is slower, needs a network and a key in CI, and still leaves
+the same file on disk in the runner.
 
 **Answer:** _(pending)_
 

@@ -2,7 +2,14 @@
 
 PostgreSQL on Neon, accessed through Drizzle with `casing: "snake_case"` — TypeScript stays camelCase, SQL stays snake_case, and neither side has to compromise.
 
-**Status: designed, not yet created.** No table exists after session 1. Tables land one vertical slice at a time, and this file is updated in the session that creates them. Each table below carries the session that introduces it.
+**Status: session 2's tables are designed and migrated; the rest are designed only.** Tables land one vertical slice at a time, and this file is updated in the session that creates them. Each table below carries the session that introduces it.
+
+Session 2 created eight: `user`, `session`, `account`, `verification`, `two_factor`, `trusted_device`, `login_attempt`, `password_history` — migration `drizzle/0000_calm_johnny_storm.sql`, schema in `src/db/schema/auth.ts`.
+
+Two conventions below are **not** what session 2 actually shipped, and the difference is deliberate:
+
+- **Primary keys are `text`, not `uuid`.** Better Auth generates its own ids and stores them as strings; it owns five of these eight tables, so the project's three follow the same type rather than splitting the schema in two.
+- **`user.role` is a `text` key, not `role_id`.** The role tables arrive in session 3. Until then the column carries one of `ROLE_KEYS` from `src/lib/permissions.ts` and session 3 migrates it to a reference — the roadmap's own boundary for session 2.
 
 ## Conventions
 
@@ -102,9 +109,11 @@ Load percentage is **derived** (active tasks ÷ members × a per-department capa
 
 ### Identity and access
 
-#### `user` — session 2, extended session 5
+#### `user` — session 2, extended sessions 3 and 5
 
-Better Auth owns `id`, `name`, `email`, `email_verified`, `image`, `created_at`, `updated_at`. This project adds:
+Better Auth owns `id`, `name`, `email`, `email_verified`, `image`, `created_at`, `updated_at`. **Session 2 added** `role` (text, one of `ROLE_KEYS`, default `agent`), `two_factor_enabled` (boolean) and `password_changed_at` (timestamptz, which drives the 90-day expiry). Indexes: `email` unique.
+
+Sessions 3 and 5 add:
 
 | Column                  | Type                           | Notes                                    |
 | ----------------------- | ------------------------------ | ---------------------------------------- |
@@ -119,9 +128,37 @@ Better Auth owns `id`, `name`, `email`, `email_verified`, `image`, `created_at`,
 
 Indexes: `email` (unique, from Better Auth), `role_id`, `department_id`, `team_id`, `is_active`.
 
-#### `session`, `account`, `verification` — session 2
+#### `session`, `account`, `verification`, `two_factor` — session 2
 
-Better Auth's own tables, created by its Drizzle schema generator. Not hand-written.
+Better Auth's own tables. Their columns are dictated by the adapter, so `src/db/schema/auth.ts` transcribes rather than designs them; the indexes are ours.
+
+- **`session`** — `token` unique, `user_id`, and (`user_id`, `expires_at`) for the session list on `/settings/security`.
+- **`account`** — holds the scrypt password hash in `password` for `provider_id = 'credential'`. Indexes: `user_id`, and (`provider_id`, `account_id`) unique.
+- **`verification`** — the single-use token store, and it carries more than its name suggests: the password-reset token, the half-authenticated 2FA challenge, the hashed code, the per-challenge attempt counter **and** the trusted-device grant, all keyed by `identifier`. Indexes: `identifier`, `expires_at`.
+- **`two_factor`** — one row per user. The code is not here; this row exists so the plugin has somewhere to keep `failed_verification_count` and `locked_until`, which is what enforces "بعد 5 محاولات خاطئة … إيقاف مؤقت 15 دقيقة". Index: `user_id`.
+
+#### `login_attempt` — session 2
+
+| Column         | Type                           | Notes                           |
+| -------------- | ------------------------------ | ------------------------------- |
+| `id`           | text pk                        |                                 |
+| `email`        | text not null                  | lower-cased; **no** foreign key |
+| `ip_address`   | text null                      |                                 |
+| `user_agent`   | text null                      |                                 |
+| `succeeded`    | boolean not null default false |                                 |
+| `attempted_at` | timestamptz not null           |                                 |
+
+Index: (`email`, `attempted_at`) — the only access pattern, and the one the lockout check runs on every sign-in.
+
+Keyed by email rather than by `user_id`, deliberately, and with no foreign key for the same reason: an attempt against an address with no account has to be counted too, or a lockout becomes the answer to "does this account exist?".
+
+The rule lives in `src/features/auth/lockout.ts` as a pure function over this ledger, so it is unit-tested without a database. Only _consecutive_ failures count — a success clears the budget — and the lock is dated from the failure that tripped it, so continued guessing cannot extend someone else's lockout.
+
+#### `password_history` — session 2
+
+`id`, `user_id` → user.id cascade, `password_hash`, `created_at`. Indexes: `user_id`, (`user_id`, `created_at`).
+
+Hashes only; the reset screen's "كيف تُخزَّن كلمة المرور" panel promises exactly this. Holds the last `passwordHistoryDepth` (5) per user and is pruned on every password change, because a hash is a credential and keeping one forever has no upside.
 
 #### `role` — session 3
 
@@ -323,7 +360,9 @@ Append-only. No update or delete path exists in the application, and the activit
 
 #### `trusted_device` — session 2
 
-`id`, `user_id`, `label`, `os`, `browser`, `ip`, `last_seen_at`, `trusted_until`, `created_at`. Indexes: `user_id`, `trusted_until`.
+`id`, `user_id` → user.id cascade, `trust_identifier` (unique), `label`, `os`, `browser`, `kind`, `ip_address`, `last_seen_at`, `expires_at`, `created_at`. Indexes: `trust_identifier` unique, `user_id`, (`user_id`, `last_seen_at`), (`user_id`, `expires_at`).
+
+**This table does not decide whether a device is trusted.** Better Auth does, from a signed cookie plus a `verification` row under `trust-device-<random>`; this table is keyed by that same identifier and carries only the description the wireframe's list needs — "Windows 11 · Chrome", the IP, the last use. Duplicating the authority would mean two sources that can disagree about who is allowed in, which is the one thing an auth system cannot afford. Revoking therefore deletes both rows (`revokeTrustedDevice` in `src/features/auth/trusted-devices.ts`).
 
 #### `security_event` — session 20
 

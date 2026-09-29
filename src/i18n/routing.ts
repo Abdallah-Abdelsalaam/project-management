@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
 import { defineRouting } from "next-intl/routing";
 
 /**
@@ -17,3 +19,16 @@ export const localeDirection: Record<Locale, "rtl" | "ltr"> = {
   ar: "rtl",
   en: "ltr",
 };
+
+/**
+ * Narrows the `locale` route param to a known locale.
+ *
+ * Next generates its route types with `params: { locale: string }`, so a page
+ * cannot simply declare the union it wants. Validating here rather than casting
+ * means an unknown prefix becomes a 404 instead of a page rendered with
+ * undefined messages.
+ */
+export function assertLocale(value: string): Locale {
+  if (!hasLocale(routing.locales, value)) notFound();
+  return value;
+}

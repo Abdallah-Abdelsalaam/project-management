@@ -50,3 +50,8 @@ next-env.d.ts
 /.playwright/
 
 # drizzle meta is committed; local journals are not
+
+# The mail outbox holds live verification codes and reset links (session 2).
+.playwright/
+*.outbox.jsonl
+outbox.jsonl

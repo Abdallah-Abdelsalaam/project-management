@@ -1,9 +1,26 @@
 import { expect, test, type Page } from "@playwright/test";
+import { databaseMissingReason, SEEDED, signIn } from "./fixtures/auth";
+
+/**
+ * The app shell, from session 1 — now behind the route guard.
+ *
+ * Every assertion here is about a page inside `(app)`, so each one needs a
+ * signed-in session. That is the session-2 change to this file: the shell has
+ * not changed, but reaching it now requires authentication, so the whole suite
+ * skips without a database rather than asserting against a redirect to /login.
+ *
+ * The signed-in user is the **manager**, deliberately: an agent's landing page is
+ * `/my-work` and several nav groups are gated away from them, so a manager is
+ * the account that makes the whole shell reviewable — the same reason session 1
+ * hard-coded that role.
+ */
 
 const LOCALES = [
   { locale: "ar", dir: "rtl", heading: "لوحة التحكم", navLabel: "التنقل الرئيسي" },
   { locale: "en", dir: "ltr", heading: "Dashboard", navLabel: "Main navigation" },
 ] as const;
+
+test.skip(() => databaseMissingReason() !== false, "the shell is behind the route guard");
 
 /**
  * Below 768px the sidebar is an off-canvas drawer, so the nav has to be
@@ -17,6 +34,10 @@ async function openNav(page: Page, navLabel: string) {
   }
   return nav;
 }
+
+test.beforeEach(async ({ page }) => {
+  await signIn(page, SEEDED.manager);
+});
 
 for (const { locale, dir, heading, navLabel } of LOCALES) {
   test(`dashboard renders in ${locale} with dir=${dir}`, async ({ page }) => {
@@ -71,4 +92,13 @@ test("the drawer closes on Escape", async ({ page, viewport }) => {
 
   await page.keyboard.press("Escape");
   await expect(drawer).toBeHidden();
+});
+
+test("signing out returns to the login screen and re-arms the guard", async ({ page }) => {
+  await page.goto("/ar/dashboard");
+  await page.getByRole("button", { name: "تسجيل الخروج" }).click();
+  await expect(page).toHaveURL(/\/ar\/login/);
+
+  await page.goto("/ar/dashboard");
+  await expect(page).toHaveURL(/\/ar\/login/);
 });

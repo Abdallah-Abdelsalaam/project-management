@@ -36,6 +36,7 @@ As of session 1 (2026-09-29).
 | drizzle-kit                        | 0.31.11         |
 | @neondatabase/serverless           | 1.1.0           |
 | better-auth                        | 1.7.6           |
+| resend                             | 6.31.0          |
 | zod                                | 4.6.5           |
 | react-hook-form                    | 7.89.0          |
 | @hookform/resolvers                | 5.9.1           |
@@ -55,8 +56,8 @@ As of session 1 (2026-09-29).
 | Need                                               | Package                                | Session   |
 | -------------------------------------------------- | -------------------------------------- | --------- |
 | Task attachments (request assets + delivery files) | Vercel Blob                            | 9         |
+| Notification email and the daily digest            | Resend — **installed in session 2**    | 19        |
 | Charts on the reports screen                       | undecided — see `OPEN_QUESTIONS.md` Q6 | 17        |
-| Notification email + 2FA codes                     | Resend                                 | 2 / 19    |
 | Daily digest                                       | Vercel Cron                            | 19        |
 | shadcn/ui components                               | added per component, on demand         | as needed |
 
@@ -66,18 +67,20 @@ As of session 1 (2026-09-29).
 
 The template is `.env.example`. Copy it to `.env.local`; never commit a filled-in file. On Vercel, set the same keys per environment.
 
-| Variable                | Required            | Purpose                                              |
-| ----------------------- | ------------------- | ---------------------------------------------------- |
-| `DATABASE_URL`          | yes, from session 2 | Neon Postgres connection string                      |
-| `BETTER_AUTH_SECRET`    | yes, from session 2 | Session signing key — `openssl rand -base64 32`      |
-| `BETTER_AUTH_URL`       | yes, from session 2 | Canonical app URL for auth callbacks                 |
-| `PLAYWRIGHT_BASE_URL`   | no                  | Point E2E at a deployed preview instead of localhost |
-| `RESEND_API_KEY`        | session 19          | Notification email and 2FA codes                     |
-| `EMAIL_FROM`            | session 19          | Sending address                                      |
-| `BLOB_READ_WRITE_TOKEN` | session 9           | Attachment storage                                   |
-| `CRON_SECRET`           | session 19          | Shared secret for the digest cron route              |
+| Variable                | Required            | Purpose                                                                                                                                                         |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`          | yes, from session 2 | Neon Postgres connection string                                                                                                                                 |
+| `BETTER_AUTH_SECRET`    | yes, from session 2 | Session signing key — `openssl rand -base64 32`                                                                                                                 |
+| `BETTER_AUTH_URL`       | yes, from session 2 | Canonical app URL for auth callbacks                                                                                                                            |
+| `PLAYWRIGHT_BASE_URL`   | no                  | Point E2E at a deployed preview instead of localhost                                                                                                            |
+| `RESEND_API_KEY`        | no, from session 2  | 2FA codes and reset links. Without it they go to the server log, so the flow still works locally.                                                               |
+| `EMAIL_FROM`            | no, from session 2  | Sending address. Defaults to Resend's sandbox sender — see `OPEN_QUESTIONS.md` Q5.                                                                              |
+| `AUTH_MAIL_OUTBOX`      | test runs only      | Appends every outgoing email to a JSON-lines file so the E2E suite can read a code. **Never set this in a deployed environment** — see `OPEN_QUESTIONS.md` Q18. |
+| `SEED_PASSWORD`         | no                  | Overrides the password `pnpm db:seed` gives every seeded account.                                                                                               |
+| `BLOB_READ_WRITE_TOKEN` | session 9           | Attachment storage                                                                                                                                              |
+| `CRON_SECRET`           | session 19          | Shared secret for the digest cron route                                                                                                                         |
 
-`src/lib/env.ts` parses the server variables with Zod **lazily**, so the shell still builds and renders before a database exists. The first query against a misconfigured environment fails with a readable message naming the missing keys.
+`src/lib/env.ts` parses the server variables with Zod **lazily**, so the shell still builds and renders before a database exists. The first query against a misconfigured environment fails with a readable message naming the missing keys — and, since session 2, `currentSession()` catches that failure and treats it as "not signed in", so a misconfigured deployment shows the sign-in screen rather than a stack trace on every route. Email is parsed separately by `mailEnv()` and is entirely optional.
 
 ## Toolchain configuration
 

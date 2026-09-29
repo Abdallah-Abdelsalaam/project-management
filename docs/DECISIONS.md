@@ -131,3 +131,67 @@ The theme and density toggles write `data-theme` and `data-density` on `document
 `engines.node >= 22.14.0`, `.nvmrc` pinned to 22.14.0.
 
 **Why:** 22.14.0 is what is installed, it is an active LTS, and Vercel supports it. Nothing in the stack needs a 24-only feature. Raising the pins is two lines whenever 24 is installed. Tracked as `OPEN_QUESTIONS.md` Q14 rather than silently ignored.
+
+---
+
+## ADR-013 · Better Auth's `twoFactor` plugin, not a hand-rolled second factor
+
+**2026-09-29 · session 2**
+
+The email second factor is Better Auth's `twoFactor` plugin with `otpOptions`, configured from `src/lib/policy.ts`. TOTP is disabled.
+
+**Why:** the plugin already models the exact shape the wireframe describes — a half-authenticated cookie after the password, a hashed code in the verification table, a per-challenge attempt budget, an account-level lock, and a trusted-device grant that skips the factor entirely. Writing that by hand would mean minting sessions outside the library, which is the part of an auth system least worth improvising.
+
+It also gives the four distinct refusals the screen needs — `INVALID_CODE`, `OTP_HAS_EXPIRED`, `TOO_MANY_ATTEMPTS_REQUEST_NEW_CODE`, `ACCOUNT_TEMPORARILY_LOCKED` — where a hand-rolled version would have had to invent them. TOTP is off because the wireframe's 2FA settings screen offers only "رمز عبر البريد الإلكتروني"; an authenticator option is a product decision nobody has made.
+
+---
+
+## ADR-014 · Project rules are enforced in Better Auth hooks, not in Server Actions
+
+**2026-09-29 · session 2**
+
+The sign-in lockout and the password composition/history rules run in `hooks.before` on `/sign-in/email` and `/reset-password`, not inside the Server Actions that call them.
+
+**Why:** `/api/auth/*` is a live catch-all route. A rule enforced only in a Server Action is a rule an attacker skips by POSTing to the endpoint directly. The hook sits on the endpoint, so every caller gets it.
+
+The lockout ledger records the attempt in the `before` hook and clears it in the `after` hook, which is an inversion forced by the library: Better Auth throws on bad credentials, and a thrown endpoint skips its `after` hooks, so there is no "on failure" hook to write from. Counting first and clearing on success over-counts only when a request dies between the two — the safe direction.
+
+---
+
+## ADR-015 · The trusted-device table describes; Better Auth decides
+
+**2026-09-29 · session 2**
+
+`trusted_device` is keyed by Better Auth's own `trust-device-<random>` verification identifier and carries only the label, OS, browser, IP and last-seen time. Whether a device is trusted is decided by the signed cookie and the `verification` row, never by this table.
+
+**Why:** the wireframe's trusted-device list needs metadata Better Auth does not store, so a table is unavoidable. Making that table _authoritative_ would create two sources that can disagree about who is allowed in — and the failure mode is silent, one-directional and in the attacker's favour. One authority, one register beside it, and revocation deletes both.
+
+---
+
+## ADR-016 · `currentSession()` fails closed
+
+**2026-09-29 · session 2**
+
+A missing `DATABASE_URL`, an unreachable database and a forged cookie all resolve to `null`, logged but not thrown.
+
+**Why:** the function can deny access but never grant it, so an error it swallows costs a signed-in user a redirect to `/login` and nothing else. Letting the error escape turns a database blip into a 500 on every route including the sign-in screen — worse for an operator, no better for security. It is also what makes the route guard testable without a database, which is how session 2's E2E suite verified the guard at all.
+
+---
+
+## ADR-017 · Policy values live behind a typed accessor from day one
+
+**2026-09-29 · session 2**
+
+Not one lifetime, length or limit in `src/lib/auth.ts` is a literal. Every one comes from `securityPolicy()` or `twoFactorPolicy()` in `src/lib/policy.ts`, whose defaults are the options marked `selected` on the wireframe's own settings screens.
+
+**Why:** the wireframe states the requirement in its own words — "هذه القيم قابلة للتعديل من إعدادات المصادقة الثنائية، ولا يحتاج تغييرها إلى تعديل النظام". Session 20 ships the screens that write them. Introducing the indirection now costs one file; retrofitting it later would mean touching the auth config, four screens, the message files and every test that quotes a number.
+
+---
+
+## ADR-018 · A mail outbox, rather than readable codes, for the E2E suite
+
+**2026-09-29 · session 2**
+
+`AUTH_MAIL_OUTBOX` appends every outgoing email to a JSON-lines file. The Playwright fixtures read the verification code from there.
+
+**Why:** codes are stored hashed and delivered by email, so no test can learn one from the database — which is the property we want. The alternatives were to store codes in plain text (weakening the product to suit the tests) or to poll a real inbox over the network (slow, needs a key in CI, and writes the same file to the runner anyway). The seam is opt-in by environment variable, logs loudly whenever it is active, and is recorded as `OPEN_QUESTIONS.md` Q18.
