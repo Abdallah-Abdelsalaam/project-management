@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>رؤساء الأقسام · إدارة المشاريع</title>
+<meta name="description" content="إدارة رؤساء الأقسام وأداء أقسامهم.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">رؤساء الأقسام</h1>
+          <p class="page-head__sub">
+            إضافة رؤساء وإزالتهم وإدارتهم. هذه الصفحة للمدير ومسؤول النظام فقط.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--primary btn--sm" type="button" data-open="addHeadModal" data-perm="heads.manage">تعيين رئيس قسم</button>
+        </div>
+      </div>
+
+      <div class="alert alert--info" data-perm-none="heads.manage">
+        <span class="alert__body">
+          <strong class="alert__title">هذه الصفحة للمدير ومسؤول النظام</strong>
+          <span class="alert__text">
+            دورك الحالي لا يملك صلاحية إدارة رؤساء الأقسام. جرّب «معاينة كـ» ← مدير.
+          </span>
+        </span>
+      </div>
+
+      <div data-perm="heads.manage" class="stack-6">
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">الرؤساء الحاليون</h2>
+            <span class="section__note">3 رؤساء · قسم واحد لكل رئيس</span>
+          </div>
+
+          <div class="panel__body panel__body--flush">
+            <div class="lrow">
+              <span class="avatar avatar--lg" data-dept="prog">خ ن</span>
+              <div class="lrow__body">
+                <p class="lrow__title">
+                  خالد ناصر
+                  <span class="dept" data-dept="prog">البرمجة</span>
+                  <span class="badge badge--success">جودة القسم 91%</span>
+                </p>
+                <p class="lrow__meta">
+                  <span class="ltr">k.nasser@nuwa.sa</span> · رئيس القسم منذ يناير 2024 ·
+                  فريقان · 11 موظفًا · 168 مهمة في آخر 90 يومًا
+                </p>
+              </div>
+              <div class="lrow__actions">
+                <a class="btn btn--quiet" href="department-detail.html">القسم</a>
+                <div class="menu-anchor">
+                  <button class="btn btn--quiet btn--icon" type="button" data-menu="h1Menu" aria-expanded="false" aria-haspopup="true" aria-label="إجراءات خالد ناصر">⋯</button>
+                  <div class="menu menu--end" id="h1Menu" hidden>
+                    <button class="menu__item" type="button" data-action="demo-soon">تعديل البيانات</button>
+                    <button class="menu__item" type="button" data-action="demo-soon">نقل إلى قسم آخر</button>
+                    <a class="menu__item" href="team-leaders.html">قادة فرقه</a>
+                    <div class="menu__sep"></div>
+                    <button class="menu__item menu__item--danger" type="button" data-open="removeHeadModal">إزالة من منصب الرئيس</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lrow">
+              <span class="avatar avatar--lg" data-dept="uiux">ه ع</span>
+              <div class="lrow__body">
+                <p class="lrow__title">
+                  هند العامري
+                  <span class="dept" data-dept="uiux">UI/UX</span>
+                  <span class="badge badge--warning">جودة القسم 76%</span>
+                </p>
+                <p class="lrow__meta">
+                  <span class="ltr">h.amri@nuwa.sa</span> · رئيسة القسم منذ مارس 2024 ·
+                  فريقان · 7 موظفين · 116 مهمة في آخر 90 يومًا
+                </p>
+              </div>
+              <div class="lrow__actions">
+                <a class="btn btn--quiet" href="department-detail.html">القسم</a>
+                <div class="menu-anchor">
+                  <button class="btn btn--quiet btn--icon" type="button" data-menu="h2Menu" aria-expanded="false" aria-haspopup="true" aria-label="إجراءات هند العامري">⋯</button>
+                  <div class="menu menu--end" id="h2Menu" hidden>
+                    <button class="menu__item" type="button" data-action="demo-soon">تعديل البيانات</button>
+                    <button class="menu__item" type="button" data-action="demo-soon">نقل إلى قسم آخر</button>
+                    <a class="menu__item" href="team-leaders.html">قادة فرقها</a>
+                    <div class="menu__sep"></div>
+                    <button class="menu__item menu__item--danger" type="button" data-open="removeHeadModal">إزالة من منصب الرئيس</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lrow">
+              <span class="avatar avatar--lg" data-dept="seo">ف ع</span>
+              <div class="lrow__body">
+                <p class="lrow__title">
+                  فيصل العمري
+                  <span class="dept" data-dept="seo">السيو</span>
+                  <span class="badge badge--outline">اكتمال الطلبات 76%</span>
+                </p>
+                <p class="lrow__meta">
+                  <span class="ltr">f.amri@nuwa.sa</span> · رئيس القسم منذ سبتمبر 2023 ·
+                  فريق واحد · 9 موظفين · 284 مهمة منشأة
+                </p>
+              </div>
+              <div class="lrow__actions">
+                <a class="btn btn--quiet" href="department-detail.html">القسم</a>
+                <div class="menu-anchor">
+                  <button class="btn btn--quiet btn--icon" type="button" data-menu="h3Menu" aria-expanded="false" aria-haspopup="true" aria-label="إجراءات فيصل العمري">⋯</button>
+                  <div class="menu menu--end" id="h3Menu" hidden>
+                    <button class="menu__item" type="button" data-action="demo-soon">تعديل البيانات</button>
+                    <a class="menu__item" href="team-leaders.html">قادة فرقه</a>
+                    <div class="menu__sep"></div>
+                    <button class="menu__item menu__item--danger" type="button" data-open="removeHeadModal">إزالة من منصب الرئيس</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">أداء الأقسام تحت كل رئيس</h2>
+            <span class="section__note">آخر 90 يومًا</span>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <caption class="sr-only">مقارنة أداء الأقسام</caption>
+              <thead>
+                <tr>
+                  <th scope="col">رئيس القسم</th>
+                  <th scope="col">القسم</th>
+                  <th scope="col">الفرق</th>
+                  <th scope="col">الموظفون</th>
+                  <th scope="col">المهام</th>
+                  <th scope="col">جودة القسم</th>
+                  <th scope="col">الالتزام</th>
+                  <th scope="col">نسبة التعديلات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="الرئيس"><div class="person"><span class="avatar avatar--sm" data-dept="prog">خ ن</span><div class="person__text"><span class="person__name">خالد ناصر</span></div></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                  <td class="cell-num" data-label="الفرق">2</td>
+                  <td class="cell-num" data-label="الموظفون">11</td>
+                  <td class="cell-num" data-label="المهام">168</td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">91%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:91%"></span></span></span></td>
+                  <td class="cell-num" data-label="الالتزام">92%</td>
+                  <td class="cell-num" data-label="التعديلات">6%</td>
+                </tr>
+                <tr>
+                  <td data-label="الرئيس"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ه ع</span><div class="person__text"><span class="person__name">هند العامري</span></div></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                  <td class="cell-num" data-label="الفرق">2</td>
+                  <td class="cell-num" data-label="الموظفون">7</td>
+                  <td class="cell-num" data-label="المهام">116</td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">76%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:76%"></span></span></span></td>
+                  <td class="cell-num" data-label="الالتزام">81%</td>
+                  <td class="cell-num" data-label="التعديلات"><span class="t-warning fw-semi">11%</span></td>
+                </tr>
+                <tr>
+                  <td data-label="الرئيس"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ف ع</span><div class="person__text"><span class="person__name">فيصل العمري</span></div></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="seo">السيو</span></td>
+                  <td class="cell-num" data-label="الفرق">1</td>
+                  <td class="cell-num" data-label="الموظفون">9</td>
+                  <td class="cell-num" data-label="المهام">284</td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">76%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:76%"></span></span></span></td>
+                  <td class="cell-num" data-label="الالتزام">—</td>
+                  <td class="cell-num" data-label="التعديلات">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel__foot">
+            <p class="t-3xs t-subtle">
+              قسم السيو يُقاس باكتمال الطلبات التي ينشئها، لذلك لا تنطبق عليه أعمدة الالتزام
+              والتعديلات.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="addHeadModal" hidden></div>
+<div class="modal-shell" id="addHeadModal" role="dialog" aria-modal="true" aria-labelledby="ahTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="ahTitle">تعيين رئيس قسم</h2>
+        <p class="modal__sub">يمكن ترقية موظف حالي أو إضافة حساب جديد.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="addHeadModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <fieldset class="fieldset">
+        <legend class="fieldset__legend">المصدر</legend>
+        <label class="check">
+          <input class="check__input" type="radio" name="ahSource" checked>
+          <span class="check__text">
+            <span>ترقية موظف حالي</span>
+            <span class="check__hint">يحتفظ بسجله وإحصاءاته السابقة.</span>
+          </span>
+        </label>
+        <label class="check">
+          <input class="check__input" type="radio" name="ahSource">
+          <span class="check__text"><span>إضافة حساب جديد</span></span>
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="ahPerson">الشخص</label>
+        <select class="select" id="ahPerson">
+          <option>أحمد سعيد — قائد فريق · البرمجة</option>
+          <option>عمر الحارثي — قائد فريق · البرمجة</option>
+          <option>ليان مرزوق — قائدة فريق · UI/UX</option>
+          <option>سارة يوسف — مطوّرة أولى · البرمجة</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="ahDept">القسم</label>
+        <select class="select" id="ahDept">
+          <option>البرمجة — الرئيس الحالي: خالد ناصر</option>
+          <option>UI/UX — الرئيسة الحالية: هند العامري</option>
+          <option>السيو — الرئيس الحالي: فيصل العمري</option>
+        </select>
+        <p class="field__help">القسم الذي له رئيس حاليًا سيحتاج إزالة الرئيس السابق أو نقله.</p>
+      </div>
+
+      <div class="alert alert--warning">
+        <span class="alert__body">
+          <span class="alert__text">
+            ترقية قائد فريق إلى رئيس قسم تترك فريقه بلا قائد. ستحتاج تعيين قائد بديل بعد ذلك.
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="addHeadModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="addHeadModal">تعيين رئيس القسم</button>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop" data-close="removeHeadModal" hidden></div>
+<div class="modal-shell" id="removeHeadModal" role="dialog" aria-modal="true" aria-labelledby="rhTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="rhTitle">إزالة من منصب رئيس القسم</h2>
+        <p class="modal__sub">القسم سيبقى بلا رئيس حتى تعيّن بديلًا.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="removeHeadModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="alert alert--danger">
+        <span class="alert__body">
+          <strong class="alert__title">ما يتأثر بهذا الإجراء</strong>
+          <span class="alert__text">
+            يفقد الحساب صلاحيات إدارة القسم وقادة فرقه فورًا. المهام والفرق لا تتأثر، والسجل
+            التاريخي يبقى محفوظًا باسمه.
+          </span>
+        </span>
+      </div>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset__legend">ماذا يحدث للحساب</legend>
+        <label class="check">
+          <input class="check__input" type="radio" name="rhAfter" checked>
+          <span class="check__text"><span>يعود موظفًا في القسم نفسه</span></span>
+        </label>
+        <label class="check">
+          <input class="check__input" type="radio" name="rhAfter">
+          <span class="check__text"><span>يعود قائد فريق</span></span>
+        </label>
+        <label class="check">
+          <input class="check__input" type="radio" name="rhAfter">
+          <span class="check__text">
+            <span>تعطيل الحساب</span>
+            <span class="check__hint">لا يُحذف. يمكن إعادة تنشيطه لاحقًا.</span>
+          </span>
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="rhReason">سبب الإزالة</label>
+        <textarea class="textarea" id="rhReason" placeholder="يُسجَّل في سجل التدقيق."></textarea>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="removeHeadModal">إلغاء</button>
+      <button class="btn btn--danger" type="button" data-close="removeHeadModal">إزالة من المنصب</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'heads', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

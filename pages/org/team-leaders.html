@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>قادة الفرق · إدارة المشاريع</title>
+<meta name="description" content="قادة الفرق وأداؤهم وتوزيع موظفيهم.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">قادة الفرق</h1>
+          <p class="page-head__sub">
+            خمسة قادة. يُسند رئيس القسم الموظفين إليهم وينقلهم بينهم، ويتابع جودة مراجعتهم.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--secondary btn--sm" type="button" data-open="reassignModal" data-perm="employee.move">إعادة توزيع الموظفين</button>
+          <button class="btn btn--primary btn--sm" type="button" data-action="demo-soon" data-perm="leads.manage">تعيين قائد فريق</button>
+        </div>
+      </div>
+
+      <div class="grid grid--stats">
+        <article class="stat"><p class="stat__label">قادة الفرق</p><p class="stat__value">5</p><p class="stat__foot"><span>في 3 أقسام</span></p></article>
+        <article class="stat"><p class="stat__label">متوسط حجم الفريق</p><p class="stat__value">3.6</p><p class="stat__foot"><span>موظف لكل قائد</span></p></article>
+        <article class="stat stat--flag" data-flag="warning"><p class="stat__label">متوسط زمن المراجعة</p><p class="stat__value">8<span class="stat__unit">ساعات</span></p><p class="stat__foot"><span>الأبطأ 14 ساعة</span></p></article>
+        <article class="stat"><p class="stat__label">مهام بانتظار مراجعة</p><p class="stat__value">21</p><p class="stat__foot"><span>موزعة على 5 قوائم</span></p></article>
+      </div>
+
+      <section class="panel">
+        <div class="panel__head">
+          <h2 class="panel__title">القادة وأداؤهم</h2>
+          <div class="menu-anchor">
+            <button class="filter-chip" type="button" data-menu="tlDept" aria-expanded="false" aria-haspopup="true">
+              القسم <span class="filter-chip__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="menu menu--end" id="tlDept" hidden>
+              <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>السيو</span></label>
+              <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>البرمجة</span></label>
+              <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>UI/UX</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">قادة الفرق</caption>
+            <thead>
+              <tr>
+                <th scope="col">القائد</th>
+                <th scope="col">القسم</th>
+                <th scope="col">رئيس القسم</th>
+                <th scope="col">الموظفون</th>
+                <th scope="col">الحمل</th>
+                <th scope="col"><button class="th-sort" type="button">جودة الفريق <span class="th-sort__caret" aria-hidden="true">▾</span></button></th>
+                <th scope="col">زمن المراجعة</th>
+                <th scope="col">نسبة رفضه</th>
+                <th class="cell-actions" scope="col"><span class="sr-only">إجراءات</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="القائد"><div class="person"><span class="avatar avatar--sm" data-dept="prog">أ س</span><div class="person__text"><a class="person__name" href="../people/team-detail.html">أحمد سعيد</a></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="رئيس القسم"><span class="person__name">خالد ناصر</span></td>
+                <td class="cell-num" data-label="الموظفون">4</td>
+                <td class="cell-num" data-label="الحمل"><span class="badge badge--warning">68%</span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">94%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:94%"></span></span></span></td>
+                <td class="cell-num" data-label="زمن المراجعة">6 ساعات</td>
+                <td class="cell-num" data-label="نسبة الرفض">9%</td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات أحمد سعيد">⋯</button></td>
+              </tr>
+              <tr>
+                <td data-label="القائد"><div class="person"><span class="avatar avatar--sm" data-dept="prog">ع ح</span><div class="person__text"><a class="person__name" href="../people/team-detail.html">عمر الحارثي</a></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="رئيس القسم"><span class="person__name">خالد ناصر</span></td>
+                <td class="cell-num" data-label="الموظفون">3</td>
+                <td class="cell-num" data-label="الحمل"><span class="badge badge--success">42%</span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">88%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:88%"></span></span></span></td>
+                <td class="cell-num" data-label="زمن المراجعة">9 ساعات</td>
+                <td class="cell-num" data-label="نسبة الرفض">6%</td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات عمر الحارثي">⋯</button></td>
+              </tr>
+              <tr>
+                <td data-label="القائد"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ل م</span><div class="person__text"><a class="person__name" href="../people/team-detail.html">ليان مرزوق</a></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="رئيس القسم"><span class="person__name">هند العامري</span></td>
+                <td class="cell-num" data-label="الموظفون">4</td>
+                <td class="cell-num" data-label="الحمل"><span class="badge badge--warning">74%</span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">81%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:81%"></span></span></span></td>
+                <td class="cell-num" data-label="زمن المراجعة">7 ساعات</td>
+                <td class="cell-num" data-label="نسبة الرفض">14%</td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات ليان مرزوق">⋯</button></td>
+              </tr>
+              <tr>
+                <td data-label="القائد"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ن ش</span><div class="person__text"><a class="person__name" href="../people/team-detail.html">نورة الشمري</a></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="رئيس القسم"><span class="person__name">هند العامري</span></td>
+                <td class="cell-num" data-label="الموظفون">3</td>
+                <td class="cell-num" data-label="الحمل"><span class="badge">61%</span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="low">69%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:69%"></span></span></span></td>
+                <td class="cell-num" data-label="زمن المراجعة"><span class="t-warning fw-semi">14 ساعة</span></td>
+                <td class="cell-num" data-label="نسبة الرفض">18%</td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات نورة الشمري">⋯</button></td>
+              </tr>
+              <tr>
+                <td data-label="القائد"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ر ق</span><div class="person__text"><a class="person__name" href="../people/team-detail.html">ريم القحطاني</a></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="seo">السيو</span></td>
+                <td data-label="رئيس القسم"><span class="person__name">فيصل العمري</span></td>
+                <td class="cell-num" data-label="الموظفون">5</td>
+                <td class="cell-num" data-label="الحمل"><span class="badge badge--success">55%</span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">76%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:76%"></span></span></span></td>
+                <td class="cell-num" data-label="زمن المراجعة">—</td>
+                <td class="cell-num" data-label="نسبة الرفض">—</td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات ريم القحطاني">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel__foot">
+          <p class="t-3xs t-subtle">
+            نسبة الرفض العالية ليست بالضرورة مؤشرًا سلبيًا على القائد — قد تعني معايير أعلى أو
+            طلبات أضعف. تُقرأ مع جودة الفريق لا وحدها.
+          </p>
+        </div>
+      </section>
+
+      <div class="grid grid--halves">
+        <section class="panel">
+          <div class="panel__head"><h2 class="panel__title">زمن المراجعة لكل قائد</h2></div>
+          <div class="panel__body">
+            <div class="figures">
+              <div class="figure-row">
+                <span class="figure-row__label">نورة الشمري</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%; background-color:var(--warning)"></span></span>
+                <span class="figure-row__value">14 س</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">عمر الحارثي</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:64%"></span></span>
+                <span class="figure-row__value">9 س</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">ليان مرزوق</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:50%"></span></span>
+                <span class="figure-row__value">7 س</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">أحمد سعيد</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:43%"></span></span>
+                <span class="figure-row__value">6 س</span>
+              </div>
+            </div>
+            <p class="t-3xs t-subtle mbs-3">
+              زمن المراجعة يدخل في التزام الفريق بالمواعيد: كل ساعة انتظار تُحسب على المهمة لا على
+              الموظف.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2 class="panel__title">توزيع الموظفين</h2></div>
+          <div class="panel__body">
+            <div class="bars" role="img" aria-label="عدد الموظفين لكل قائد فريق">
+              <div class="bars__col"><span class="bars__bar" style="--h:100%; background-color:var(--viz-2)"></span><span class="bars__label">ريم</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:80%"></span><span class="bars__label">أحمد</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:80%; background-color:var(--viz-3)"></span><span class="bars__label">ليان</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:60%"></span><span class="bars__label">عمر</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:60%; background-color:var(--viz-3)"></span><span class="bars__label">نورة</span></div>
+            </div>
+            <div class="alert alert--info mbs-4">
+              <span class="alert__body">
+                <span class="alert__text">
+                  التوزيع متوازن عددًا، لكن الحمل ليس كذلك: فريق أحمد لديه 17 مهمة نشطة مقابل 9
+                  لفريق عمر بعدد موظفين متقارب.
+                </span>
+              </span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="reassignModal" hidden></div>
+<div class="modal-shell" id="reassignModal" role="dialog" aria-modal="true" aria-labelledby="raTitle" hidden>
+  <div class="modal modal--wide">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="raTitle">إعادة توزيع الموظفين بين القادة</h2>
+        <p class="modal__sub">اختر الموظفين والفريق الذي ينتقلون إليه.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="reassignModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field">
+        <label class="field__label" for="raFrom">من فريق</label>
+        <select class="select" id="raFrom">
+          <option>فريق أحمد سعيد — 4 موظفين · حمل 68%</option>
+          <option>فريق ليان مرزوق — 4 موظفين · حمل 74%</option>
+        </select>
+      </div>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset__legend">الموظفون المنقولون</legend>
+        <label class="check">
+          <input class="check__input" type="checkbox" checked>
+          <span class="check__text">
+            <span>ياسر الدوسري</span>
+            <span class="check__hint">6 مهام نشطة · جودة 88% · التزام 86%</span>
+          </span>
+        </label>
+        <label class="check">
+          <input class="check__input" type="checkbox">
+          <span class="check__text">
+            <span>عبدالله الراشد</span>
+            <span class="check__hint">3 مهام نشطة · جودة 77% · موظف جديد</span>
+          </span>
+        </label>
+        <label class="check">
+          <input class="check__input" type="checkbox">
+          <span class="check__text">
+            <span>نايف القرني</span>
+            <span class="check__hint">4 مهام نشطة · جودة 90%</span>
+          </span>
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="raTo">إلى فريق</label>
+        <select class="select" id="raTo">
+          <option>فريق عمر الحارثي — 3 موظفين · حمل 42%</option>
+          <option>فريق نورة الشمري — 3 موظفين · حمل 61%</option>
+        </select>
+      </div>
+
+      <div class="alert alert--info">
+        <span class="alert__body">
+          <strong class="alert__title">الحمل بعد النقل</strong>
+          <span class="alert__text">
+            فريق أحمد سعيد 52% · فريق عمر الحارثي 58%. توزيع أقرب للتوازن.
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="reassignModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="reassignModal">تنفيذ النقل</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'leaders', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

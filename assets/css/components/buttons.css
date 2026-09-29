@@ -1,0 +1,278 @@
+/* ==========================================================================
+   Buttons
+   Label text says what happens: "حفظ التغييرات", not "إرسال".
+   ========================================================================== */
+
+@layer components {
+  .btn {
+    --btn-bg: transparent;
+    --btn-fg: var(--text);
+    --btn-bd: transparent;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    min-height: 36px;
+    padding-inline: var(--sp-4);
+    padding-block: var(--sp-2);
+    border: 1px solid var(--btn-bd);
+    border-radius: var(--r-control);
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    line-height: 1.2;
+    white-space: nowrap;
+    user-select: none;
+    transition: background-color var(--dur-fast) var(--ease),
+                border-color var(--dur-fast) var(--ease),
+                color var(--dur-fast) var(--ease);
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  /* ---- Primary ----------------------------------------------------------
+     White on brand-500. The one place the full-saturation brand appears as a
+     fill, which is what keeps it meaningful.
+  */
+  .btn--primary {
+    --btn-bg: var(--accent);
+    --btn-fg: #ffffff;
+    --btn-bd: var(--accent);
+    font-weight: var(--fw-semi);
+  }
+
+  .btn--primary:hover {
+    --btn-bg: var(--brand-600);
+    --btn-bd: var(--brand-600);
+  }
+
+  .btn--primary:active {
+    --btn-bg: var(--brand-700);
+    --btn-bd: var(--brand-700);
+  }
+
+  :root[data-theme="dark"] .btn--primary,
+  :root[data-theme="dark"] .btn--primary:hover {
+    --btn-fg: #1a0008;
+  }
+
+  /* ---- Secondary — the default for most actions ------------------------- */
+  .btn--secondary {
+    --btn-bg: var(--surface);
+    --btn-fg: var(--text);
+    --btn-bd: var(--line-strong);
+  }
+
+  .btn--secondary:hover {
+    --btn-bg: var(--surface-sunk);
+    --btn-bd: var(--text-subtle);
+  }
+
+  /* ---- Ghost ------------------------------------------------------------- */
+  .btn--ghost {
+    --btn-fg: var(--text-muted);
+  }
+
+  .btn--ghost:hover {
+    --btn-bg: var(--surface-sunk);
+    --btn-fg: var(--text);
+  }
+
+  /* ---- Quiet — for table row actions ----------------------------------- */
+  .btn--quiet {
+    --btn-fg: var(--text-subtle);
+    min-height: 28px;
+    padding-inline: var(--sp-2);
+    font-size: var(--fs-xs);
+  }
+
+  .btn--quiet:hover {
+    --btn-bg: var(--surface-sunk);
+    --btn-fg: var(--text);
+  }
+
+  /* ---- Destructive ------------------------------------------------------ */
+  .btn--danger {
+    --btn-bg: var(--danger);
+    --btn-fg: #ffffff;
+    --btn-bd: var(--danger);
+  }
+
+  .btn--danger:hover {
+    --btn-bg: var(--brand-800);
+    --btn-bd: var(--brand-800);
+  }
+
+  .btn--danger-quiet {
+    --btn-fg: var(--danger);
+    --btn-bd: var(--line);
+    --btn-bg: var(--surface);
+  }
+
+  .btn--danger-quiet:hover {
+    --btn-bg: var(--danger-soft);
+    --btn-bd: var(--danger);
+  }
+
+  /* ---- Approve — paired with danger in review flows -------------------- */
+  .btn--approve {
+    --btn-bg: var(--success);
+    --btn-fg: #ffffff;
+    --btn-bd: var(--success);
+  }
+
+  .btn--approve:hover {
+    filter: brightness(0.92);
+  }
+
+  /* ---- Sizes ------------------------------------------------------------- */
+  .btn--sm {
+    min-height: 30px;
+    padding-inline: var(--sp-3);
+    font-size: var(--fs-xs);
+  }
+
+  .btn--lg {
+    min-height: 44px;
+    padding-inline: var(--sp-6);
+    font-size: var(--fs-md);
+  }
+
+  .btn--block {
+    width: 100%;
+  }
+
+  /* ---- Icon-only --------------------------------------------------------
+     Square, and it must carry an aria-label.
+  */
+  .btn--icon {
+    padding-inline: 0;
+    width: 36px;
+    min-height: 36px;
+    flex: none;
+  }
+
+  .btn--icon.btn--sm { width: 30px; min-height: 30px; }
+  .btn--icon.btn--lg { width: 44px; min-height: 44px; }
+
+  /* ---- Button group -----------------------------------------------------
+     Segmented control. Radii collapse on the inner edges, which under RTL
+     means the logical start/end, handled by :first-child/:last-child in flow
+     order rather than by physical side.
+  */
+  .btn-group {
+    display: inline-flex;
+    isolation: isolate;
+  }
+
+  .btn-group > .btn {
+    border-radius: 0;
+    margin-inline-start: -1px;
+  }
+
+  .btn-group > .btn:first-child {
+    border-start-start-radius: var(--r-control);
+    border-end-start-radius: var(--r-control);
+    margin-inline-start: 0;
+  }
+
+  .btn-group > .btn:last-child {
+    border-start-end-radius: var(--r-control);
+    border-end-end-radius: var(--r-control);
+  }
+
+  .btn-group > .btn:hover,
+  .btn-group > .btn:focus-visible,
+  .btn-group > .btn[aria-pressed="true"] {
+    z-index: 1;
+  }
+
+  .btn-group > .btn[aria-pressed="true"] {
+    --btn-bg: var(--accent-soft);
+    --btn-fg: var(--accent-text);
+    --btn-bd: var(--accent-line);
+  }
+
+  /* ---- Fixed task-creation dock ----------------------------------------
+     Section 4 of the brief: always reachable, on every page the SEO team can
+     create from. Rendered by shell.js, gated on tasks.create.
+  */
+  .fab-dock {
+    position: fixed;
+    inset-block-end: var(--sp-6);
+    inset-inline-start: var(--sp-6);
+    z-index: var(--z-fab);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    align-items: flex-start;
+  }
+
+  .fab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-height: 44px;
+    padding-inline: var(--sp-5);
+    border-radius: var(--r-pill);
+    border: 1px solid transparent;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semi);
+    color: #ffffff;
+    box-shadow: var(--sh-overlay);
+    transition: transform var(--dur-fast) var(--ease),
+                filter var(--dur-fast) var(--ease);
+  }
+
+  .fab:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+  }
+
+  .fab:active {
+    transform: translateY(0);
+  }
+
+  /* Each department keeps its own identity here so the two buttons are
+     distinguishable at a glance, not two identical red pills. */
+  .fab--prog { background-color: var(--dept-prog); }
+  .fab--uiux { background-color: var(--dept-uiux); }
+
+  .fab__plus {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-regular);
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    .fab-dock {
+      inset-block-end: var(--sp-4);
+      inset-inline-start: var(--sp-4);
+      flex-direction: row;
+    }
+
+    .fab {
+      padding-inline: var(--sp-4);
+      font-size: var(--fs-xs);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .fab__label {
+      display: none;
+    }
+
+    .fab {
+      width: 48px;
+      height: 48px;
+      padding-inline: 0;
+      justify-content: center;
+    }
+  }
+}

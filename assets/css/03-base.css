@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Base — element defaults, typography, focus
+   ========================================================================== */
+
+@layer base {
+  body {
+    font-family: var(--font);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-normal);
+    color: var(--text);
+    background-color: var(--paper);
+  }
+
+  /* ---- Headings ---------------------------------------------------------
+     Tight leading and a slight negative tracking: headings in this product
+     are labels on dense data, not editorial display type.
+  */
+  h1 { font-size: var(--fs-xl);  font-weight: var(--fw-semi); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); }
+  h2 { font-size: var(--fs-lg);  font-weight: var(--fw-semi); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); }
+  h3 { font-size: var(--fs-md);  font-weight: var(--fw-semi); line-height: var(--lh-snug); }
+  h4 { font-size: var(--fs-sm);  font-weight: var(--fw-semi); line-height: var(--lh-snug); }
+  h5,
+  h6 { font-size: var(--fs-xs);  font-weight: var(--fw-semi); line-height: var(--lh-snug); }
+
+  /* Body copy never runs past a comfortable measure. */
+  p {
+    max-width: 68ch;
+  }
+
+  strong,
+  b {
+    font-weight: var(--fw-semi);
+  }
+
+  small {
+    font-size: var(--fs-2xs);
+  }
+
+  /* ---- Links -----------------------------------------------------------
+     brand-700 rather than brand-500: the 500 fails small-text contrast.
+  */
+  a:not([class]) {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  a:not([class]):hover {
+    text-decoration-thickness: 2px;
+  }
+
+  /* ---- Focus ------------------------------------------------------------
+     Keyboard users get a ring everywhere. No `outline: none` exists in this
+     codebase without a replacement.
+  */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--r-control);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+  }
+
+  /* ---- Numerals ---------------------------------------------------------
+     Tabular lining figures wherever numbers are compared vertically. This is
+     what a monospace face would otherwise be used for.
+  */
+  .num,
+  td,
+  th,
+  .stat__value,
+  .meter__value,
+  .pagination {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* ---- Scrollbars ------------------------------------------------------- */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--line-strong);
+    border: 3px solid transparent;
+    border-radius: var(--r-pill);
+    background-clip: content-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-subtle);
+  }
+
+  /* ---- Skip link -------------------------------------------------------- */
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--sp-2);
+    inset-inline-start: var(--sp-2);
+    z-index: var(--z-palette);
+    padding: var(--sp-2) var(--sp-4);
+    background-color: var(--accent);
+    color: var(--text-invert);
+    border-radius: var(--r-control);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    transform: translateY(-200%);
+    transition: transform var(--dur-fast) var(--ease);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  /* ---- Screen-reader only ----------------------------------------------- */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---- Icons ------------------------------------------------------------
+     Inline SVG sized to the current text. Direction-implying glyphs carry
+     .icon--dir and mirror under RTL.
+  */
+  .icon {
+    width: 1.15em;
+    height: 1.15em;
+    flex: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  [dir="rtl"] .icon--dir {
+    transform: scaleX(-1);
+  }
+
+  hr {
+    border: 0;
+    border-block-start: 1px solid var(--line);
+  }
+}

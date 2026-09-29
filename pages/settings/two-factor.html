@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المصادقة الثنائية · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="إعدادات التحقق بخطوتين ومدة الأجهزة الموثوقة.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">المصادقة الثنائية</span>
+          </nav>
+          <h1 class="page-head__title">المصادقة الثنائية</h1>
+          <p class="page-head__sub">
+            كل القيم الزمنية هنا قابلة للتعديل، ولا يعتمد النظام على أي رقم ثابت في الشيفرة.
+          </p>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="two-factor" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">الحالة</h2>
+              <span class="badge badge--success">مفعّلة لكل المستخدمين</span>
+            </div>
+            <div class="panel__body stack-4">
+              <label class="switch">
+                <input class="switch__input" type="checkbox" checked>
+                <span class="t-xs">إلزام المصادقة الثنائية لكل الحسابات</span>
+              </label>
+              <p class="t-3xs t-subtle">
+                تعطيلها يجعل كلمة المرور وحدها كافية للدخول. لا يُنصح به إطلاقًا لنظام يحتوي بيانات
+                أداء الموظفين.
+              </p>
+
+              <hr>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">طريقة التحقق</legend>
+                <label class="check">
+                  <input class="check__input" type="radio" name="twoMethod" checked>
+                  <span class="check__text">
+                    <span>رمز عبر البريد الإلكتروني</span>
+                    <span class="check__hint">لا يحتاج تطبيقًا إضافيًا. مناسب لفريق داخلي.</span>
+                  </span>
+                </label>
+                <label class="check">
+                  <input class="check__input" type="radio" name="twoMethod">
+                  <span class="check__text">
+                    <span>تطبيق مصادقة</span>
+                    <span class="check__hint">
+                      أقوى أمنيًا لأنه لا يعتمد على صندوق البريد، لكنه يتطلب إعدادًا لكل مستخدم.
+                      مخطَّط لمرحلة لاحقة.
+                    </span>
+                  </span>
+                </label>
+                <label class="check">
+                  <input class="check__input" type="radio" name="twoMethod" disabled>
+                  <span class="check__text">
+                    <span>رسالة نصية <span class="badge">غير مدعوم</span></span>
+                    <span class="check__hint">
+                      أضعف الخيارات أمنيًا بسبب هجمات نقل رقم الهاتف، ولذلك غير مطروح.
+                    </span>
+                  </span>
+                </label>
+              </fieldset>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">الرمز والجهاز الموثوق</h2>
+              <span class="section__note">القيم الافتراضية الموصى بها ظاهرة كمحدَّدة</span>
+            </div>
+            <div class="panel__body stack-5">
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="codeTtl">صلاحية الرمز</label>
+                  <p class="field__help">مدة قصيرة تحدّ من فائدة الرمز إن اعتُرض.</p>
+                  <select class="select" id="codeTtl">
+                    <option>5 دقائق</option>
+                    <option selected>10 دقائق</option>
+                    <option>15 دقيقة</option>
+                    <option>30 دقيقة</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="codeLen">طول الرمز</label>
+                  <select class="select" id="codeLen">
+                    <option>4 أرقام</option>
+                    <option selected>6 أرقام</option>
+                    <option>8 أرقام</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="trustDays">مدة الجهاز الموثوق</label>
+                  <p class="field__help">
+                    خلالها لا يُطلب الرمز على الجهاز نفسه. 30 يومًا توازن بين الأمان والاستخدام
+                    اليومي.
+                  </p>
+                  <select class="select" id="trustDays">
+                    <option>7 أيام</option>
+                    <option>14 يومًا</option>
+                    <option selected>30 يومًا</option>
+                    <option>60 يومًا</option>
+                    <option>90 يومًا</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="trustMax">أقصى عدد أجهزة موثوقة لكل مستخدم</label>
+                  <select class="select" id="trustMax">
+                    <option>2</option>
+                    <option>3</option>
+                    <option selected>5</option>
+                    <option>بلا حد</option>
+                  </select>
+                </div>
+              </div>
+
+              <hr>
+
+              <!-- The periodic re-verification the brief asked for, stated in
+                   plain terms rather than buried in a toggle label. -->
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">إعادة التحقق الدورية الإلزامية</legend>
+                <p class="t-3xs t-subtle">
+                  حتى مع اختيار «الإبقاء على هذا الجهاز موثوقًا»، يُطلب الرمز مجددًا في الحالات
+                  المحددة أدناه. هذا ما يمنع بقاء جهاز موثوقًا إلى ما لا نهاية.
+                </p>
+
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">عند انتهاء مدة الثقة</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">عند تغيير الشبكة أو عنوان الـ IP بشكل جوهري</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">عند تغيير المتصفح أو نظام التشغيل</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">قبل تنفيذ إجراء حسّاس</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox">
+                  <span class="t-xs">كل 7 أيام بغض النظر عن مدة الثقة</span>
+                </label>
+
+                <div class="field">
+                  <label class="field__label" for="forceEvery">إعادة تحقق قصوى بصرف النظر عن أي إعداد آخر</label>
+                  <select class="select" id="forceEvery">
+                    <option>كل 30 يومًا</option>
+                    <option selected>كل 60 يومًا</option>
+                    <option>كل 90 يومًا</option>
+                  </select>
+                  <p class="field__help">حد أعلى مطلق. لا يمكن لأي جهاز تجاوزه.</p>
+                </div>
+              </fieldset>
+
+              <hr>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">محاولات الرمز</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="codeTries">أقصى محاولات خاطئة</label>
+                    <select class="select" id="codeTries">
+                      <option>3</option>
+                      <option selected>5</option>
+                      <option>10</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="resendWait">مدة الانتظار قبل إعادة الإرسال</label>
+                    <select class="select" id="resendWait">
+                      <option>30 ثانية</option>
+                      <option selected>45 ثانية</option>
+                      <option>60 ثانية</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                التغييرات تنطبق على الجلسات وعمليات الدخول القادمة، ولا تُلغي ثقة الأجهزة الحالية
+                إلا إن قصّرت المدة عن عمرها الحالي.
+              </p>
+              <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ الإعدادات</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">الإعداد الحالي بالكلمات</h2></div>
+            <div class="panel__body">
+              <div class="kv">
+                <div class="kv__row"><span class="kv__key">عند تسجيل الدخول</span><span class="kv__val">كلمة المرور ثم رمز من 6 أرقام بالبريد</span></div>
+                <div class="kv__row"><span class="kv__key">صلاحية الرمز</span><span class="kv__val">10 دقائق</span></div>
+                <div class="kv__row"><span class="kv__key">إن اختار الثقة بالجهاز</span><span class="kv__val">لا رمز لمدة 30 يومًا</span></div>
+                <div class="kv__row"><span class="kv__key">يُطلب الرمز مجددًا</span><span class="kv__val">بانتهاء المدة، أو بتغيير الشبكة أو المتصفح، أو قبل إجراء حسّاس</span></div>
+                <div class="kv__row"><span class="kv__key">الحد الأعلى المطلق</span><span class="kv__val">إعادة تحقق كل 60 يومًا</span></div>
+                <div class="kv__row"><span class="kv__key">بعد 5 محاولات خاطئة</span><span class="kv__val">إيقاف مؤقت 15 دقيقة وتسجيل الحدث</span></div>
+              </div>
+              <p class="t-3xs t-subtle mbs-4">
+                هذا الملخص مولَّد من الإعدادات أعلاه، ليقرأه غير التقنيين دون تفسير كل حقل على حدة.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

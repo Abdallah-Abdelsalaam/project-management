@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التقارير · إدارة المشاريع</title>
+<meta name="description" content="تقارير الأداء والجودة على مستوى المنظمة.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">التقارير</h1>
+          <p class="page-head__sub">
+            أداء المنظمة في آخر 90 يومًا. كل رقم هنا قابل للوصول إلى المهام التي أنتجته.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <div class="menu-anchor">
+            <button class="btn btn--secondary btn--sm" type="button" data-menu="rpRange" aria-expanded="false" aria-haspopup="true">
+              آخر 90 يومًا <span class="filter-chip__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="menu menu--end" id="rpRange" hidden>
+              <button class="menu__item" type="button">آخر 30 يومًا</button>
+              <button class="menu__item" type="button" aria-selected="true">آخر 90 يومًا</button>
+              <button class="menu__item" type="button">هذا الربع</button>
+              <button class="menu__item" type="button">هذا العام</button>
+              <button class="menu__item" type="button">فترة مخصصة…</button>
+            </div>
+          </div>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">تصدير PDF</button>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">تصدير CSV</button>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="أقسام التقارير">
+        <button class="tab" role="tab" id="rt1" aria-controls="rp1" aria-selected="true" tabindex="0">الملخص التنفيذي</button>
+        <button class="tab" role="tab" id="rt2" aria-controls="rp2" aria-selected="false" tabindex="-1">الجودة</button>
+        <button class="tab" role="tab" id="rt3" aria-controls="rp3" aria-selected="false" tabindex="-1">الإنتاجية</button>
+        <button class="tab" role="tab" id="rt4" aria-controls="rp4" aria-selected="false" tabindex="-1">التعديلات والرفض</button>
+      </div>
+
+      <!-- ================================================== summary -->
+      <div class="tab-panel stack-6" role="tabpanel" id="rp1" aria-labelledby="rt1">
+
+        <div class="grid grid--stats">
+          <article class="stat"><p class="stat__label">إجمالي المهام</p><p class="stat__value">584</p><p class="stat__foot"><span class="delta delta--up">▲ 12%</span><span>عن الفترة السابقة</span></p></article>
+          <article class="stat"><p class="stat__label">مكتملة ومعتمدة</p><p class="stat__value">441</p><p class="stat__foot"><span>76% معدل الإنجاز</span></p></article>
+          <article class="stat"><p class="stat__label">متوسط الجودة</p><p class="stat__value">85<span class="stat__unit">%</span></p><p class="stat__foot"><span class="delta delta--up">▲ 4</span><span>نقاط</span></p></article>
+          <article class="stat"><p class="stat__label">الالتزام بالمواعيد</p><p class="stat__value">87<span class="stat__unit">%</span></p><p class="stat__foot"><span>الهدف 90%</span></p></article>
+          <article class="stat"><p class="stat__label">متوسط زمن الإنجاز</p><p class="stat__value">3.6<span class="stat__unit">يوم</span></p><p class="stat__foot"><span class="delta delta--up">▼ 0.5</span><span>أسرع</span></p></article>
+          <article class="stat stat--flag" data-flag="warning"><p class="stat__label">نسبة التعديلات</p><p class="stat__value">8<span class="stat__unit">%</span></p><p class="stat__foot"><span class="delta delta--down">▲ 2</span><span>نقاط</span></p></article>
+        </div>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">أهم ثلاث قراءات في هذه الفترة</h2>
+            <span class="section__note">مستخلصة من الأرقام أعلاه</span>
+          </div>
+          <div class="panel__body stack-3">
+            <div class="alert alert--success">
+              <span class="alert__body">
+                <strong class="alert__title">الجودة ترتفع والزمن ينخفض معًا</strong>
+                <span class="alert__text">
+                  ارتفعت الجودة 4 نقاط بينما انخفض زمن الإنجاز نصف يوم. هذا يستبعد أن التحسّن جاء
+                  على حساب السرعة.
+                </span>
+              </span>
+            </div>
+
+            <div class="alert alert--warning">
+              <span class="alert__body">
+                <strong class="alert__title">فجوة 15 نقطة بين البرمجة وUI/UX</strong>
+                <span class="alert__text">
+                  91% مقابل 76%. أكثر من نصف حالات التعديل في UI/UX سببها نقص الأصول في الطلب،
+                  أي أن الفجوة تعود جزئيًا إلى قسم السيو لا إلى المصممين.
+                </span>
+              </span>
+            </div>
+
+            <div class="alert alert--danger">
+              <span class="alert__body">
+                <strong class="alert__title">الالتزام بالمواعيد تحت الهدف</strong>
+                <span class="alert__text">
+                  87% مقابل هدف 90%. السبب الأكبر ليس التنفيذ بل انتظار المراجعة: متوسط 8 ساعات،
+                  ويصل إلى 14 ساعة عند أحد القادة.
+                </span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--halves">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">حجم العمل شهريًا</h2></div>
+            <div class="panel__body">
+              <div class="bars" role="img" aria-label="عدد المهام شهريًا: 78، 85، 92، 104، 112، 113">
+                <div class="bars__col"><span class="bars__bar" style="--h:69%"></span><span class="bars__label">أبريل</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:75%"></span><span class="bars__label">مايو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:81%"></span><span class="bars__label">يونيو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:92%"></span><span class="bars__label">يوليو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:99%"></span><span class="bars__label">أغسطس</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:100%"></span><span class="bars__label">سبتمبر</span></div>
+              </div>
+              <p class="t-3xs t-subtle mbs-3">
+                نمو 45% في ستة أشهر بعدد موظفين ثابت. هذا يفسّر ارتفاع الحمل عند بعض الفرق.
+              </p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">توزيع المهام على الأقسام</h2></div>
+            <div class="panel__body stack-3">
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">البرمجة</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%"></span></span>
+                  <span class="figure-row__value">342</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">UI/UX</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:71%; background-color:var(--viz-3)"></span></span>
+                  <span class="figure-row__value">242</span>
+                </div>
+              </div>
+              <hr>
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">مهام لكل موظف — البرمجة</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:90%"></span></span>
+                  <span class="figure-row__value">31</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">مهام لكل موظف — UI/UX</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%; background-color:var(--warning)"></span></span>
+                  <span class="figure-row__value">35</span>
+                </div>
+              </div>
+              <p class="t-3xs t-subtle">
+                UI/UX يحمل مهامًا أكثر لكل موظف مع عدد أقل من الموظفين. عامل إضافي في فجوة الجودة.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ================================================== quality -->
+      <div class="tab-panel stack-6" role="tabpanel" id="rp2" aria-labelledby="rt2" hidden>
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">متوسط الجودة لكل بند من بنود الاحتساب</h2>
+            <span class="section__note">يكشف أي بند يسحب المتوسط للأسفل</span>
+          </div>
+          <div class="panel__body">
+            <div class="figures">
+              <div class="figure-row">
+                <span class="figure-row__label">اكتمال بيانات الطلب — من 20</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:76%; background-color:var(--warning)"></span></span>
+                <span class="figure-row__value">15.2</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">مطابقة المتطلبات — من 25</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:88%"></span></span>
+                <span class="figure-row__value">22.0</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">الاعتماد من أول مرة — من 20</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:84%"></span></span>
+                <span class="figure-row__value">16.8</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">الالتزام بالموعد — من 15</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:87%"></span></span>
+                <span class="figure-row__value">13.1</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">عدد التعديلات — من 10</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:92%"></span></span>
+                <span class="figure-row__value">9.2</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">تقييم المراجع — من 10</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:87%"></span></span>
+                <span class="figure-row__value">8.7</span>
+              </div>
+            </div>
+
+            <div class="alert alert--warning mbs-4">
+              <span class="alert__body">
+                <strong class="alert__title">البند الأضعف هو اكتمال الطلب</strong>
+                <span class="alert__text">
+                  15.2 من 20 — أقل بند نسبةً. وهو البند الوحيد الذي يُحدَّد قبل أن يبدأ التنفيذ،
+                  أي أنه قابل للإصلاح من قسم السيو مباشرة.
+                </span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--halves">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">الجودة لكل فريق</h2></div>
+            <div class="panel__body stack-3">
+              <div class="meter" data-band="high"><div class="meter__head"><span class="meter__label">أحمد سعيد — البرمجة</span><span class="meter__value">94%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:94%"></span></div></div>
+              <div class="meter" data-band="high"><div class="meter__head"><span class="meter__label">عمر الحارثي — البرمجة</span><span class="meter__value">88%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:88%"></span></div></div>
+              <div class="meter" data-band="mid"><div class="meter__head"><span class="meter__label">ليان مرزوق — UI/UX</span><span class="meter__value">81%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:81%"></span></div></div>
+              <div class="meter" data-band="mid"><div class="meter__head"><span class="meter__label">ريم القحطاني — السيو</span><span class="meter__value">76%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:76%"></span></div></div>
+              <div class="meter" data-band="low"><div class="meter__head"><span class="meter__label">نورة الشمري — UI/UX</span><span class="meter__value">69%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:69%"></span></div></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">الجودة لكل نوع مهمة</h2></div>
+            <div class="panel__body">
+              <div class="figures">
+                <div class="figure-row"><span class="figure-row__label">سرعة الصفحات</span><span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:94%"></span></span><span class="figure-row__value">94%</span></div>
+                <div class="figure-row"><span class="figure-row__label">سيو تقني</span><span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:91%"></span></span><span class="figure-row__value">91%</span></div>
+                <div class="figure-row"><span class="figure-row__label">بيانات منظمة</span><span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:89%"></span></span><span class="figure-row__value">89%</span></div>
+                <div class="figure-row"><span class="figure-row__label">تحسين تجربة</span><span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:82%; background-color:var(--viz-3)"></span></span><span class="figure-row__value">82%</span></div>
+                <div class="figure-row"><span class="figure-row__label">تصميم صفحة</span><span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:74%; background-color:var(--warning)"></span></span><span class="figure-row__value">74%</span></div>
+                <div class="figure-row"><span class="figure-row__label">تصميم مكوّن</span><span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:71%; background-color:var(--warning)"></span></span><span class="figure-row__value">71%</span></div>
+              </div>
+              <p class="t-3xs t-subtle mbs-3">
+                أنواع التصميم في الأسفل باستمرار. هذا نمط في نوع المهمة لا في أشخاص بعينهم.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- =============================================== productivity -->
+      <div class="tab-panel stack-6" role="tabpanel" id="rp3" aria-labelledby="rt3" hidden>
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">أين يذهب زمن المهمة</h2>
+            <span class="section__note">متوسط 3.6 يوم من الإنشاء إلى الاعتماد</span>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="bar-stack" style="height: 14px;" role="img" aria-label="توزيع زمن المهمة: انتظار الإسناد 14%، التنفيذ 53%، انتظار المراجعة 25%، المراجعة 8%">
+              <span class="bar-stack__seg" data-status="created" style="inline-size:14%"></span>
+              <span class="bar-stack__seg" data-status="progress" style="inline-size:53%"></span>
+              <span class="bar-stack__seg" data-status="submitted" style="inline-size:25%"></span>
+              <span class="bar-stack__seg" data-status="review" style="inline-size:8%"></span>
+            </div>
+            <div class="legend">
+              <span class="legend__item"><i class="legend__swatch" data-status="created"></i> انتظار الإسناد 12 ساعة</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="progress"></i> التنفيذ 1.9 يوم</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="submitted"></i> انتظار المراجعة 21 ساعة</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="review"></i> المراجعة 7 ساعات</span>
+            </div>
+
+            <div class="alert alert--warning">
+              <span class="alert__body">
+                <strong class="alert__title">ثلث زمن المهمة انتظار لا عمل</strong>
+                <span class="alert__text">
+                  33 ساعة من أصل 3.6 يوم تُنقضي في انتظار الإسناد أو انتظار المراجعة. تقليص هذين
+                  الانتظارين يرفع الالتزام بالمواعيد دون زيادة ساعات العمل.
+                </span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--halves">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">أعلى الموظفين إنتاجًا</h2></div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="prog">س ي</span>
+                <div class="lrow__body"><p class="lrow__title">سارة يوسف</p><p class="lrow__meta">38 مهمة مكتملة · جودة 96% · 2.1 يوم</p></div>
+                <div class="lrow__actions"><span class="score" data-band="high">96%</span></div>
+              </div>
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="prog">م ف</span>
+                <div class="lrow__body"><p class="lrow__title">محمد فتحي</p><p class="lrow__meta">34 مهمة مكتملة · جودة 92% · 2.8 يوم</p></div>
+                <div class="lrow__actions"><span class="score" data-band="high">92%</span></div>
+              </div>
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="prog">ن ق</span>
+                <div class="lrow__body"><p class="lrow__title">نايف القرني</p><p class="lrow__meta">31 مهمة مكتملة · جودة 90% · 3.0 يوم</p></div>
+                <div class="lrow__actions"><span class="score" data-band="high">90%</span></div>
+              </div>
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="uiux">ه ع</span>
+                <div class="lrow__body"><p class="lrow__title">هيا العتيبي</p><p class="lrow__meta">28 مهمة مكتملة · جودة 84% · 3.9 يوم</p></div>
+                <div class="lrow__actions"><span class="score" data-band="high">84%</span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">أكثر منشئي المهام</h2></div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="seo">أ س</span>
+                <div class="lrow__body"><p class="lrow__title">أحمد سالم</p><p class="lrow__meta">96 مهمة منشأة · اكتمال الطلب 88%</p></div>
+                <div class="lrow__actions"><span class="score" data-band="high">88%</span></div>
+              </div>
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="seo">ل ح</span>
+                <div class="lrow__body"><p class="lrow__title">لمى حسن</p><p class="lrow__meta">78 مهمة منشأة · اكتمال الطلب 84%</p></div>
+                <div class="lrow__actions"><span class="score" data-band="high">84%</span></div>
+              </div>
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="seo">ر ق</span>
+                <div class="lrow__body"><p class="lrow__title">ريم القحطاني</p><p class="lrow__meta">61 مهمة منشأة · اكتمال الطلب 79%</p></div>
+                <div class="lrow__actions"><span class="score" data-band="mid">79%</span></div>
+              </div>
+              <div class="lrow">
+                <span class="avatar avatar--sm" data-dept="seo">ط ع</span>
+                <div class="lrow__body"><p class="lrow__title">طارق عوض</p><p class="lrow__meta">49 مهمة منشأة · اكتمال الطلب 61%</p></div>
+                <div class="lrow__actions"><span class="score" data-band="low">61%</span></div>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                طلبات طارق عوض هي الأقل اكتمالًا، ومهامه هي الأكثر عودة للتعديل. متابعة واحدة هنا
+                توفّر جولات مراجعة كثيرة.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ================================================ revisions -->
+      <div class="tab-panel stack-6" role="tabpanel" id="rp4" aria-labelledby="rt4" hidden>
+        <div class="grid grid--stats">
+          <article class="stat"><p class="stat__label">حالات الرفض</p><p class="stat__value">47</p><p class="stat__foot"><span>8% من المهام</span></p></article>
+          <article class="stat"><p class="stat__label">أُصلحت وقُبلت</p><p class="stat__value">38</p><p class="stat__foot"><span>81% من الحالات</span></p></article>
+          <article class="stat"><p class="stat__label">متوسط جولات التعديل</p><p class="stat__value">1.4</p><p class="stat__foot"><span>للمهام المرفوضة</span></p></article>
+          <article class="stat stat--flag" data-flag="danger"><p class="stat__label">كلفة التعديلات</p><p class="stat__value">66<span class="stat__unit">يوم</span></p><p class="stat__foot"><span>وقت عمل مهدور تقديريًا</span></p></article>
+        </div>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">أسباب الرفض ومن تعود إليه</h2>
+            <span class="section__note">التصنيف الأهم في هذا التقرير</span>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="figures">
+              <div class="figure-row">
+                <span class="figure-row__label">نقص الأصول أو النصوص — يعود للطلب</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%; background-color:var(--st-rejected)"></span></span>
+                <span class="figure-row__value">19</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">متطلبات غير واضحة — يعود للطلب</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:42%; background-color:var(--st-rejected)"></span></span>
+                <span class="figure-row__value">8</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">لا يطابق المتطلبات — يعود للتنفيذ</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:52%; background-color:var(--st-revision)"></span></span>
+                <span class="figure-row__value">10</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">أخطاء تقنية — يعود للتنفيذ</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:31%; background-color:var(--st-revision)"></span></span>
+                <span class="figure-row__value">6</span>
+              </div>
+              <div class="figure-row">
+                <span class="figure-row__label">خارج معايير الجودة — يعود للتنفيذ</span>
+                <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:21%; background-color:var(--st-revision)"></span></span>
+                <span class="figure-row__value">4</span>
+              </div>
+            </div>
+
+            <div class="alert alert--danger">
+              <span class="alert__body">
+                <strong class="alert__title">57% من حالات الرفض سببها الطلب لا التنفيذ</strong>
+                <span class="alert__text">
+                  27 حالة من 47 تعود إلى نقص في الطلب الأصلي. هذا يعني أن أكبر تحسين ممكن للجودة
+                  يبدأ من نموذج إنشاء المهمة، لا من متابعة المنفّذين.
+                </span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--halves">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">نسبة التعديلات لكل قسم</h2></div>
+            <div class="panel__body stack-3">
+              <div class="meter" data-band="high"><div class="meter__head"><span class="meter__label">البرمجة</span><span class="meter__value">6%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:6%"></span></div></div>
+              <div class="meter" data-band="low"><div class="meter__head"><span class="meter__label">UI/UX</span><span class="meter__value">11%</span></div><div class="meter__track"><span class="meter__fill" style="inline-size:11%"></span></div></div>
+              <hr>
+              <p class="t-3xs t-subtle">
+                الفارق 5 نقاط، لكن مهام التصميم تعتمد على أصول جاهزة أكثر من مهام البرمجة، وهي
+                الأصول التي تنقص في الطلبات.
+              </p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">اتجاه التعديلات</h2></div>
+            <div class="panel__body">
+              <div class="bars" role="img" aria-label="نسبة التعديلات شهريًا: 11، 10، 9، 7، 6، 8">
+                <div class="bars__col"><span class="bars__bar" style="--h:92%; background-color:var(--st-revision)"></span><span class="bars__label">أبريل</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:83%; background-color:var(--st-revision)"></span><span class="bars__label">مايو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:75%; background-color:var(--st-revision)"></span><span class="bars__label">يونيو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:58%"></span><span class="bars__label">يوليو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:50%"></span><span class="bars__label">أغسطس</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:67%; background-color:var(--st-revision)"></span><span class="bars__label">سبتمبر</span></div>
+              </div>
+              <p class="t-3xs t-subtle mbs-3">
+                تحسّن مستمر حتى أغسطس، ثم ارتفاع في سبتمبر تزامن مع نمو حجم العمل 45%.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <p class="note">
+        <strong>نموذج أولي:</strong> الأرقام تمثيلية لكنها متسقة داخليًا، حتى يكون النقاش حول
+        التقرير نفسه — ما يُقاس وكيف يُعرض — لا حول أرقام عشوائية.
+      </p>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'reports', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

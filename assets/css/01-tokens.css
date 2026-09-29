@@ -1,0 +1,342 @@
+/* ==========================================================================
+   Design tokens
+   Every value the system uses lives here. Nothing else defines a raw color,
+   size, or duration.
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* ---- Brand ------------------------------------------------------------
+       #e7033e is a cool crimson. As small text on white it measures ~4.5:1,
+       which is borderline, so the ramp splits by use:
+         --brand-500  fills and active states, always with white text
+         --brand-700  small text, links, icon-only affordances on light
+    */
+    --brand-50:  #fff1f4;
+    --brand-100: #ffe0e7;
+    --brand-200: #ffc6d2;
+    --brand-300: #ff9db1;
+    --brand-400: #fb5f81;
+    --brand-500: #e7033e;
+    --brand-600: #c90235;
+    --brand-700: #a8022d;
+    --brand-800: #8a0626;
+    --brand-900: #740c24;
+
+    /* ---- Neutrals ---------------------------------------------------------
+       Cool violet cast rather than warm grey, so neutrals sit with the
+       crimson brand instead of fighting it.
+    */
+    --ink:       #14121a;
+    --ink-2:     #3b3747;
+    --ink-3:     #625d72;
+    --ink-4:     #8b8599;
+    --neutral-50:  #fbfafc;
+    --neutral-100: #f4f2f7;
+    --neutral-200: #e9e6ef;
+    --neutral-300: #e4e1e9;
+    --neutral-400: #cbc6d4;
+    --neutral-500: #a39daf;
+    --neutral-600: #7d7689;
+    --neutral-700: #575265;
+    --neutral-800: #363243;
+    --neutral-900: #1f1c28;
+
+    /* ---- Semantic surfaces ---------------------------------------------- */
+    --paper:        var(--neutral-50);
+    --surface:      #ffffff;
+    --surface-sunk: var(--neutral-100);
+    --surface-alt:  var(--neutral-50);
+    --line:         var(--neutral-300);
+    --line-strong:  var(--neutral-400);
+    --line-soft:    var(--neutral-200);
+
+    --text:         var(--ink);
+    --text-muted:   var(--ink-3);
+    --text-subtle:  var(--ink-4);
+    --text-invert:  #ffffff;
+
+    --accent:       var(--brand-500);
+    --accent-text:  var(--brand-700);
+    --accent-soft:  var(--brand-50);
+    --accent-line:  var(--brand-200);
+
+    /* ---- Feedback -------------------------------------------------------- */
+    --success:      #15803d;
+    --success-soft: #eaf7ee;
+    --warning:      #b45309;
+    --warning-soft: #fdf4e7;
+    --danger:       #a8022d;
+    --danger-soft:  #fdeef1;
+    --info:         #0369a1;
+    --info-soft:    #eaf4fb;
+
+    /* ---- Task lifecycle -------------------------------------------------
+       Deliberately separate from the brand. Brand red is never a status, so
+       "rejected" uses a deeper crimson that reads as distinct from the mark.
+    */
+    --st-draft:     #64748b;
+    --st-created:   #6d28d9;
+    --st-assigned:  #3730a3;
+    --st-progress:  #0e7c86;
+    --st-submitted: #0369a1;
+    --st-review:    #b45309;
+    --st-approved:  #15803d;
+    --st-closed:    #475569;
+    --st-rejected:  #a8022d;
+    --st-revision:  #c2410c;
+    --st-hold:      #78716c;
+    --st-cancelled: #94a3b8;
+
+    /* ---- Departments ----------------------------------------------------
+       Used for the dispatch strip and department chips only.
+    */
+    --dept-seo:     #6d28d9;
+    --dept-prog:    #0e7c86;
+    --dept-uiux:    #c2410c;
+
+    /* ---- Data visualisation --------------------------------------------
+       A non-red sequence, so charts never imply "error".
+    */
+    --viz-1: #0e7c86;
+    --viz-2: #3730a3;
+    --viz-3: #b45309;
+    --viz-4: #6d28d9;
+    --viz-5: #0369a1;
+    --viz-6: #15803d;
+
+    /* ---- Typography ------------------------------------------------------ */
+    --font: "IBM Plex Sans Arabic", "Segoe UI", system-ui, -apple-system,
+            "Helvetica Neue", sans-serif;
+
+    --fs-3xs: 0.6875rem;  /* 11px  dense table meta */
+    --fs-2xs: 0.75rem;    /* 12px  labels, chips */
+    --fs-xs:  0.8125rem;  /* 13px  table body, secondary */
+    --fs-sm:  0.875rem;   /* 14px  UI default */
+    --fs-md:  0.9375rem;  /* 15px  body */
+    --fs-lg:  1.0625rem;  /* 17px  card titles */
+    --fs-xl:  1.25rem;    /* 20px  page titles */
+    --fs-2xl: 1.5rem;     /* 24px  section heroes */
+    --fs-3xl: 1.875rem;   /* 30px  stat figures */
+    --fs-4xl: 2.5rem;     /* 40px  auth wordmark, big metrics */
+
+    --fw-regular: 400;
+    --fw-medium:  500;
+    --fw-semi:    600;
+    --fw-bold:    700;
+
+    --lh-tight:  1.25;
+    --lh-snug:   1.4;
+    --lh-normal: 1.6;
+    --lh-loose:  1.75;
+
+    /* Arabic benefits from marginally looser tracking at small sizes. */
+    --ls-tight:  -0.01em;
+    --ls-normal: 0;
+    --ls-wide:   0.01em;
+
+    /* ---- Spacing — 4px base --------------------------------------------- */
+    --sp-0:  0;
+    --sp-1:  0.25rem;
+    --sp-2:  0.5rem;
+    --sp-3:  0.75rem;
+    --sp-4:  1rem;
+    --sp-5:  1.25rem;
+    --sp-6:  1.5rem;
+    --sp-7:  1.75rem;
+    --sp-8:  2rem;
+    --sp-10: 2.5rem;
+    --sp-12: 3rem;
+    --sp-16: 4rem;
+    --sp-20: 5rem;
+
+    /* ---- Radii — encodes role, not fashion -----------------------------
+       Data surfaces read as documents; controls read as pressable;
+       overlays read as detached.
+    */
+    --r-data:    4px;
+    --r-control: 6px;
+    --r-panel:   8px;
+    --r-overlay: 10px;
+    --r-pill:    999px;
+
+    /* ---- Elevation -------------------------------------------------------
+       A shadow means "this floats above the page". Static surfaces get a
+       border instead, so there is no shadow token for cards.
+    */
+    --sh-overlay: 0 4px 16px -4px rgb(20 18 26 / 0.14),
+                  0 2px 4px -2px rgb(20 18 26 / 0.08);
+    --sh-modal:   0 24px 48px -12px rgb(20 18 26 / 0.24),
+                  0 8px 16px -8px rgb(20 18 26 / 0.12);
+    --sh-focus:   0 0 0 3px var(--focus-ring);
+    --focus-ring: rgb(231 3 62 / 0.28);
+
+    /* ---- Layout ---------------------------------------------------------- */
+    --sidebar-w:      264px;
+    --sidebar-rail-w: 68px;
+    --topbar-h:       56px;
+    --content-max:    1560px;
+    --page-pad:       var(--sp-6);
+
+    /* ---- Density ---------------------------------------------------------
+       Overridden by [data-density="compact"] for managers scanning
+       hundreds of rows.
+    */
+    --row-h:      48px;
+    --cell-pad-y: var(--sp-3);
+    --cell-pad-x: var(--sp-4);
+
+    /* ---- Motion ---------------------------------------------------------- */
+    --dur-instant: 80ms;
+    --dur-fast:    140ms;
+    --dur-base:    200ms;
+    --dur-slow:    320ms;
+    --ease:        cubic-bezier(0.2, 0, 0.2, 1);
+    --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* ---- Z-index scale --------------------------------------------------- */
+    --z-base:     0;
+    --z-sticky:   10;
+    --z-sidebar:  20;
+    --z-topbar:   30;
+    --z-fab:      40;
+    --z-dropdown: 50;
+    --z-backdrop: 60;
+    --z-drawer:   70;
+    --z-modal:    80;
+    --z-toast:    90;
+    --z-palette:  100;
+  }
+
+  /* ---- Compact density -------------------------------------------------- */
+  :root[data-density="compact"] {
+    --row-h:      36px;
+    --cell-pad-y: var(--sp-1);
+    --cell-pad-x: var(--sp-3);
+  }
+
+  /* ---- Dark theme --------------------------------------------------------
+     Only semantic tokens are reassigned. The brand ramp lightens one step so
+     the mark holds its saturation against a dark surface.
+  */
+  :root[data-theme="dark"] {
+    --paper:        #100e15;
+    --surface:      #1a1822;
+    --surface-sunk: #14121a;
+    --surface-alt:  #201d29;
+    --line:         #2e2a3a;
+    --line-strong:  #423d52;
+    --line-soft:    #252231;
+
+    --text:         #f2f0f6;
+    --text-muted:   #a8a2b6;
+    --text-subtle:  #7d7689;
+    --text-invert:  #14121a;
+
+    --accent:       #ff2e5f;
+    --accent-text:  #ff7d9a;
+    --accent-soft:  #2b1119;
+    --accent-line:  #5e1128;
+
+    --success:      #4ade80;
+    --success-soft: #11241a;
+    --warning:      #fbbf24;
+    --warning-soft: #261c0c;
+    --danger:       #ff6b85;
+    --danger-soft:  #2b1018;
+    --info:         #60a5fa;
+    --info-soft:    #0f1c2b;
+
+    --st-draft:     #94a3b8;
+    --st-created:   #a78bfa;
+    --st-assigned:  #818cf8;
+    --st-progress:  #2dd4bf;
+    --st-submitted: #60a5fa;
+    --st-review:    #fbbf24;
+    --st-approved:  #4ade80;
+    --st-closed:    #94a3b8;
+    --st-rejected:  #ff6b85;
+    --st-revision:  #fb923c;
+    --st-hold:      #a8a29e;
+    --st-cancelled: #64748b;
+
+    --dept-seo:     #a78bfa;
+    --dept-prog:    #2dd4bf;
+    --dept-uiux:    #fb923c;
+
+    --viz-1: #2dd4bf;
+    --viz-2: #818cf8;
+    --viz-3: #fbbf24;
+    --viz-4: #a78bfa;
+    --viz-5: #60a5fa;
+    --viz-6: #4ade80;
+
+    --focus-ring: rgb(255 46 95 / 0.36);
+    --sh-overlay: 0 4px 16px -4px rgb(0 0 0 / 0.5),
+                  0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --sh-modal:   0 24px 48px -12px rgb(0 0 0 / 0.64),
+                  0 8px 16px -8px rgb(0 0 0 / 0.48);
+  }
+
+  /* System preference, only when the user has not chosen explicitly. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #100e15;
+      --surface:      #1a1822;
+      --surface-sunk: #14121a;
+      --surface-alt:  #201d29;
+      --line:         #2e2a3a;
+      --line-strong:  #423d52;
+      --line-soft:    #252231;
+
+      --text:         #f2f0f6;
+      --text-muted:   #a8a2b6;
+      --text-subtle:  #7d7689;
+      --text-invert:  #14121a;
+
+      --accent:       #ff2e5f;
+      --accent-text:  #ff7d9a;
+      --accent-soft:  #2b1119;
+      --accent-line:  #5e1128;
+
+      --success:      #4ade80;
+      --success-soft: #11241a;
+      --warning:      #fbbf24;
+      --warning-soft: #261c0c;
+      --danger:       #ff6b85;
+      --danger-soft:  #2b1018;
+      --info:         #60a5fa;
+      --info-soft:    #0f1c2b;
+
+      --st-draft:     #94a3b8;
+      --st-created:   #a78bfa;
+      --st-assigned:  #818cf8;
+      --st-progress:  #2dd4bf;
+      --st-submitted: #60a5fa;
+      --st-review:    #fbbf24;
+      --st-approved:  #4ade80;
+      --st-closed:    #94a3b8;
+      --st-rejected:  #ff6b85;
+      --st-revision:  #fb923c;
+      --st-hold:      #a8a29e;
+      --st-cancelled: #64748b;
+
+      --dept-seo:     #a78bfa;
+      --dept-prog:    #2dd4bf;
+      --dept-uiux:    #fb923c;
+
+      --viz-1: #2dd4bf;
+      --viz-2: #818cf8;
+      --viz-3: #fbbf24;
+      --viz-4: #a78bfa;
+      --viz-5: #60a5fa;
+      --viz-6: #4ade80;
+
+      --focus-ring: rgb(255 46 95 / 0.36);
+      --sh-overlay: 0 4px 16px -4px rgb(0 0 0 / 0.5),
+                    0 2px 4px -2px rgb(0 0 0 / 0.4);
+      --sh-modal:   0 24px 48px -12px rgb(0 0 0 / 0.64),
+                    0 8px 16px -8px rgb(0 0 0 / 0.48);
+    }
+  }
+}

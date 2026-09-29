@@ -1,0 +1,422 @@
+/* ==========================================================================
+   Forms
+   Errors explain what went wrong and how to fix it. They never apologise.
+   ========================================================================== */
+
+@layer components {
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    min-width: 0;
+  }
+
+  .field__label {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+  }
+
+  .field__req {
+    color: var(--accent-text);
+    font-weight: var(--fw-semi);
+  }
+
+  .field__optional {
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-regular);
+    color: var(--text-subtle);
+  }
+
+  /* Help text sits under the label, before the input, so it is read before
+     the field is filled rather than after. */
+  .field__help {
+    font-size: var(--fs-2xs);
+    line-height: var(--lh-snug);
+    color: var(--text-muted);
+    max-width: 60ch;
+  }
+
+  .field__error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    font-size: var(--fs-2xs);
+    line-height: var(--lh-snug);
+    color: var(--danger);
+    font-weight: var(--fw-medium);
+  }
+
+  /* ---- Controls ---------------------------------------------------------- */
+  .input,
+  .select,
+  .textarea {
+    width: 100%;
+    min-height: 38px;
+    padding-inline: var(--sp-3);
+    padding-block: var(--sp-2);
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-control);
+    font-size: var(--fs-sm);
+    transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease);
+  }
+
+  .input::placeholder,
+  .textarea::placeholder {
+    color: var(--text-subtle);
+  }
+
+  .input:hover,
+  .select:hover,
+  .textarea:hover {
+    border-color: var(--text-subtle);
+  }
+
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: var(--sh-focus);
+  }
+
+  .input:disabled,
+  .select:disabled,
+  .textarea:disabled {
+    background-color: var(--surface-sunk);
+    color: var(--text-subtle);
+  }
+
+  .input[aria-invalid="true"],
+  .select[aria-invalid="true"],
+  .textarea[aria-invalid="true"] {
+    border-color: var(--danger);
+  }
+
+  .input[aria-invalid="true"]:focus,
+  .textarea[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px rgb(168 2 45 / 0.2);
+  }
+
+  .textarea {
+    min-height: 96px;
+    resize: vertical;
+    line-height: var(--lh-normal);
+  }
+
+  /* ---- Select -----------------------------------------------------------
+     The caret is drawn with a gradient pair so no image asset is needed, and
+     it is positioned logically so it lands on the correct side under RTL.
+  */
+  .select {
+    appearance: none;
+    padding-inline-end: var(--sp-8);
+    background-image:
+      linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    background-position:
+      right var(--sp-4) calc(50% - 2px),
+      right calc(var(--sp-4) + 5px) calc(50% - 2px);
+  }
+
+  [dir="rtl"] .select {
+    background-position:
+      left var(--sp-4) calc(50% - 2px),
+      left calc(var(--sp-4) + 5px) calc(50% - 2px);
+  }
+
+  /* ---- Input with affix ------------------------------------------------- */
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding-inline: var(--sp-3);
+    background-color: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-control);
+    transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease);
+  }
+
+  .input-group:focus-within {
+    border-color: var(--accent);
+    box-shadow: var(--sh-focus);
+  }
+
+  .input-group__affix {
+    color: var(--text-subtle);
+    flex: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-group .input {
+    border: 0;
+    box-shadow: none;
+    padding-inline: 0;
+    background: transparent;
+  }
+
+  .input-group .input:focus {
+    box-shadow: none;
+  }
+
+  /* ---- Checkbox and radio ----------------------------------------------- */
+  .check {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    cursor: pointer;
+    font-size: var(--fs-sm);
+  }
+
+  .check__input {
+    appearance: none;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-block-start: 1px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--r-data);
+    background-color: var(--surface);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease),
+                border-color var(--dur-fast) var(--ease);
+  }
+
+  .check__input[type="radio"] {
+    border-radius: var(--r-pill);
+  }
+
+  .check__input::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    transform: scale(0);
+    transition: transform var(--dur-fast) var(--ease-out);
+    background-color: #ffffff;
+    clip-path: polygon(14% 44%, 0 65%, 43% 100%, 100% 16%, 82% 0%, 39% 70%);
+  }
+
+  .check__input[type="radio"]::before {
+    clip-path: circle(50%);
+    width: 8px;
+    height: 8px;
+  }
+
+  .check__input:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .check__input:checked::before {
+    transform: scale(1);
+  }
+
+  .check__input:indeterminate {
+    background-color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .check__input:indeterminate::before {
+    transform: scale(1);
+    clip-path: inset(42% 10% 42% 10%);
+  }
+
+  .check__input:hover:not(:checked) {
+    border-color: var(--text-subtle);
+  }
+
+  .check__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .check__hint {
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+    line-height: var(--lh-snug);
+  }
+
+  /* ---- Switch -----------------------------------------------------------
+     For settings that take effect immediately. A checkbox is used where the
+     change needs a save action.
+  */
+  .switch {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    cursor: pointer;
+  }
+
+  .switch__input {
+    appearance: none;
+    flex: none;
+    width: 38px;
+    height: 22px;
+    border-radius: var(--r-pill);
+    background-color: var(--line-strong);
+    position: relative;
+    cursor: pointer;
+    transition: background-color var(--dur-base) var(--ease);
+  }
+
+  .switch__input::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 3px;
+    inset-inline-start: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--r-pill);
+    background-color: #ffffff;
+    transition: translate var(--dur-base) var(--ease-out);
+  }
+
+  .switch__input:checked {
+    background-color: var(--accent);
+  }
+
+  .switch__input:checked::after {
+    translate: 16px 0;
+  }
+
+  [dir="rtl"] .switch__input:checked::after {
+    translate: -16px 0;
+  }
+
+  /* ---- Field rows -------------------------------------------------------- */
+  .field-row {
+    display: grid;
+    gap: var(--sp-4);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .fieldset__legend {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semi);
+    padding-block-end: var(--sp-2);
+    border-block-end: 1px solid var(--line);
+    width: 100%;
+  }
+
+  /* ---- Code input — 2FA -------------------------------------------------
+     Six boxes, wide tracking, tabular figures. Forced LTR because a numeric
+     code is read left to right even in an Arabic interface.
+  */
+  .code-input {
+    display: flex;
+    gap: var(--sp-2);
+    direction: ltr;
+  }
+
+  .code-input__box {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums lining-nums;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-control);
+    background-color: var(--surface);
+    color: var(--text);
+    transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease);
+  }
+
+  .code-input__box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: var(--sh-focus);
+  }
+
+  .code-input__box[data-filled="true"] {
+    border-color: var(--accent-line);
+    background-color: var(--accent-soft);
+  }
+
+  @media (max-width: 420px) {
+    .code-input__box {
+      width: 40px;
+      height: 48px;
+      font-size: var(--fs-xl);
+    }
+  }
+
+  /* ---- Form actions ----------------------------------------------------- */
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    padding-block-start: var(--sp-5);
+    border-block-start: 1px solid var(--line);
+  }
+
+  /* ---- Sticky form footer for long creation forms ----------------------- */
+  .form-dock {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-panel);
+    box-shadow: var(--sh-overlay);
+    flex-wrap: wrap;
+  }
+
+  /* ---- File drop -------------------------------------------------------- */
+  .dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-8) var(--sp-5);
+    border: 1.5px dashed var(--line-strong);
+    border-radius: var(--r-panel);
+    background-color: var(--surface-alt);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease),
+                background-color var(--dur-fast) var(--ease);
+  }
+
+  .dropzone:hover,
+  .dropzone:focus-visible {
+    border-color: var(--accent);
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+  }
+
+  .dropzone__title {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+  }
+}

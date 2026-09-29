@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مهامي · إدارة المشاريع</title>
+<meta name="description" content="المهام المسندة إليك مرتبة بما يجب فعله أولًا.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">مهامي</h1>
+          <p class="page-head__sub">
+            مهامك أنت، مرتبة بما يستحق انتباهك أولًا. لوحة التحكم تعرض الصورة الإدارية الكاملة؛
+            هذه الصفحة تعرض عملك فقط.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <div class="btn-group" role="group" aria-label="طريقة العرض">
+            <button class="btn btn--secondary btn--sm" type="button" aria-pressed="true" data-action="demo-soon">لوح</button>
+            <button class="btn btn--secondary btn--sm" type="button" aria-pressed="false" data-action="demo-soon">قائمة</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- What needs attention now, before anything else. -->
+      <div class="alert alert--danger">
+        <span class="alert__body">
+          <strong class="alert__title">مهمة واحدة تجاوزت موعدها ومهمتان تستحقان غدًا</strong>
+          <span class="alert__text">
+            <a href="../tasks/rejected.html">UIX-0391</a> متأخرة بيومين وتحتاج تعديلًا للجولة الثالثة.
+          </span>
+        </span>
+      </div>
+
+      <div class="grid grid--stats">
+        <article class="stat stat--flag" data-flag="danger">
+          <p class="stat__label">متأخرة</p>
+          <p class="stat__value">1</p>
+          <p class="stat__foot"><span>ابدأ بها</span></p>
+        </article>
+        <article class="stat stat--flag" data-flag="warning">
+          <p class="stat__label">تستحق هذا الأسبوع</p>
+          <p class="stat__value">3</p>
+          <p class="stat__foot"><span>منها مهمتان غدًا</span></p>
+        </article>
+        <article class="stat">
+          <p class="stat__label">قيد التنفيذ</p>
+          <p class="stat__value">4</p>
+          <p class="stat__foot"><span>من أصل 7 مسندة إليك</span></p>
+        </article>
+        <article class="stat">
+          <p class="stat__label">جودتك — آخر 90 يومًا</p>
+          <p class="stat__value">92<span class="stat__unit">%</span></p>
+          <p class="stat__foot"><span class="delta delta--up">▲ 3</span><span>نقاط</span></p>
+        </article>
+      </div>
+
+      <!-- The board: columns by status, which is how an agent actually thinks
+           about their own queue. -->
+      <section class="stack-3">
+        <div class="section__head">
+          <h2 class="section__title">لوح مهامي</h2>
+          <span class="section__note">
+            تغيير الحالة متاح لك — منحك قائد الفريق هذه الصلاحية
+          </span>
+        </div>
+
+        <div class="board">
+          <div class="board__col">
+            <div class="board__head" data-status="assigned">
+              <span class="t-xs fw-semi">مُسندة إليّ</span>
+              <span class="board__count">2</span>
+            </div>
+
+            <article class="tcard" data-status="assigned">
+              <a class="tcard__title" href="../tasks/detail.html">بناء خريطة موقع XML ديناميكية مع أولويات محدثة</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1844</span> · سيو تقني</p>
+              <div class="tcard__foot">
+                <span class="due" data-sla="ok">28 سبتمبر</span>
+                <span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span></span>
+              </div>
+            </article>
+
+            <article class="tcard" data-status="assigned">
+              <a class="tcard__title" href="../tasks/detail.html">تحسين وسوم العناوين للصفحات الرئيسية</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1848</span> · سيو تقني</p>
+              <div class="tcard__foot">
+                <span class="due" data-sla="ok">2 أكتوبر</span>
+                <span class="priority" data-priority="low"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span></span>
+              </div>
+            </article>
+          </div>
+
+          <div class="board__col">
+            <div class="board__head" data-status="progress">
+              <span class="t-xs fw-semi">قيد التنفيذ</span>
+              <span class="board__count">3</span>
+            </div>
+
+            <article class="tcard" data-status="progress">
+              <a class="tcard__title" href="../tasks/detail.html">تحسين زمن تحميل صفحة المنتج إلى أقل من ثانيتين</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1842</span> · سرعة الصفحات</p>
+              <div class="tcard__foot">
+                <span class="due" data-sla="soon">18 سبتمبر</span>
+                <span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span></span>
+              </div>
+            </article>
+
+            <article class="tcard" data-status="progress">
+              <a class="tcard__title" href="../tasks/detail.html">إضافة ترميز Breadcrumb لكل مستويات الأقسام</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1841</span> · بيانات منظمة</p>
+              <div class="tcard__foot">
+                <span class="due" data-sla="ok">24 سبتمبر</span>
+                <span class="revisions" data-count="1">1</span>
+              </div>
+            </article>
+
+            <article class="tcard" data-status="progress">
+              <a class="tcard__title" href="../tasks/detail.html">إصلاح روابط 404 في قسم المدونة</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1847</span> · سيو تقني</p>
+              <div class="tcard__foot">
+                <span class="due" data-sla="soon">17 سبتمبر</span>
+                <span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span></span>
+              </div>
+            </article>
+          </div>
+
+          <div class="board__col">
+            <div class="board__head" data-status="revision">
+              <span class="t-xs fw-semi">تحتاج تعديل</span>
+              <span class="board__count">1</span>
+            </div>
+
+            <article class="tcard" data-status="revision">
+              <a class="tcard__title" href="../tasks/rejected.html">تصميم صفحة هبوط لحملة الرياض الموسمية</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">UIX-0391</span> · الجولة 3</p>
+              <div class="tcard__foot">
+                <span class="due" data-sla="overdue">متأخرة بيومين</span>
+                <span class="revisions" data-count="3" data-warn="true">3</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="board__col">
+            <div class="board__head" data-status="review">
+              <span class="t-xs fw-semi">بانتظار المراجعة</span>
+              <span class="board__count">1</span>
+            </div>
+
+            <article class="tcard" data-status="review">
+              <a class="tcard__title" href="../tasks/detail.html">إضافة بيانات منظمة Article لصفحات المدونة</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1839</span> · منتظرة 6 ساعات</p>
+              <div class="tcard__foot">
+                <span class="t-3xs t-subtle">عند أحمد سعيد</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="board__col">
+            <div class="board__head" data-status="approved">
+              <span class="t-xs fw-semi">معتمدة هذا الأسبوع</span>
+              <span class="board__count">5</span>
+            </div>
+
+            <article class="tcard" data-status="approved">
+              <a class="tcard__title" href="../tasks/detail.html">إصلاح روابط 404 الناتجة عن تغيير بنية الأقسام</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1836</span></p>
+              <div class="tcard__foot">
+                <span class="score" data-band="high">98%</span>
+              </div>
+            </article>
+
+            <article class="tcard" data-status="approved">
+              <a class="tcard__title" href="../tasks/detail.html">إضافة وسوم canonical لصفحات التصفية</a>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1829</span></p>
+              <div class="tcard__foot">
+                <span class="score" data-band="high">95%</span>
+              </div>
+            </article>
+
+            <button class="btn btn--quiet btn--block" type="button" data-action="demo-soon">عرض الخمسة كلها</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid grid--halves">
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">أدائي</h2>
+            <a class="btn btn--quiet" href="../people/employee-profile.html">ملفي الكامل</a>
+          </div>
+          <div class="panel__body stack-3">
+            <div class="meter" data-band="high">
+              <div class="meter__head"><span class="meter__label">جودة المهام</span><span class="meter__value">92%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:92%"></span></div>
+            </div>
+            <div class="meter" data-band="high">
+              <div class="meter__head"><span class="meter__label">الالتزام بالمواعيد</span><span class="meter__value">95%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:95%"></span></div>
+            </div>
+            <div class="meter" data-band="high">
+              <div class="meter__head"><span class="meter__label">الاعتماد من أول مرة</span><span class="meter__value">88%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:88%"></span></div>
+            </div>
+            <div class="meter" data-band="high">
+              <div class="meter__head"><span class="meter__label">نسبة الرفض</span><span class="meter__value">4%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:4%"></span></div>
+            </div>
+            <p class="t-3xs t-subtle">
+              مقياس الجودة نفسه الذي يراه قائد فريقك. لا يوجد تقييم خفي.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2 class="panel__title">آخر الأحداث على مهامي</h2></div>
+          <div class="panel__body">
+            <div class="timeline">
+              <div class="tl-item" data-status="rejected">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">ليان مرزوق</span>
+                    <span class="tl-item__what">طلبت تعديلًا على UIX-0391</span>
+                    <span class="tl-item__when">قبل ساعتين</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item" data-status="submitted">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">أنت</span>
+                    <span class="tl-item__what">قدّمت PRG-1839 للمراجعة</span>
+                    <span class="tl-item__when">قبل 6 ساعات</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item" data-status="assigned">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">أحمد سعيد</span>
+                    <span class="tl-item__what">أسند إليك PRG-1848</span>
+                    <span class="tl-item__when">أمس 14:20</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item" data-status="approved">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">أحمد سعيد</span>
+                    <span class="tl-item__what">اعتمد PRG-1836 بجودة 98%</span>
+                    <span class="tl-item__when">أمس 09:05</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'my-work', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

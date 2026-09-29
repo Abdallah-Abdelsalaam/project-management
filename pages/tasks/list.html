@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>كل المهام · إدارة المشاريع</title>
+<meta name="description" content="قائمة كل المهام مع التصفية والترتيب.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">كل المهام</h1>
+          <p class="page-head__sub">
+            النطاق المعروض بدورك الحالي: <strong data-role-scope>كل الأقسام</strong>.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <div class="btn-group" role="group" aria-label="طريقة العرض">
+            <button class="btn btn--secondary btn--sm" type="button" aria-pressed="true" data-action="demo-soon">جدول</button>
+            <button class="btn btn--secondary btn--sm" type="button" aria-pressed="false" data-action="demo-soon">لوح</button>
+          </div>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="reports.view">تصدير</button>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="panel__body" style="padding-block-end: var(--sp-4);">
+          <div class="views" role="group" aria-label="عروض محفوظة">
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="true">الكل <span class="view-tab__count">284</span></button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">البرمجة <span class="view-tab__count">168</span></button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">UI/UX <span class="view-tab__count">116</span></button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">متأخرة <span class="view-tab__count">9</span></button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">بلا إسناد <span class="view-tab__count">22</span></button>
+          </div>
+
+          <div class="filters mbs-4">
+            <div class="filters__row">
+              <span class="t-3xs t-subtle flex-none">تصفية:</span>
+
+              <div class="input-group" style="min-width: 240px;">
+                <span class="input-group__affix">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+                </span>
+                <input class="input" type="search" placeholder="ابحث بالعنوان أو الرقم المرجعي" aria-label="بحث في المهام">
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="tDept" aria-expanded="false" aria-haspopup="true">
+                  القسم <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="tDept" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>البرمجة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>UI/UX</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="tStatus" aria-expanded="false" aria-haspopup="true">
+                  الحالة <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--wide" id="tStatus" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="created">بانتظار الإسناد</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="assigned">مُسندة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="progress">قيد التنفيذ</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="review">قيد المراجعة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="revision">تحتاج تعديل</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="approved">معتمدة</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="tLead" aria-expanded="false" aria-haspopup="true">
+                  قائد الفريق <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="tLead" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>أحمد سعيد</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>عمر الحارثي</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>ليان مرزوق</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>نورة الشمري</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="tPri" aria-expanded="false" aria-haspopup="true">
+                  الأولوية <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="tPri" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>عاجلة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>عالية</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>متوسطة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>منخفضة</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="tDate" aria-expanded="false" aria-haspopup="true">
+                  التاريخ <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="tDate" hidden>
+                  <button class="menu__item" type="button">آخر 7 أيام</button>
+                  <button class="menu__item" type="button">آخر 30 يومًا</button>
+                  <button class="menu__item" type="button">آخر 90 يومًا</button>
+                  <button class="menu__item" type="button">فترة مخصصة…</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bulk-bar" hidden data-perm-any="tasks.assign,tasks.bulk">
+          <span class="bulk-bar__count">0 مهمة محددة</span>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="tasks.assign">إسناد</button>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="tasks.status.any">تغيير الحالة</button>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">تعديل الأولوية</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">كل المهام</caption>
+            <thead>
+              <tr>
+                <th class="cell-select" scope="col"><input class="check__input all-check" type="checkbox" aria-label="تحديد الكل"></th>
+                <th scope="col"><button class="th-sort" type="button">المهمة <span class="th-sort__caret" aria-hidden="true">▾</span></button></th>
+                <th scope="col">القسم</th>
+                <th scope="col">المُنشئ</th>
+                <th scope="col">الموظف المسؤول</th>
+                <th scope="col">الحالة</th>
+                <th scope="col">الأولوية</th>
+                <th scope="col">الجودة</th>
+                <th scope="col"><button class="th-sort" type="button">الاستحقاق <span class="th-sort__caret" aria-hidden="true">▾</span></button></th>
+                <th class="cell-actions" scope="col"><span class="sr-only">إجراءات</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-status="progress">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد PRG-1842"></td>
+                <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">تحسين زمن تحميل صفحة المنتج إلى أقل من ثانيتين</a><span class="task-title__meta"><span class="task-ref">PRG-1842</span> · سرعة الصفحات</span></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="المُنشئ"><span class="person__name">أحمد سالم</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">م ف</span><div class="person__text"><span class="person__name">محمد فتحي</span><span class="person__meta">جودة 92%</span></div></div></td>
+                <td data-label="الحالة"><span class="status status--live" data-status="progress">قيد التنفيذ</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">94%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:94%"></span></span></span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="soon">18 سبتمبر</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="created">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد PRG-1845"></td>
+                <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">معالجة المحتوى المكرر في صفحات التصفية</a><span class="task-title__meta"><span class="task-ref">PRG-1845</span> · سيو تقني</span></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="المُنشئ"><span class="person__name">طارق عوض</span></td>
+                <td data-label="الموظف"><div class="person person--unassigned"><span class="avatar avatar--sm" aria-hidden="true">؟</span><div class="person__text"><span class="person__name">لم يُسند بعد</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="created">بانتظار الإسناد</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="none">—</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">25 سبتمبر</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="revision">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد UIX-0391"></td>
+                <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">تصميم صفحة هبوط لحملة الرياض الموسمية</a><span class="task-title__meta"><span class="task-ref">UIX-0391</span> · تصميم صفحة</span></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="المُنشئ"><span class="person__name">أحمد سالم</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ر خ</span><div class="person__text"><span class="person__name">رنا خليل</span><span class="person__meta">جودة 71%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="revision">تحتاج تعديل</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="urgent"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عاجلة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="low">62%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:62%"></span></span></span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="overdue">14 سبتمبر</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="review">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد PRG-1839"></td>
+                <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">إضافة بيانات منظمة Article لصفحات المدونة</a><span class="task-title__meta"><span class="task-ref">PRG-1839</span> · بيانات منظمة</span></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="المُنشئ"><span class="person__name">لمى حسن</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">ي د</span><div class="person__text"><span class="person__name">ياسر الدوسري</span><span class="person__meta">جودة 88%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="review">قيد المراجعة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">90%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:90%"></span></span></span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">22 سبتمبر</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="approved">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد PRG-1836"></td>
+                <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">إصلاح روابط 404 الناتجة عن تغيير بنية الأقسام</a><span class="task-title__meta"><span class="task-ref">PRG-1836</span> · سيو تقني</span></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="المُنشئ"><span class="person__name">لمى حسن</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">س ي</span><div class="person__text"><span class="person__name">سارة يوسف</span><span class="person__meta">جودة 96%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="approved">معتمدة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">98%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:98%"></span></span></span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">10 سبتمبر</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="hold">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد UIX-0384"></td>
+                <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">تصميم نظام أيقونات موحّد لصفحات الأقسام</a><span class="task-title__meta"><span class="task-ref">UIX-0384</span> · تصميم مكوّن</span></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="المُنشئ"><span class="person__name">لمى حسن</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ب ز</span><div class="person__text"><span class="person__name">بدر الزهراني</span><span class="person__meta">جودة 64%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="hold">معلّقة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="low"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">منخفضة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="none">—</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="none">بلا موعد</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel__foot">
+          <p class="pagination__summary">عرض <strong>1–30</strong> من <strong>284</strong> مهمة</p>
+          <nav class="pagination__pages" aria-label="تنقل بين الصفحات">
+            <button class="page-btn" type="button" disabled aria-label="السابق">›</button>
+            <button class="page-btn" type="button" aria-current="page">1</button>
+            <button class="page-btn" type="button">2</button>
+            <button class="page-btn" type="button">3</button>
+            <span class="page-gap" aria-hidden="true">…</span>
+            <button class="page-btn" type="button">10</button>
+            <button class="page-btn" type="button" aria-label="التالي">‹</button>
+          </nav>
+          <div class="pagination__size">
+            <label for="ps">لكل صفحة</label>
+            <select class="select" id="ps"><option>15</option><option selected>30</option><option>50</option><option>100</option></select>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'tasks', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

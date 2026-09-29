@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الموظفون · إدارة المشاريع</title>
+<meta name="description" content="قائمة الموظفين مع أدائهم وحملهم الحالي.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">الموظفون</h1>
+          <p class="page-head__sub">
+            18 موظفًا في ثلاثة أقسام. النطاق المعروض بدورك: <strong data-role-scope>كل الأقسام</strong>.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="employee.move">نقل موظفين</button>
+          <button class="btn btn--primary btn--sm" type="button" data-open="addEmpModal" data-perm="team.assign">إضافة موظف</button>
+        </div>
+      </div>
+
+      <div class="grid grid--stats">
+        <article class="stat">
+          <p class="stat__label">إجمالي الموظفين</p>
+          <p class="stat__value">18</p>
+          <p class="stat__foot"><span>9 سيو · 11 برمجة · 7 UI/UX</span></p>
+        </article>
+        <article class="stat">
+          <p class="stat__label">متوسط جودة الموظفين</p>
+          <p class="stat__value">84<span class="stat__unit">%</span></p>
+          <p class="stat__foot"><span class="delta delta--up">▲ 2</span><span>نقاط</span></p>
+        </article>
+        <article class="stat stat--flag" data-flag="warning">
+          <p class="stat__label">حمل مرتفع</p>
+          <p class="stat__value">3</p>
+          <p class="stat__foot"><span>أكثر من 6 مهام نشطة</span></p>
+        </article>
+        <article class="stat stat--flag" data-flag="danger">
+          <p class="stat__label">جودة تحت 70%</p>
+          <p class="stat__value">2</p>
+          <p class="stat__foot"><span>تستدعي متابعة من قائد الفريق</span></p>
+        </article>
+      </div>
+
+      <section class="panel">
+        <div class="panel__head">
+          <h2 class="panel__title">القائمة</h2>
+          <div class="row row--tight">
+            <div class="input-group" style="min-width: 220px;">
+              <span class="input-group__affix">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+              </span>
+              <input class="input" type="search" placeholder="ابحث بالاسم" aria-label="بحث عن موظف">
+            </div>
+
+            <div class="menu-anchor">
+              <button class="filter-chip" type="button" data-menu="eDept" aria-expanded="false" aria-haspopup="true">
+                القسم <span class="filter-chip__caret" aria-hidden="true">▾</span>
+              </button>
+              <div class="menu menu--end" id="eDept" hidden>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>السيو</span></label>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>البرمجة</span></label>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>UI/UX</span></label>
+              </div>
+            </div>
+
+            <div class="menu-anchor">
+              <button class="filter-chip" type="button" data-menu="eLead" aria-expanded="false" aria-haspopup="true">
+                قائد الفريق <span class="filter-chip__caret" aria-hidden="true">▾</span>
+              </button>
+              <div class="menu menu--end" id="eLead" hidden>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>أحمد سعيد</span></label>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>عمر الحارثي</span></label>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>ليان مرزوق</span></label>
+                <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>نورة الشمري</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">قائمة الموظفين</caption>
+            <thead>
+              <tr>
+                <th scope="col">الموظف</th>
+                <th scope="col">القسم</th>
+                <th scope="col">قائد الفريق</th>
+                <th scope="col">مهام نشطة</th>
+                <th scope="col"><button class="th-sort" type="button">جودة الموظف <span class="th-sort__caret" aria-hidden="true">▾</span></button></th>
+                <th scope="col">الالتزام بالمواعيد</th>
+                <th scope="col">نسبة الرفض</th>
+                <th scope="col">تغيير الحالة</th>
+                <th class="cell-actions" scope="col"><span class="sr-only">إجراءات</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">س ي</span><div class="person__text"><a class="person__name" href="employee-profile.html">سارة يوسف</a><span class="person__meta">مطوّرة أولى</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">عمر الحارثي</span></td>
+                <td class="cell-num" data-label="مهام نشطة">2</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">96%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:96%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">98%</td>
+                <td class="cell-num" data-label="الرفض">2%</td>
+                <td data-label="تغيير الحالة"><span class="badge badge--success">مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">م ف</span><div class="person__text"><a class="person__name" href="employee-profile.html">محمد فتحي</a><span class="person__meta">مطوّر</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">أحمد سعيد</span></td>
+                <td class="cell-num" data-label="مهام نشطة">4</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">92%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:92%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">95%</td>
+                <td class="cell-num" data-label="الرفض">4%</td>
+                <td data-label="تغيير الحالة"><span class="badge badge--success">مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">ي د</span><div class="person__text"><a class="person__name" href="employee-profile.html">ياسر الدوسري</a><span class="person__meta">مطوّر</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">أحمد سعيد</span></td>
+                <td class="cell-num" data-label="مهام نشطة"><span class="t-warning fw-semi">6</span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">88%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:88%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">86%</td>
+                <td class="cell-num" data-label="الرفض">7%</td>
+                <td data-label="تغيير الحالة"><span class="badge badge--success">مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ه ع</span><div class="person__text"><a class="person__name" href="employee-profile.html">هيا العتيبي</a><span class="person__meta">مصممة تجربة</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">ليان مرزوق</span></td>
+                <td class="cell-num" data-label="مهام نشطة">3</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">84%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:84%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">90%</td>
+                <td class="cell-num" data-label="الرفض">8%</td>
+                <td data-label="تغيير الحالة"><span class="badge badge--success">مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">ف م</span><div class="person__text"><a class="person__name" href="employee-profile.html">فهد المطيري</a><span class="person__meta">مطوّر</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">عمر الحارثي</span></td>
+                <td class="cell-num" data-label="مهام نشطة">5</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">79%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:79%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">82%</td>
+                <td class="cell-num" data-label="الرفض">11%</td>
+                <td data-label="تغيير الحالة"><span class="badge badge--success">مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ر خ</span><div class="person__text"><a class="person__name" href="employee-profile.html">رنا خليل</a><span class="person__meta">مصممة</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">ليان مرزوق</span></td>
+                <td class="cell-num" data-label="مهام نشطة">5</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">71%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:71%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">74%</td>
+                <td class="cell-num" data-label="الرفض"><span class="t-warning fw-semi">16%</span></td>
+                <td data-label="تغيير الحالة"><span class="badge">غير مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ب ز</span><div class="person__text"><a class="person__name" href="employee-profile.html">بدر الزهراني</a><span class="person__meta">مصمم</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">نورة الشمري</span></td>
+                <td class="cell-num" data-label="مهام نشطة">4</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="low">64%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:64%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">68%</td>
+                <td class="cell-num" data-label="الرفض"><span class="t-danger fw-semi">21%</span></td>
+                <td data-label="تغيير الحالة"><span class="badge">غير مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="seo">أ س</span><div class="person__text"><a class="person__name" href="employee-profile.html">أحمد سالم</a><span class="person__meta">أخصائي سيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="seo">السيو</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">ريم القحطاني</span></td>
+                <td class="cell-num" data-label="مهام نشطة">7</td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">90%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:90%"></span></span></span></td>
+                <td class="cell-num" data-label="الالتزام">93%</td>
+                <td class="cell-num" data-label="الرفض">5%</td>
+                <td data-label="تغيير الحالة"><span class="badge badge--success">مسموح</span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel__foot">
+          <p class="pagination__summary">عرض <strong>1–8</strong> من <strong>18</strong> موظفًا</p>
+          <nav class="pagination__pages" aria-label="تنقل بين الصفحات">
+            <button class="page-btn" type="button" disabled aria-label="السابق">›</button>
+            <button class="page-btn" type="button" aria-current="page">1</button>
+            <button class="page-btn" type="button">2</button>
+            <button class="page-btn" type="button">3</button>
+            <button class="page-btn" type="button" aria-label="التالي">‹</button>
+          </nav>
+          <div class="pagination__size">
+            <label for="eps">لكل صفحة</label>
+            <select class="select" id="eps"><option>15</option><option selected>30</option><option>50</option></select>
+          </div>
+        </div>
+      </section>
+
+      <p class="note">
+        <strong>عمود «تغيير الحالة»</strong> يعرض ما إذا كان الموظف مسموحًا له بتغيير حالة مهامه.
+        يضبطه قائد الفريق لكل موظف على حدة من صفحة الفريق.
+      </p>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="addEmpModal" hidden></div>
+<div class="modal-shell" id="addEmpModal" role="dialog" aria-modal="true" aria-labelledby="aeTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="aeTitle">إضافة موظف</h2>
+        <p class="modal__sub">يُنشأ الحساب ويُرسل بريد تعيين كلمة المرور.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="addEmpModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="aeName">الاسم <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="aeName" type="text" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="aeMail">بريد العمل <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="aeMail" type="email" dir="ltr" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="aeDept">القسم <span class="field__req" aria-hidden="true">*</span></label>
+          <select class="select" id="aeDept" required>
+            <option>السيو</option><option>البرمجة</option><option>UI/UX</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="aeRole">الدور <span class="field__req" aria-hidden="true">*</span></label>
+          <select class="select" id="aeRole" required>
+            <option>موظف</option><option>قائد الفريق</option><option>رئيس القسم</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="aeLead">قائد الفريق</label>
+        <select class="select" id="aeLead">
+          <option>أحمد سعيد</option><option>عمر الحارثي</option>
+        </select>
+      </div>
+      <label class="check">
+        <input class="check__input" type="checkbox">
+        <span class="check__text">
+          <span>السماح له بتغيير حالة مهامه</span>
+          <span class="check__hint">يمكن لقائد الفريق تعديل هذا لاحقًا.</span>
+        </span>
+      </label>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="addEmpModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="addEmpModal">إنشاء الحساب</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'employees', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

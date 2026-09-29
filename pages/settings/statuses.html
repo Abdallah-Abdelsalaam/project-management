@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الحالات وسير العمل · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="حالات المهمة والانتقالات المسموحة بينها.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الحالات وسير العمل</span>
+          </nav>
+          <h1 class="page-head__title">الحالات وسير العمل</h1>
+          <p class="page-head__sub">
+            الحالة ليست حقلًا نصيًا بل عقدة في آلة حالات. لكل حالة انتقالات مسموحة، والنظام لا
+            يعرض إلا الإجراء المسموح فعلًا.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--primary btn--sm" type="button" data-open="addStatusModal">إضافة حالة</button>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="statuses" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <!-- The happy path, drawn as the sequence it is. -->
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">المسار الطبيعي</h2>
+              <span class="section__note">8 حالات</span>
+            </div>
+            <div class="panel__body stack-4">
+              <div class="row row--tight">
+                <span class="status" data-status="draft">مسودة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="created">مُنشأة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="assigned">مُسندة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="progress">قيد التنفيذ</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="submitted">مُقدَّمة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="review">قيد المراجعة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="approved">معتمدة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="closed">مغلقة</span>
+              </div>
+
+              <hr>
+
+              <p class="t-xs fw-semi">مسار الرفض</p>
+              <div class="row row--tight">
+                <span class="status" data-status="submitted">مُقدَّمة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="rejected">مرفوضة</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="revision">تحتاج تعديل</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="submitted">أُعيد التقديم</span>
+                <span class="t-subtle" aria-hidden="true">←</span>
+                <span class="status" data-status="review">قيد المراجعة</span>
+              </div>
+
+              <hr>
+
+              <p class="t-xs fw-semi">حالات جانبية</p>
+              <div class="row row--tight">
+                <span class="status" data-status="hold">معلّقة</span>
+                <span class="status" data-status="cancelled">ملغاة</span>
+              </div>
+              <p class="t-3xs t-subtle">
+                يمكن الوصول إليهما من أي حالة نشطة، والعودة من «معلّقة» إلى الحالة السابقة.
+              </p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">الحالات وإعداداتها</h2>
+              <span class="section__note">الترتيب يحدّد تسلسل العرض في اللوح والتصفية</span>
+            </div>
+
+            <div class="panel__body panel__body--flush">
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-draft) 16%, transparent); color: var(--st-draft)">1</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="draft">مسودة</span> <span class="badge badge--outline ltr">draft</span></p>
+                  <p class="lrow__meta">يراها المُنشئ فقط · لا تُحتسب في الإحصاءات · الانتقال المسموح: مُنشأة، ملغاة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة مسودة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-created) 16%, transparent); color: var(--st-created)">2</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="created">مُنشأة</span> <span class="badge badge--outline ltr">created</span></p>
+                  <p class="lrow__meta">بانتظار الإسناد · مهلة الإسناد: يوم عمل · الانتقال: مُسندة، معلّقة، ملغاة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة مُنشأة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-assigned) 16%, transparent); color: var(--st-assigned)">3</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="assigned">مُسندة</span> <span class="badge badge--outline ltr">assigned</span></p>
+                  <p class="lrow__meta">لها موظف ولم يبدأ · الانتقال: قيد التنفيذ، مُسندة لغيره، معلّقة، ملغاة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة مُسندة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-progress) 16%, transparent); color: var(--st-progress)">4</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status status--live" data-status="progress">قيد التنفيذ</span> <span class="badge badge--outline ltr">progress</span></p>
+                  <p class="lrow__meta">يبدأ منها حساب زمن التنفيذ · الانتقال: مُقدَّمة، معلّقة، ملغاة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة قيد التنفيذ">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-submitted) 16%, transparent); color: var(--st-submitted)">5</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="submitted">مُقدَّمة</span> <span class="badge badge--outline ltr">submitted</span></p>
+                  <p class="lrow__meta">
+                    يتوقف عندها زمن التنفيذ ويبدأ زمن الانتظار · مهلة المراجعة: 24 ساعة ·
+                    الانتقال: قيد المراجعة
+                  </p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة مُقدَّمة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-review) 16%, transparent); color: var(--st-review)">6</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="review">قيد المراجعة</span> <span class="badge badge--outline ltr">review</span></p>
+                  <p class="lrow__meta">تتطلب صلاحية tasks.review · الانتقال: معتمدة، مرفوضة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة قيد المراجعة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-approved) 16%, transparent); color: var(--st-approved)">7</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="approved">معتمدة</span> <span class="badge badge--outline ltr">approved</span></p>
+                  <p class="lrow__meta">تُحتسب الجودة نهائيًا عندها · الانتقال: مغلقة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة معتمدة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-rejected) 16%, transparent); color: var(--st-rejected)">8</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="rejected">مرفوضة</span> <span class="badge badge--outline ltr">rejected</span></p>
+                  <p class="lrow__meta">تتطلب سببًا وتعديلات مكتوبة · الانتقال: تحتاج تعديل، ملغاة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة مرفوضة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-revision) 16%, transparent); color: var(--st-revision)">9</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="revision">تحتاج تعديل</span> <span class="badge badge--outline ltr">revision</span></p>
+                  <p class="lrow__meta">تزيد عدّاد التعديلات · الانتقال: مُقدَّمة مرة أخرى، ملغاة</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة تحتاج تعديل">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-hold) 16%, transparent); color: var(--st-hold)">10</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="hold">معلّقة</span> <span class="badge badge--outline ltr">hold</span></p>
+                  <p class="lrow__meta">
+                    يتوقف عندها حساب التأخير · تتطلب سببًا · الانتقال: العودة للحالة السابقة، ملغاة
+                  </p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة معلّقة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-closed) 16%, transparent); color: var(--st-closed)">11</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="closed">مغلقة</span> <span class="badge badge--outline ltr">closed</span></p>
+                  <p class="lrow__meta">نهائية ولا تُعدَّل · تبقى في الإحصاءات والسجل</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة مغلقة">⋯</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="background-color: color-mix(in srgb, var(--st-cancelled) 16%, transparent); color: var(--st-cancelled)">12</span>
+                <div class="lrow__body">
+                  <p class="lrow__title"><span class="status" data-status="cancelled">ملغاة</span> <span class="badge badge--outline ltr">cancelled</span></p>
+                  <p class="lrow__meta">
+                    نهائية · تتطلب سببًا · لا تُحتسب في متوسطات الجودة لكنها تبقى في السجل
+                  </p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل حالة ملغاة">⋯</button></div>
+              </div>
+            </div>
+
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                حذف حالة مستخدَمة في مهام قائمة غير مسموح. يمكن تعطيلها فقط، فتبقى للمهام القديمة
+                ولا تُتاح للجديدة.
+              </p>
+              <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ الترتيب</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">من يستطيع تغيير ماذا</h2></div>
+            <div class="panel__body stack-4">
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">مُنشأة ← مُسندة</span>
+                  <span class="figure-row__value">قائد الفريق ومن أعلى</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">مُسندة ← قيد التنفيذ</span>
+                  <span class="figure-row__value">الموظف إن سُمح له، أو قائد الفريق</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">قيد التنفيذ ← مُقدَّمة</span>
+                  <span class="figure-row__value">الموظف المسؤول</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">قيد المراجعة ← معتمدة أو مرفوضة</span>
+                  <span class="figure-row__value">قائد الفريق ومن أعلى</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">أي حالة ← ملغاة</span>
+                  <span class="figure-row__value">المُنشئ أو رئيس القسم</span>
+                </div>
+              </div>
+
+              <div class="alert alert--info">
+                <span class="alert__body">
+                  <strong class="alert__title">لماذا آلة حالات لا حقل نصي</strong>
+                  <span class="alert__text">
+                    الحقل النصي يسمح بأن تصبح مهمة «معتمدة» دون أن تُراجَع، فتنهار كل الإحصاءات.
+                    تحديد الانتقالات المسموحة يجعل البيانات صحيحة بالتصميم لا بالانتباه.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="addStatusModal" hidden></div>
+<div class="modal-shell" id="addStatusModal" role="dialog" aria-modal="true" aria-labelledby="asTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="asTitle">إضافة حالة</h2>
+        <p class="modal__sub">حدّد موقعها في المسار والانتقالات المسموحة منها.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="addStatusModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="asName">الاسم الظاهر <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="asName" type="text" placeholder="مثال: بانتظار موافقة العميل" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="asKey">المعرّف البرمجي <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="asKey" type="text" dir="ltr" placeholder="client_approval" required>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="asColor">اللون</label>
+          <select class="select" id="asColor">
+            <option>أزرق</option><option>بنفسجي</option><option>كهرماني</option>
+            <option>رمادي</option><option>أخضر</option>
+          </select>
+          <p class="field__help">لا يمكن استخدام اللون الأساسي للعلامة، فهو محجوز للإجراءات.</p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="asAfter">تأتي بعد</label>
+          <select class="select" id="asAfter">
+            <option>مُقدَّمة</option><option>قيد المراجعة</option><option>معتمدة</option>
+          </select>
+        </div>
+      </div>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset__legend">سلوك الحالة</legend>
+        <label class="switch"><input class="switch__input" type="checkbox"><span class="t-xs">توقف حساب التأخير</span></label>
+        <label class="switch"><input class="switch__input" type="checkbox"><span class="t-xs">تتطلب سببًا مكتوبًا</span></label>
+        <label class="switch"><input class="switch__input" type="checkbox"><span class="t-xs">تزيد عدّاد التعديلات</span></label>
+        <label class="switch"><input class="switch__input" type="checkbox" checked><span class="t-xs">تُحتسب في الإحصاءات</span></label>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="asPerm">الصلاحية المطلوبة للانتقال إليها</label>
+        <select class="select" id="asPerm">
+          <option>tasks.status.own</option>
+          <option selected>tasks.status.any</option>
+          <option>tasks.review</option>
+          <option>tasks.approve</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="addStatusModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="addStatusModal">إضافة الحالة</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

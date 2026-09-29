@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إنشاء مهمة UI/UX · إدارة المشاريع</title>
+<meta name="description" content="نموذج إنشاء مهمة موجهة إلى قسم UI/UX.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="list.html">المهام</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">إنشاء مهمة UI/UX</span>
+          </nav>
+          <h1 class="page-head__title">
+            <span class="dept" data-dept="uiux"></span>
+            إنشاء مهمة UI/UX
+          </h1>
+          <p class="page-head__sub">
+            أكثر ما يُعيد مهام التصميم للتعديل هو نقص الأصول والمراجع في الطلب الأصلي. الحقول
+            المطلوبة أدناه تعالج ذلك تحديدًا.
+          </p>
+        </div>
+      </div>
+
+      <form class="form-layout">
+        <div class="stack-4">
+
+          <section class="panel" id="sec-basics">
+            <div class="panel__head"><h2 class="panel__title">1 · الأساسيات</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field">
+                <label class="field__label" for="title">عنوان المهمة <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">صِف المخرج المطلوب. مثال: «تصميم صفحة هبوط لحملة الرياض الموسمية».</p>
+                <input class="input" id="title" type="text" required>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="type">نوع المهمة <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="type" required>
+                    <option value="">اختر النوع</option>
+                    <option>تصميم صفحة</option>
+                    <option>تصميم مكوّن</option>
+                    <option>تحسين تجربة</option>
+                    <option>نظام تصميم</option>
+                    <option>أصول بصرية</option>
+                    <option>مراجعة قابلية استخدام</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="priority">الأولوية <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="priority" required>
+                    <option>منخفضة</option>
+                    <option selected>متوسطة</option>
+                    <option>عالية</option>
+                    <option>عاجلة</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="due">تاريخ الاستحقاق <span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="input" id="due" type="date" required>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="deliverable">المخرج المطلوب <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="deliverable" required>
+                    <option value="">اختر المخرج</option>
+                    <option>تصميم نهائي جاهز للتنفيذ</option>
+                    <option>نموذج أولي قابل للنقر</option>
+                    <option>إطار سلكي</option>
+                    <option>أصول مقطوعة للمطور</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-brief">
+            <div class="panel__head"><h2 class="panel__title">2 · الطلب والمتطلبات</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field">
+                <label class="field__label" for="goal">الهدف <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">ما الذي يجب أن يتحقق للمستخدم أو للحملة.</p>
+                <textarea class="textarea" id="goal" required></textarea>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="audience">الجمهور المستهدف <span class="field__req" aria-hidden="true">*</span></label>
+                <input class="input" id="audience" type="text" required placeholder="مثال: باحثون عن عروض الأجهزة المنزلية في الرياض">
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="scope">العناصر والأقسام المطلوبة <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">نقطة لكل عنصر: ترويسة، نموذج، بطاقات، تذييل…</p>
+                <textarea class="textarea" id="scope" required style="min-height:140px" placeholder="— …&#10;— …"></textarea>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="accept">معايير القبول <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">
+                  تصبح قائمة تحقق للمراجع، ومنها يُحتسب بند «مطابقة المتطلبات» بوزن 25 من جودة المهمة.
+                </p>
+                <textarea class="textarea" id="accept" required style="min-height:120px" placeholder="— يعمل التصميم على عرض 360 بكسل&#10;— يدعم الاتجاه من اليمين لليسار&#10;— يستخدم رموز نظام التصميم لا ألوانًا جديدة"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-design">
+            <div class="panel__head"><h2 class="panel__title">3 · القيود والمعايير</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="dir">اتجاه الواجهة <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="dir" required>
+                    <option selected>عربي — من اليمين لليسار</option>
+                    <option>إنجليزي — من اليسار لليمين</option>
+                    <option>الاتجاهان</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="breakpoint">المقاسات المطلوبة <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="breakpoint" required>
+                    <option selected>جوال وحاسب</option>
+                    <option>جوال فقط</option>
+                    <option>حاسب فقط</option>
+                    <option>جوال ولوحي وحاسب</option>
+                  </select>
+                </div>
+              </div>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">الالتزام بنظام التصميم</legend>
+                <label class="check">
+                  <input class="check__input" type="checkbox" checked>
+                  <span class="check__text">
+                    <span>استخدام رموز النظام اللونية والخطية القائمة</span>
+                    <span class="check__hint">لا ألوان أو خطوط جديدة دون موافقة.</span>
+                  </span>
+                </label>
+                <label class="check">
+                  <input class="check__input" type="checkbox" checked>
+                  <span class="check__text">
+                    <span>الالتزام بمعايير تباين الألوان</span>
+                    <span class="check__hint">نسبة 4.5:1 للنص العادي كحد أدنى.</span>
+                  </span>
+                </label>
+                <label class="check">
+                  <input class="check__input" type="checkbox">
+                  <span class="check__text"><span>يحتاج مكوّنات جديدة تُضاف إلى النظام</span></span>
+                </label>
+              </fieldset>
+
+              <div class="field">
+                <label class="field__label" for="notes">قيود أخرى <span class="field__optional">اختياري</span></label>
+                <textarea class="textarea" id="notes" placeholder="قيود الحملة، متطلبات قانونية، نصوص ثابتة…"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-assets">
+            <div class="panel__head">
+              <h2 class="panel__title">4 · الأصول والمراجع</h2>
+              <span class="section__note">وزن 20 من جودة المهمة</span>
+            </div>
+            <div class="panel__body stack-4">
+              <div class="alert alert--warning">
+                <span class="alert__body">
+                  <strong class="alert__title">السبب الأول لإعادة مهام التصميم</strong>
+                  <span class="alert__text">
+                    11% من مهام UI/UX عادت للتعديل هذا الشهر، وأكثر سبب مسجَّل هو نقص الأصول في
+                    الطلب. أرفق النصوص والصور والشعارات الآن.
+                  </span>
+                </span>
+              </div>
+
+              <div class="dropzone">
+                <svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M8 8l4-4 4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+                <span class="dropzone__title">أرفق النصوص والصور والشعارات والمراجع</span>
+                <span>حتى 25 ميجابايت للملف</span>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="copy">النصوص النهائية <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">التصميم بنص مؤقت يعود للتعديل دائمًا. أرفق النص النهائي أو الصقه هنا.</p>
+                <textarea class="textarea" id="copy" required style="min-height:120px"></textarea>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="refs">مراجع بصرية <span class="field__optional">اختياري</span></label>
+                <textarea class="textarea" id="refs" dir="ltr" placeholder="رابط في كل سطر"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-assign">
+            <div class="panel__head"><h2 class="panel__title">5 · التوجيه</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field">
+                <label class="field__label" for="lead">قائد الفريق</label>
+                <select class="select" id="lead">
+                  <option selected>توزيع تلقائي — يحدده رئيس القسم</option>
+                  <option>ليان مرزوق — 4 موظفين · حمل 74%</option>
+                  <option>نورة الشمري — 3 موظفين · حمل 51%</option>
+                </select>
+              </div>
+
+              <div class="field" data-perm="tasks.assign">
+                <label class="field__label" for="emp">الموظف <span class="field__optional">اختياري</span></label>
+                <select class="select" id="emp">
+                  <option selected>يحدده قائد الفريق</option>
+                  <option>رنا خليل — 5 مهام · جودة 71%</option>
+                  <option>هيا العتيبي — 3 مهام · جودة 84%</option>
+                  <option>بدر الزهراني — 4 مهام · جودة 64%</option>
+                </select>
+              </div>
+
+              <label class="check">
+                <input class="check__input" type="checkbox" checked>
+                <span class="check__text"><span>إبلاغي عند كل تغيير في حالة المهمة</span></span>
+              </label>
+            </div>
+          </section>
+
+          <div class="form-dock">
+            <p class="t-2xs t-subtle">
+              اكتمال الطلب <strong class="t-accent">45%</strong> — النصوص النهائية ومعايير القبول ناقصة.
+            </p>
+            <div class="row row--tight">
+              <button class="btn btn--secondary" type="button" data-action="demo-save">حفظ كمسودة</button>
+              <button class="btn btn--primary" type="button" data-action="demo-save">إنشاء المهمة وإرسالها</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="form-aside">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">اكتمال الطلب</h2></div>
+            <div class="panel__body stack-4">
+              <div class="meter" data-band="low">
+                <div class="meter__head"><span class="meter__label">مكتمل</span><span class="meter__value">45%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:45%"></span></div>
+              </div>
+
+              <div class="steps">
+                <a class="step" href="#sec-basics" data-done="true"><span class="step__num">1</span><span>الأساسيات</span></a>
+                <a class="step" href="#sec-brief" data-current="true"><span class="step__num">2</span><span>الطلب والمتطلبات</span></a>
+                <a class="step" href="#sec-design"><span class="step__num">3</span><span>القيود والمعايير</span></a>
+                <a class="step" href="#sec-assets"><span class="step__num">4</span><span>الأصول والمراجع</span></a>
+                <a class="step" href="#sec-assign"><span class="step__num">5</span><span>التوجيه</span></a>
+              </div>
+
+              <div class="alert alert--danger">
+                <span class="alert__body">
+                  <strong class="alert__title">ناقص: النصوص النهائية</strong>
+                  <span class="alert__text">التصميم بنص مؤقت يعود للتعديل في الغالب.</span>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">أسباب إعادة التعديل الشهر الماضي</h2></div>
+            <div class="panel__body">
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">نقص الأصول أو النصوص</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%; background-color:var(--st-rejected)"></span></span>
+                  <span class="figure-row__value">9</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">عدم مطابقة المتطلبات</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:55%; background-color:var(--st-revision)"></span></span>
+                  <span class="figure-row__value">5</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">لم يدعم الاتجاه العربي</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:33%"></span></span>
+                  <span class="figure-row__value">3</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">ألوان خارج النظام</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:22%"></span></span>
+                  <span class="figure-row__value">2</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'tasks', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

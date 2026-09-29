@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سجل النشاط والتدقيق · إدارة المشاريع</title>
+<meta name="description" content="سجل كل الإجراءات المهمة في النظام.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">سجل النشاط والتدقيق</h1>
+          <p class="page-head__sub">
+            كل إجراء مهم: من نفّذه، وماذا فعل، ومتى، والقيمة قبل وبعد. السجل للقراءة فقط ولا
+            يمكن تعديله أو حذفه من داخل النظام.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">تصدير السجل</button>
+        </div>
+      </div>
+
+      <div class="alert alert--info" data-perm-none="audit.view">
+        <span class="alert__body">
+          <strong class="alert__title">سجل التدقيق للمدير ومسؤول النظام</strong>
+          <span class="alert__text">
+            دورك الحالي يرى سجل مهامه فقط. جرّب «معاينة كـ» ← مدير لرؤية السجل الكامل.
+          </span>
+        </span>
+      </div>
+
+      <div data-perm="audit.view" class="stack-6">
+
+        <div class="grid grid--stats">
+          <article class="stat"><p class="stat__label">إجراءات اليوم</p><p class="stat__value">184</p><p class="stat__foot"><span>بواسطة 14 مستخدمًا</span></p></article>
+          <article class="stat"><p class="stat__label">تغييرات الحالة</p><p class="stat__value">96</p><p class="stat__foot"><span>52% من الإجراءات</span></p></article>
+          <article class="stat stat--flag" data-flag="warning"><p class="stat__label">إجراءات إدارية</p><p class="stat__value">7</p><p class="stat__foot"><span>نقل موظفين وتغيير صلاحيات</span></p></article>
+          <article class="stat stat--flag" data-flag="danger"><p class="stat__label">أحداث أمنية</p><p class="stat__value">3</p><p class="stat__foot"><span>محاولات دخول فاشلة</span></p></article>
+        </div>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">السجل</h2>
+            <div class="row row--tight">
+              <div class="input-group" style="min-width: 200px;">
+                <span class="input-group__affix">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+                </span>
+                <input class="input" type="search" placeholder="ابحث في السجل" aria-label="بحث في السجل">
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="alType" aria-expanded="false" aria-haspopup="true">
+                  نوع الإجراء <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--end menu--wide" id="alType" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>إنشاء مهمة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>تغيير حالة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>إسناد وإعادة إسناد</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>مراجعة واعتماد</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>رفض وطلب تعديل</span></label>
+                  <div class="menu__sep"></div>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>إجراءات إدارية</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>تغيير صلاحيات</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>أحداث أمنية</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>تغيير إعدادات</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="alWho" aria-expanded="false" aria-haspopup="true">
+                  المستخدم <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--end" id="alWho" hidden>
+                  <div class="menu__search">
+                    <input class="input" type="search" placeholder="ابحث عن مستخدم" aria-label="بحث">
+                  </div>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>أحمد سعيد</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>خالد ناصر</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>دانة المهنا</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>النظام</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="alDate" data-active="true" aria-expanded="false" aria-haspopup="true">
+                  التاريخ: <strong>اليوم</strong> <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--end" id="alDate" hidden>
+                  <button class="menu__item" type="button" aria-selected="true">اليوم</button>
+                  <button class="menu__item" type="button">آخر 7 أيام</button>
+                  <button class="menu__item" type="button">آخر 30 يومًا</button>
+                  <button class="menu__item" type="button">فترة مخصصة…</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__body">
+            <div class="timeline">
+
+              <div class="tl-item" data-status="rejected">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">محاولة دخول فاشلة</span>
+                    <span class="tl-item__what">رمز تحقق خاطئ لحساب <span class="ltr">a.salem@nuwa.sa</span></span>
+                    <span class="tl-item__when">اليوم 03:17</span>
+                  </div>
+                  <div class="reason">
+                    <span class="reason__label">حدث أمني</span>
+                    <span class="ltr">IP 193.24.88.51</span> — فرانكفورت، ألمانيا · جهاز غير معروف ·
+                    المحاولة الخامسة، أُوقف الحساب تلقائيًا 15 دقيقة.
+                  </div>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="created">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">دانة المهنا</span>
+                    <span class="tl-item__what">عدّلت صلاحيات دور «قائد الفريق»</span>
+                    <span class="tl-item__when">اليوم 09:42</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">بدون tasks.bulk</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">مع tasks.bulk</span>
+                  </span>
+                  <p class="t-2xs t-subtle">يسري على 5 مستخدمين يحملون هذا الدور.</p>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="assigned">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M6 21v-4a3 3 0 013-3h6a3 3 0 013 3v4M12 7l-6 4M12 7l6 4"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">خالد ناصر</span>
+                    <span class="tl-item__what">نقل الموظف ياسر الدوسري بين الفرق</span>
+                    <span class="tl-item__when">اليوم 10:15</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">فريق أحمد سعيد</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">فريق عمر الحارثي</span>
+                  </span>
+                  <p class="t-2xs t-subtle">انتقلت معه 6 مهام نشطة. السبب المسجَّل: موازنة الحمل.</p>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="rejected">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">ليان مرزوق</span>
+                    <span class="tl-item__what">رفضت <a href="../tasks/detail.html" class="task-ref">UIX-0391</a> وطلبت تعديلًا</span>
+                    <span class="tl-item__when">اليوم 11:30</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">مُقدَّمة</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">تحتاج تعديل</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="progress">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">محمد فتحي</span>
+                    <span class="tl-item__what">غيّر حالة <a href="../tasks/detail.html" class="task-ref">PRG-1842</a></span>
+                    <span class="tl-item__when">اليوم 11:52</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">مُسندة</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">قيد التنفيذ</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="approved">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">أحمد سعيد</span>
+                    <span class="tl-item__what">اعتمد <a href="../tasks/detail.html" class="task-ref">PRG-1836</a></span>
+                    <span class="tl-item__when">اليوم 12:08</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">قيد المراجعة</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">معتمدة · جودة 98%</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="created">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">طارق عوض</span>
+                    <span class="tl-item__what">أنشأ <a href="../tasks/detail.html" class="task-ref">PRG-1845</a> وأرسلها إلى البرمجة</span>
+                    <span class="tl-item__when">اليوم 13:20</span>
+                  </div>
+                  <p class="t-2xs t-subtle">اكتمال الطلب عند الإنشاء: 58%.</p>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="assigned">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">أحمد سعيد</span>
+                    <span class="tl-item__what">منح عبدالله الراشد صلاحية تغيير حالة مهامه</span>
+                    <span class="tl-item__when">اليوم 14:05</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">غير مسموح</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">مسموح</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="hold">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">النظام</span>
+                    <span class="tl-item__what">أنهى ثقة جهاز منتهي الصلاحية لحساب لمى حسن</span>
+                    <span class="tl-item__when">اليوم 00:00</span>
+                  </div>
+                  <p class="t-2xs t-subtle">
+                    macOS · Firefox — انتهت مدة الثقة 30 يومًا. سيُطلب رمز تحقق في الدخول القادم.
+                  </p>
+                </div>
+              </div>
+
+              <div class="tl-item" data-status="closed">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head">
+                    <span class="tl-item__who">دانة المهنا</span>
+                    <span class="tl-item__what">عدّلت أوزان احتساب جودة المهمة</span>
+                    <span class="tl-item__when">أمس 17:40</span>
+                  </div>
+                  <span class="diff">
+                    <span class="diff__from">مطابقة المتطلبات 20</span>
+                    <svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    <span class="diff__to">مطابقة المتطلبات 25</span>
+                  </span>
+                  <p class="t-2xs t-subtle">
+                    يسري على المهام الجديدة فقط. الجودة المحسوبة سابقًا لم تتغير.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__foot">
+            <p class="pagination__summary">عرض <strong>1–10</strong> من <strong>184</strong> إجراءً</p>
+            <nav class="pagination__pages" aria-label="تنقل بين الصفحات">
+              <button class="page-btn" type="button" disabled aria-label="السابق">›</button>
+              <button class="page-btn" type="button" aria-current="page">1</button>
+              <button class="page-btn" type="button">2</button>
+              <button class="page-btn" type="button">3</button>
+              <span class="page-gap" aria-hidden="true">…</span>
+              <button class="page-btn" type="button">19</button>
+              <button class="page-btn" type="button" aria-label="التالي">‹</button>
+            </nav>
+            <div class="pagination__size">
+              <label for="alps">لكل صفحة</label>
+              <select class="select" id="alps"><option>10</option><option selected>30</option><option>50</option></select>
+            </div>
+          </div>
+        </section>
+
+        <p class="note">
+          <strong>مبدأ السجل:</strong> كل إجراء يُخزَّن مع القيمة السابقة والجديدة، لا مع وصف نصي
+          فقط. هذا ما يجعل السؤال «من غيّر هذا ومتى وإلى أي قيمة؟» قابلًا للإجابة دائمًا، وهو أساس
+          المساءلة والأمان معًا.
+        </p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'activity', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

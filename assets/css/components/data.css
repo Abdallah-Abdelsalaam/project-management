@@ -1,0 +1,1146 @@
+/* ==========================================================================
+   Data display — tables, status, badges, meters, tiles, dispatch strip
+   ========================================================================== */
+
+@layer components {
+
+  /* ======================================================================
+     Status — the vocabulary of the whole system
+     Each status carries its own hue. Brand red is deliberately absent so the
+     mark never competes with a state.
+     ====================================================================== */
+  [data-status] { --st: var(--st-draft); }
+
+  [data-status="draft"]     { --st: var(--st-draft); }
+  [data-status="created"]   { --st: var(--st-created); }
+  [data-status="assigned"]  { --st: var(--st-assigned); }
+  [data-status="progress"]  { --st: var(--st-progress); }
+  [data-status="submitted"] { --st: var(--st-submitted); }
+  [data-status="review"]    { --st: var(--st-review); }
+  [data-status="approved"]  { --st: var(--st-approved); }
+  [data-status="closed"]    { --st: var(--st-closed); }
+  [data-status="rejected"]  { --st: var(--st-rejected); }
+  [data-status="revision"]  { --st: var(--st-revision); }
+  [data-status="hold"]      { --st: var(--st-hold); }
+  [data-status="cancelled"] { --st: var(--st-cancelled); }
+
+  /* The status pill. A dot plus a label — the dot carries the colour so the
+     text stays high-contrast instead of being tinted into illegibility. */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding-inline: var(--sp-2);
+    padding-block: 3px;
+    border-radius: var(--r-pill);
+    background-color: color-mix(in srgb, var(--st) 10%, transparent);
+    color: color-mix(in srgb, var(--st) 82%, var(--text));
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-medium);
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+
+  .status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background-color: var(--st);
+  }
+
+  /* In-progress states pulse quietly so an active queue reads as alive.
+     Motion answers a state, not a page load, and it respects reduced-motion
+     through the global reset. */
+  .status--live::before {
+    animation: status-pulse 2.4s var(--ease) infinite;
+  }
+
+  @keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.35; }
+  }
+
+  /* ======================================================================
+     Department chip
+     ====================================================================== */
+  [data-dept] { --dept: var(--text-muted); }
+  [data-dept="seo"]  { --dept: var(--dept-seo); }
+  [data-dept="prog"] { --dept: var(--dept-prog); }
+  [data-dept="uiux"] { --dept: var(--dept-uiux); }
+
+  .dept {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .dept::before {
+    content: "";
+    width: 3px;
+    height: 12px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background-color: var(--dept);
+  }
+
+  /* ======================================================================
+     Priority — stepped bars, not another coloured pill
+     Four pills of different colours in one row becomes noise. Bars encode
+     magnitude the way a signal meter does, and read at a glance.
+     ====================================================================== */
+  .priority {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .priority__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+  }
+
+  .priority__bar {
+    width: 3px;
+    border-radius: 1px;
+    background-color: var(--line-strong);
+  }
+
+  .priority__bar:nth-child(1) { height: 5px; }
+  .priority__bar:nth-child(2) { height: 8px; }
+  .priority__bar:nth-child(3) { height: 11px; }
+
+  [data-priority="low"]      { --pri: var(--st-closed); }
+  [data-priority="normal"]   { --pri: var(--st-submitted); }
+  [data-priority="high"]     { --pri: var(--st-review); }
+  [data-priority="urgent"]   { --pri: var(--st-rejected); }
+
+  [data-priority="low"]    .priority__bar:nth-child(-n+1),
+  [data-priority="normal"] .priority__bar:nth-child(-n+2),
+  [data-priority="high"]   .priority__bar:nth-child(-n+3),
+  [data-priority="urgent"] .priority__bar {
+    background-color: var(--pri);
+  }
+
+  [data-priority="urgent"] .priority__label {
+    color: var(--st-rejected);
+    font-weight: var(--fw-semi);
+  }
+
+  /* ======================================================================
+     Avatar
+     ====================================================================== */
+  .avatar {
+    display: grid;
+    place-content: center;
+    width: 28px;
+    height: 28px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background-color: var(--surface-sunk);
+    color: var(--text-muted);
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-semi);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .avatar--sm { width: 22px; height: 22px; font-size: var(--fs-3xs); }
+  .avatar--lg { width: 40px; height: 40px; font-size: var(--fs-sm); }
+  .avatar--xl { width: 72px; height: 72px; font-size: var(--fs-xl); }
+
+  /* Tinted by department so a team roster is readable without reading. */
+  .avatar[data-dept] {
+    background-color: color-mix(in srgb, var(--dept) 12%, transparent);
+    color: color-mix(in srgb, var(--dept) 78%, var(--text));
+    border-color: color-mix(in srgb, var(--dept) 24%, transparent);
+  }
+
+  .avatar-stack {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar-stack > .avatar {
+    margin-inline-start: -8px;
+    border: 2px solid var(--surface);
+  }
+
+  .avatar-stack > .avatar:first-child {
+    margin-inline-start: 0;
+  }
+
+  /* ======================================================================
+     Person cell — name, role, and the quality score together
+     Section 5 of the brief: "أحمد — جودة الموظف: 92%"
+     ====================================================================== */
+  .person {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-width: 0;
+  }
+
+  .person__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.25;
+  }
+
+  .person__name {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .person__meta {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    white-space: nowrap;
+  }
+
+  .person--unassigned .person__name {
+    color: var(--text-subtle);
+    font-style: italic;
+    font-weight: var(--fw-regular);
+  }
+
+  /* ======================================================================
+     Quality score — auditable by construction
+     The chip is a button: it opens a popover showing the weighted breakdown.
+     A number nobody can interrogate is a number nobody trusts.
+     ====================================================================== */
+  .score {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding-inline: var(--sp-2);
+    padding-block: 2px;
+    border: 1px solid transparent;
+    border-radius: var(--r-pill);
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums lining-nums;
+    white-space: nowrap;
+    transition: border-color var(--dur-fast) var(--ease),
+                background-color var(--dur-fast) var(--ease);
+  }
+
+  button.score:hover {
+    border-color: var(--line-strong);
+    background-color: var(--surface-sunk);
+  }
+
+  /* Banded by value, using the feedback palette rather than a red-to-green
+     gradient: the bands correspond to actual review thresholds. */
+  .score[data-band="high"] { color: var(--success); }
+  .score[data-band="mid"]  { color: var(--warning); }
+  .score[data-band="low"]  { color: var(--danger); }
+  .score[data-band="none"] { color: var(--text-subtle); font-weight: var(--fw-regular); }
+
+  .score__track {
+    width: 32px;
+    height: 4px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background-color: var(--line);
+    overflow: hidden;
+  }
+
+  .score__fill {
+    height: 100%;
+    border-radius: var(--r-pill);
+    background-color: currentColor;
+  }
+
+  /* ---- Meter — the same data, at full size on a profile ---------------- */
+  .meter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .meter__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-3);
+  }
+
+  .meter__label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+
+  .meter__value {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .meter__track {
+    height: 6px;
+    border-radius: var(--r-pill);
+    background-color: var(--surface-sunk);
+    overflow: hidden;
+  }
+
+  .meter__fill {
+    height: 100%;
+    border-radius: var(--r-pill);
+    background-color: var(--fill, var(--accent));
+  }
+
+  .meter[data-band="high"] { --fill: var(--success); }
+  .meter[data-band="mid"]  { --fill: var(--warning); }
+  .meter[data-band="low"]  { --fill: var(--danger); }
+
+  /* ---- Score breakdown table — lives inside the popover --------------- */
+  .breakdown {
+    width: 100%;
+    font-size: var(--fs-2xs);
+  }
+
+  .breakdown th {
+    padding-block: var(--sp-1);
+    color: var(--text-subtle);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-3xs);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .breakdown td {
+    padding-block: var(--sp-2);
+    border-block-end: 1px solid var(--line-soft);
+    vertical-align: middle;
+  }
+
+  .breakdown tr:last-child td {
+    border-block-end: 0;
+  }
+
+  .breakdown__weight {
+    color: var(--text-subtle);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .breakdown__earned {
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: end;
+  }
+
+  .breakdown__total td {
+    border-block-start: 1px solid var(--line-strong);
+    border-block-end: 0;
+    font-weight: var(--fw-semi);
+    padding-block-start: var(--sp-2);
+  }
+
+  /* ======================================================================
+     SLA / due-date health
+     A dot, not a colour on the date text, so the date stays readable.
+     ====================================================================== */
+  .due {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-xs);
+    font-variant-numeric: tabular-nums lining-nums;
+    white-space: nowrap;
+  }
+
+  .due::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background-color: var(--sla, var(--success));
+  }
+
+  .due[data-sla="ok"]      { --sla: var(--success); }
+  .due[data-sla="soon"]    { --sla: var(--warning); }
+  .due[data-sla="overdue"] { --sla: var(--danger); }
+  .due[data-sla="none"]    { --sla: var(--line-strong); }
+
+  .due[data-sla="overdue"] {
+    color: var(--danger);
+    font-weight: var(--fw-semi);
+  }
+
+  .due__rel {
+    color: var(--text-subtle);
+    font-size: var(--fs-3xs);
+  }
+
+  /* ======================================================================
+     Badges and counters
+     ====================================================================== */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    padding-inline: var(--sp-2);
+    padding-block: 2px;
+    border-radius: var(--r-data);
+    background-color: var(--surface-sunk);
+    color: var(--text-muted);
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-medium);
+    white-space: nowrap;
+  }
+
+  .badge--accent  { background-color: var(--accent-soft);  color: var(--accent-text); }
+  .badge--success { background-color: var(--success-soft); color: var(--success); }
+  .badge--warning { background-color: var(--warning-soft); color: var(--warning); }
+  .badge--danger  { background-color: var(--danger-soft);  color: var(--danger); }
+  .badge--info    { background-color: var(--info-soft);    color: var(--info); }
+
+  .badge--outline {
+    background-color: transparent;
+    border: 1px solid var(--line);
+  }
+
+  /* Revision counter: the number of times a task came back. Visually quiet
+     at zero, assertive once it climbs. */
+  .revisions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    font-size: var(--fs-2xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--text-subtle);
+  }
+
+  .revisions[data-count="0"] { opacity: 0.5; }
+
+  .revisions[data-warn="true"] {
+    color: var(--st-revision);
+    font-weight: var(--fw-semi);
+  }
+
+  /* ======================================================================
+     Stat tile
+     Bordered, flat, no gradient. The figure is the loudest thing in it and
+     the delta is small — a tile is a reading, not a headline.
+     ====================================================================== */
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    padding: var(--sp-4) var(--sp-5);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-panel);
+    min-width: 0;
+  }
+
+  .stat__label {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+  }
+
+  .stat__value {
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-semi);
+    line-height: 1.05;
+    letter-spacing: var(--ls-tight);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .stat__unit {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-medium);
+    color: var(--text-muted);
+    margin-inline-start: 2px;
+  }
+
+  .stat__foot {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    flex-wrap: wrap;
+  }
+
+  .delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .delta--up   { color: var(--success); }
+  .delta--down { color: var(--danger); }
+  .delta--flat { color: var(--text-subtle); }
+
+  /* A tile can carry an accent spine when it is the one that matters. */
+  .stat--flag {
+    border-inline-start: 3px solid var(--flag, var(--accent));
+  }
+
+  .stat--flag[data-flag="danger"]  { --flag: var(--danger); }
+  .stat--flag[data-flag="warning"] { --flag: var(--warning); }
+  .stat--flag[data-flag="success"] { --flag: var(--success); }
+
+  /* ======================================================================
+     Dispatch strip — the dashboard's opening element
+     SEO creates; Programming and UI/UX deliver. This is the actual shape of
+     the business, so it is the first thing on the page, and every stage is a
+     filter rather than a decoration.
+     ====================================================================== */
+  .dispatch {
+    display: grid;
+    grid-template-columns: minmax(150px, auto) minmax(0, 1fr);
+    gap: var(--sp-5);
+    padding: var(--sp-5);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-panel);
+    align-items: stretch;
+  }
+
+  /* Source: where work originates. */
+  .dispatch__source {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--sp-2);
+    padding-inline-end: var(--sp-5);
+    border-inline-end: 1px solid var(--line);
+  }
+
+  .dispatch__source-label {
+    font-size: var(--fs-2xs);
+    color: var(--text-subtle);
+  }
+
+  .dispatch__source-name {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semi);
+  }
+
+  .dispatch__source-count {
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dispatch__lanes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    min-width: 0;
+  }
+
+  /* One lane per receiving department. */
+  .lane {
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: var(--sp-4);
+    align-items: center;
+  }
+
+  .lane__head {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .lane__name {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semi);
+    white-space: nowrap;
+  }
+
+  .lane__name::before {
+    content: "";
+    width: 3px;
+    height: 14px;
+    flex: none;
+    border-radius: var(--r-pill);
+    background-color: var(--dept);
+  }
+
+  .lane__total {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The stages. Each is a button that applies a filter to the table below. */
+  .lane__stages {
+    display: flex;
+    gap: var(--sp-1);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-block-end: 2px;
+  }
+
+  .lane__stages::-webkit-scrollbar { display: none; }
+
+  .stage {
+    flex: 1 1 0;
+    min-width: 76px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding: var(--sp-2) var(--sp-3);
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-data);
+    border-block-end: 2px solid var(--st);
+    text-align: start;
+    transition: background-color var(--dur-fast) var(--ease),
+                border-color var(--dur-fast) var(--ease),
+                transform var(--dur-fast) var(--ease);
+  }
+
+  .stage:hover {
+    background-color: var(--surface);
+    border-color: var(--line-strong);
+    transform: translateY(-1px);
+  }
+
+  .stage[aria-pressed="true"] {
+    background-color: color-mix(in srgb, var(--st) 8%, transparent);
+    border-color: color-mix(in srgb, var(--st) 40%, transparent);
+    border-block-end-color: var(--st);
+  }
+
+  .stage__count {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semi);
+    line-height: 1;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .stage__label {
+    font-size: var(--fs-3xs);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stage__count--zero {
+    color: var(--text-subtle);
+    font-weight: var(--fw-regular);
+  }
+
+  @media (max-width: 900px) {
+    .dispatch {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-4);
+    }
+
+    .dispatch__source {
+      padding-inline-end: 0;
+      padding-block-end: var(--sp-4);
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--line);
+    }
+
+    .lane {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-2);
+    }
+  }
+
+  /* ======================================================================
+     Filter bar
+     Dropdown chips that collapse into applied pills. No modal, no nested
+     accordion — section 6 asks for powerful but simple.
+     ====================================================================== */
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .filters__row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-height: 32px;
+    padding-inline: var(--sp-3);
+    background-color: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-control);
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    white-space: nowrap;
+    transition: border-color var(--dur-fast) var(--ease),
+                color var(--dur-fast) var(--ease);
+  }
+
+  .filter-chip:hover {
+    border-color: var(--text-subtle);
+    color: var(--text);
+  }
+
+  .filter-chip[data-active="true"] {
+    background-color: var(--accent-soft);
+    border-color: var(--accent-line);
+    color: var(--accent-text);
+  }
+
+  .filter-chip__caret {
+    color: var(--text-subtle);
+    font-size: 9px;
+  }
+
+  /* Applied filters, each removable on its own. */
+  .filters__applied {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+    padding-block-start: var(--sp-3);
+    border-block-start: 1px dashed var(--line);
+  }
+
+  .applied-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding-inline: var(--sp-2) var(--sp-1);
+    padding-block: 3px;
+    background-color: var(--surface-sunk);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    font-size: var(--fs-2xs);
+  }
+
+  .applied-pill__key {
+    color: var(--text-subtle);
+  }
+
+  .applied-pill__val {
+    font-weight: var(--fw-semi);
+  }
+
+  .applied-pill__x {
+    display: grid;
+    place-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--r-pill);
+    color: var(--text-subtle);
+    font-size: var(--fs-2xs);
+    line-height: 1;
+  }
+
+  .applied-pill__x:hover {
+    background-color: var(--danger-soft);
+    color: var(--danger);
+  }
+
+  /* Saved views — the queues people actually work from. */
+  .views {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-1);
+    flex-wrap: wrap;
+  }
+
+  .view-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-height: 30px;
+    padding-inline: var(--sp-3);
+    border-radius: var(--r-pill);
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: background-color var(--dur-fast) var(--ease),
+                color var(--dur-fast) var(--ease);
+  }
+
+  .view-tab:hover {
+    background-color: var(--surface-sunk);
+    color: var(--text);
+  }
+
+  .view-tab[aria-pressed="true"] {
+    background-color: var(--surface);
+    border-color: var(--line-strong);
+    color: var(--text);
+    font-weight: var(--fw-semi);
+  }
+
+  .view-tab__count {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ======================================================================
+     Table
+     ====================================================================== */
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table {
+    width: 100%;
+    min-width: 960px;
+    font-size: var(--fs-xs);
+  }
+
+  .table thead th {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 1;
+    padding: var(--sp-3) var(--cell-pad-x);
+    background-color: var(--surface-alt);
+    border-block-end: 1px solid var(--line);
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-semi);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* Sortable headers announce their state with a caret, and the active
+     column keeps brand colour so the sort is findable. */
+  .th-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    color: inherit;
+    font: inherit;
+  }
+
+  .th-sort:hover {
+    color: var(--text);
+  }
+
+  th[aria-sort] .th-sort {
+    color: var(--accent-text);
+  }
+
+  .th-sort__caret {
+    font-size: 8px;
+    opacity: 0.5;
+  }
+
+  th[aria-sort] .th-sort__caret {
+    opacity: 1;
+  }
+
+  .table tbody td {
+    padding: var(--cell-pad-y) var(--cell-pad-x);
+    border-block-end: 1px solid var(--line-soft);
+    vertical-align: middle;
+    height: var(--row-h);
+  }
+
+  .table tbody tr {
+    background-color: var(--surface);
+    transition: background-color var(--dur-fast) var(--ease);
+  }
+
+  .table tbody tr:hover {
+    background-color: var(--surface-alt);
+  }
+
+  .table tbody tr[data-selected="true"] {
+    background-color: var(--accent-soft);
+  }
+
+  /* ---- The status spine ------------------------------------------------
+     The signature device. A task row's inline-start edge is its status, so a
+     long table reads as a board. Under RTL this lands on the right, which is
+     where the eye enters the row.
+  */
+  .table tbody tr[data-status] > td:first-child {
+    border-inline-start: 3px solid var(--st);
+  }
+
+  .table tbody tr[data-status="overdue-flag"] > td:first-child {
+    border-inline-start-color: var(--danger);
+  }
+
+  /* ---- Cells ------------------------------------------------------------ */
+  .cell-select {
+    width: 40px;
+    padding-inline-end: 0 !important;
+  }
+
+  .cell-actions {
+    width: 44px;
+    text-align: end;
+  }
+
+  .cell-title {
+    min-width: 260px;
+    max-width: 380px;
+  }
+
+  .task-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .task-title__link {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+    line-height: var(--lh-snug);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .task-title__link:hover {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .task-title__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    flex-wrap: wrap;
+  }
+
+  /* Task reference: forced LTR so an alphanumeric ID is not reordered by the
+     bidi algorithm inside an Arabic sentence. */
+  .task-ref {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--text-subtle);
+  }
+
+  .cell-num {
+    font-variant-numeric: tabular-nums lining-nums;
+    white-space: nowrap;
+  }
+
+  .cell-date {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--text-muted);
+  }
+
+  /* ---- Bulk action bar ------------------------------------------------- */
+  .bulk-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-5);
+    background-color: var(--accent-soft);
+    border-block-end: 1px solid var(--accent-line);
+    font-size: var(--fs-xs);
+    flex-wrap: wrap;
+  }
+
+  .bulk-bar__count {
+    font-weight: var(--fw-semi);
+    color: var(--accent-text);
+  }
+
+  /* ---- Mobile: rows become cards --------------------------------------
+     A 12-column table is unusable at 400px, so below 768px each row reflows
+     into a labelled card using the header text from data-label.
+  */
+  @media (max-width: 768px) {
+    .table {
+      min-width: 0;
+    }
+
+    .table thead {
+      display: none;
+    }
+
+    .table tbody tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-2);
+      padding: var(--sp-4);
+      margin-block-end: var(--sp-3);
+      border: 1px solid var(--line);
+      border-radius: var(--r-panel);
+    }
+
+    .table tbody tr[data-status] > td:first-child {
+      border-inline-start: 0;
+    }
+
+    .table tbody tr[data-status] {
+      border-inline-start: 3px solid var(--st);
+    }
+
+    .table tbody td {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-3);
+      padding: 0;
+      height: auto;
+      border-block-end: 0;
+    }
+
+    .table tbody td[data-label]::before {
+      content: attr(data-label);
+      font-size: var(--fs-3xs);
+      color: var(--text-subtle);
+      flex: none;
+    }
+
+    .table tbody td.cell-title {
+      max-width: none;
+      padding-block-end: var(--sp-2);
+      border-block-end: 1px solid var(--line-soft);
+    }
+
+    .table tbody td.cell-select,
+    .table tbody td.cell-actions {
+      width: auto;
+    }
+  }
+
+  /* ======================================================================
+     Org tree — department → head → team leader → employees
+     Drawn with borders rather than SVG so it stays responsive and themeable,
+     and it flips correctly under RTL because the connectors are logical.
+     ====================================================================== */
+  .tree {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .tree__children {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    margin-inline-start: var(--sp-5);
+    padding-inline-start: var(--sp-5);
+    border-inline-start: 1px solid var(--line);
+    position: relative;
+  }
+
+  .tree__node {
+    position: relative;
+  }
+
+  .tree__children > .tree__node::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 18px;
+    inset-inline-start: calc(var(--sp-5) * -1);
+    width: var(--sp-5);
+    height: 1px;
+    background-color: var(--line);
+  }
+
+  .tree-card {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-data);
+  }
+
+  .tree-card--dept {
+    border-inline-start: 3px solid var(--dept, var(--accent));
+  }
+
+  .tree-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .tree-card__name {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+  }
+
+  .tree-card__role {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+  }
+
+  /* ======================================================================
+     Definition list — used on detail pages
+     ====================================================================== */
+  .dl {
+    display: grid;
+    grid-template-columns: minmax(120px, auto) minmax(0, 1fr);
+    gap: var(--sp-3) var(--sp-5);
+    font-size: var(--fs-xs);
+  }
+
+  .dl dt {
+    color: var(--text-muted);
+  }
+
+  .dl dd {
+    font-weight: var(--fw-medium);
+  }
+
+  @media (max-width: 480px) {
+    .dl {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-1);
+    }
+
+    .dl dd {
+      margin-block-end: var(--sp-3);
+    }
+  }
+}

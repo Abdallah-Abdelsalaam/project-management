@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الصلاحيات · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="مصفوفة الصلاحيات لكل دور.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الصلاحيات</span>
+          </nav>
+          <h1 class="page-head__title">الصلاحيات</h1>
+          <p class="page-head__sub">
+            كل صلاحية في صف، وكل دور في عمود. اسم الصلاحية ثابت في الشيفرة، فتعديل هذه الشاشة
+            يكفي لتغيير سلوك النظام كله.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">استعادة الافتراضي</button>
+          <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ التغييرات</button>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="permissions" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-4">
+
+          <div class="alert alert--info">
+            <span class="alert__body">
+              <strong class="alert__title">عمود مسؤول النظام غير قابل للتعديل</strong>
+              <span class="alert__text">
+                هذا الدور يملك كل الصلاحيات دائمًا، لأن نظامًا بلا مسؤول قادر على الإصلاح يصبح
+                غير قابل للإدارة. المقابل أن كل إجراءاته تُسجَّل في سجل التدقيق.
+              </span>
+            </span>
+          </div>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">مصفوفة الصلاحيات</h2>
+              <div class="input-group" style="min-width: 220px;">
+                <span class="input-group__affix">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+                </span>
+                <input class="input" type="search" placeholder="ابحث عن صلاحية" aria-label="بحث عن صلاحية">
+              </div>
+            </div>
+
+            <div class="matrix-wrap">
+              <table class="matrix">
+                <caption class="sr-only">مصفوفة الصلاحيات لكل دور</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">الصلاحية</th>
+                    <th scope="col">موظف</th>
+                    <th scope="col">قائد فريق</th>
+                    <th scope="col">رئيس قسم</th>
+                    <th scope="col">مدير</th>
+                    <th scope="col">مسؤول النظام</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="matrix__group"><th colspan="6" scope="colgroup">المهام</th></tr>
+
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض مهامه<span class="matrix__cap-key">tasks.view.own</span></span></th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="موظف — عرض مهامه"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — عرض مهامه"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — عرض مهامه"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — عرض مهامه"></td>
+                    <td class="matrix__locked" aria-label="مسؤول النظام — ممنوحة دائمًا">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض مهام الفريق<span class="matrix__cap-key">tasks.view.team</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — عرض مهام الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — عرض مهام الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — عرض مهام الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — عرض مهام الفريق"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض مهام القسم<span class="matrix__cap-key">tasks.view.dept</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — عرض مهام القسم"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — عرض مهام القسم"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — عرض مهام القسم"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — عرض مهام القسم"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إنشاء مهمة<span class="matrix__cap-key">tasks.create</span></span></th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="موظف — إنشاء مهمة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — إنشاء مهمة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — إنشاء مهمة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إنشاء مهمة"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إسناد المهام<span class="matrix__cap-key">tasks.assign</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — إسناد المهام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — إسناد المهام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — إسناد المهام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إسناد المهام"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">تغيير حالة مهامه<span class="matrix__cap-key">tasks.status.own</span></span></th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="موظف — تغيير حالة مهامه"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — تغيير حالة مهامه"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — تغيير حالة مهامه"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — تغيير حالة مهامه"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">تغيير حالة أي مهمة<span class="matrix__cap-key">tasks.status.any</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — تغيير حالة أي مهمة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — تغيير حالة أي مهمة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — تغيير حالة أي مهمة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — تغيير حالة أي مهمة"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">مراجعة التسليمات<span class="matrix__cap-key">tasks.review</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — مراجعة التسليمات"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — مراجعة التسليمات"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — مراجعة التسليمات"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — مراجعة التسليمات"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">اعتماد المهام<span class="matrix__cap-key">tasks.approve</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — اعتماد المهام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — اعتماد المهام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — اعتماد المهام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — اعتماد المهام"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">رفض وطلب تعديل<span class="matrix__cap-key">tasks.reject</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — رفض وطلب تعديل"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — رفض وطلب تعديل"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — رفض وطلب تعديل"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — رفض وطلب تعديل"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إجراءات جماعية<span class="matrix__cap-key">tasks.bulk</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — إجراءات جماعية"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — إجراءات جماعية"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — إجراءات جماعية"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إجراءات جماعية"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+
+                  <tr class="matrix__group"><th colspan="6" scope="colgroup">الفرق والموظفون</th></tr>
+
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">ضبط صلاحيات الفريق<span class="matrix__cap-key">team.settings</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — ضبط صلاحيات الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — ضبط صلاحيات الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — ضبط صلاحيات الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — ضبط صلاحيات الفريق"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إسناد موظفين للفرق<span class="matrix__cap-key">team.assign</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — إسناد موظفين للفرق"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — إسناد موظفين للفرق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — إسناد موظفين للفرق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إسناد موظفين للفرق"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">نقل الموظفين بين الفرق<span class="matrix__cap-key">employee.move</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — نقل الموظفين"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — نقل الموظفين"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — نقل الموظفين"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — نقل الموظفين"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض أداء الموظفين<span class="matrix__cap-key">employee.perf.view</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — عرض أداء الموظفين"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — عرض أداء الموظفين"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — عرض أداء الموظفين"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — عرض أداء الموظفين"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+
+                  <tr class="matrix__group"><th colspan="6" scope="colgroup">الإدارة</th></tr>
+
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إدارة قادة الفرق<span class="matrix__cap-key">leads.manage</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — إدارة قادة الفرق"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — إدارة قادة الفرق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — إدارة قادة الفرق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إدارة قادة الفرق"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إدارة رؤساء الأقسام<span class="matrix__cap-key">heads.manage</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — إدارة رؤساء الأقسام"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — إدارة رؤساء الأقسام"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="رئيس قسم — إدارة رؤساء الأقسام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إدارة رؤساء الأقسام"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">إدارة الأقسام<span class="matrix__cap-key">dept.manage</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — إدارة الأقسام"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — إدارة الأقسام"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="رئيس قسم — إدارة الأقسام"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — إدارة الأقسام"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض الهيكل التنظيمي<span class="matrix__cap-key">org.view</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — عرض الهيكل"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — عرض الهيكل"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — عرض الهيكل"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — عرض الهيكل"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+
+                  <tr class="matrix__group"><th colspan="6" scope="colgroup">التقارير والنظام</th></tr>
+
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض التقارير<span class="matrix__cap-key">reports.view</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — عرض التقارير"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="قائد فريق — عرض التقارير"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="رئيس قسم — عرض التقارير"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — عرض التقارير"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">عرض سجل التدقيق<span class="matrix__cap-key">audit.view</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — سجل التدقيق"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — سجل التدقيق"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="رئيس قسم — سجل التدقيق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — سجل التدقيق"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span class="matrix__cap">الوصول إلى الإعدادات<span class="matrix__cap-key">settings.view</span></span></th>
+                    <td><input class="check__input" type="checkbox" aria-label="موظف — الإعدادات"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="قائد فريق — الإعدادات"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="رئيس قسم — الإعدادات"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="مدير — الإعدادات"></td>
+                    <td class="matrix__locked">✓</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">22 صلاحية في 4 مجموعات · آخر تعديل: اليوم 09:42 بواسطة دانة المهنا</p>
+              <div class="row row--tight">
+                <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">إلغاء التغييرات</button>
+                <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ التغييرات</button>
+              </div>
+            </div>
+          </section>
+
+          <p class="note">
+            <strong>لماذا الصلاحيات نصوص لا أرقام:</strong> النص يشرح نفسه في الشيفرة وفي السجل،
+            فيمكن قراءة سطر مثل <span class="ltr">data-perm="tasks.approve"</span> وفهمه بلا مرجع.
+            الأرقام تتطلب جدول ترجمة، وتكسر عند إعادة الترتيب.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

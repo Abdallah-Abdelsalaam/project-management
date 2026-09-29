@@ -1,0 +1,612 @@
+/* ==========================================================================
+   Page-level patterns
+   Structures that recur across whole page types rather than single controls:
+   settings layout, permission matrix, profile header, generic list rows,
+   two-column forms.
+   ========================================================================== */
+
+@layer components {
+
+  /* ======================================================================
+     Settings layout — sub-navigation beside content
+     ====================================================================== */
+  .settings {
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr);
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  .subnav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    position: sticky;
+    inset-block-start: var(--sp-4);
+  }
+
+  .subnav__label {
+    padding-inline: var(--sp-3);
+    padding-block-end: var(--sp-1);
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    font-weight: var(--fw-medium);
+  }
+
+  .subnav__item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    min-height: 34px;
+    padding-inline: var(--sp-3);
+    border-radius: var(--r-control);
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    position: relative;
+    transition: background-color var(--dur-fast) var(--ease),
+                color var(--dur-fast) var(--ease);
+  }
+
+  .subnav__item:hover {
+    background-color: var(--surface-sunk);
+    color: var(--text);
+  }
+
+  .subnav__item[aria-current="page"] {
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: var(--fw-semi);
+  }
+
+  .subnav__item[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    inset-block: 6px;
+    inset-inline-start: 0;
+    width: 3px;
+    border-radius: var(--r-pill);
+    background-color: var(--accent);
+  }
+
+  .subnav__sep {
+    height: 1px;
+    margin: var(--sp-2) var(--sp-3);
+    background-color: var(--line-soft);
+  }
+
+  @media (max-width: 900px) {
+    .settings {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .subnav {
+      position: static;
+      flex-direction: row;
+      overflow-x: auto;
+      padding-block-end: var(--sp-2);
+      border-block-end: 1px solid var(--line);
+      scrollbar-width: none;
+    }
+
+    .subnav::-webkit-scrollbar { display: none; }
+
+    .subnav__label { display: none; }
+
+    .subnav__item {
+      white-space: nowrap;
+      flex: none;
+    }
+
+    .subnav__item[aria-current="page"]::before {
+      inset-block: auto;
+      inset-block-end: 0;
+      inset-inline: 0;
+      width: auto;
+      height: 2px;
+    }
+
+    .subnav__sep { display: none; }
+  }
+
+  /* ======================================================================
+     Permission matrix — roles across, capabilities down
+     The first column stays put while the role columns scroll, because the
+     capability name is what gives a checkbox meaning.
+     ====================================================================== */
+  .matrix-wrap {
+    overflow-x: auto;
+  }
+
+  .matrix {
+    width: 100%;
+    min-width: 720px;
+    font-size: var(--fs-xs);
+  }
+
+  .matrix thead th {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    padding: var(--sp-3);
+    background-color: var(--surface-alt);
+    border-block-end: 1px solid var(--line);
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-semi);
+    color: var(--text-muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .matrix thead th:first-child,
+  .matrix tbody th {
+    text-align: start;
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    background-color: var(--surface);
+    min-width: 240px;
+  }
+
+  .matrix thead th:first-child {
+    z-index: 3;
+    background-color: var(--surface-alt);
+  }
+
+  .matrix tbody th {
+    padding: var(--sp-2) var(--sp-3);
+    border-block-end: 1px solid var(--line-soft);
+    font-weight: var(--fw-regular);
+    border-inline-end: 1px solid var(--line-soft);
+  }
+
+  .matrix tbody td {
+    padding: var(--sp-2);
+    border-block-end: 1px solid var(--line-soft);
+    text-align: center;
+  }
+
+  .matrix tbody tr:hover th,
+  .matrix tbody tr:hover td {
+    background-color: var(--surface-alt);
+  }
+
+  .matrix__group th {
+    background-color: var(--surface-sunk) !important;
+    font-weight: var(--fw-semi) !important;
+    font-size: var(--fs-2xs);
+    color: var(--text) !important;
+  }
+
+  .matrix__cap {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .matrix__cap-key {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  /* A locked cell: the admin role always has everything, so its checkbox is
+     shown satisfied and not editable rather than hidden. */
+  .matrix__locked {
+    color: var(--success);
+  }
+
+  /* ======================================================================
+     Profile header
+     ====================================================================== */
+  .profile {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-5);
+    flex-wrap: wrap;
+  }
+
+  .profile__id {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    min-width: 0;
+  }
+
+  .profile__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    min-width: 0;
+  }
+
+  .profile__name {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semi);
+    line-height: var(--lh-tight);
+  }
+
+  .profile__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+
+  .profile__score {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    min-width: 200px;
+    padding: var(--sp-3) var(--sp-4);
+    border: 1px solid var(--line);
+    border-radius: var(--r-panel);
+    background-color: var(--surface);
+  }
+
+  .profile__score-value {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semi);
+    line-height: 1;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* ======================================================================
+     Generic list row
+     Devices, sessions, team members, statuses, notification channels — any
+     list of named things with meta and an action.
+     ====================================================================== */
+  .lrow {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    border-block-end: 1px solid var(--line-soft);
+    flex-wrap: wrap;
+  }
+
+  .lrow:last-child {
+    border-block-end: 0;
+  }
+
+  .lrow:hover {
+    background-color: var(--surface-alt);
+  }
+
+  .lrow__glyph {
+    display: grid;
+    place-content: center;
+    width: 34px;
+    height: 34px;
+    flex: none;
+    border-radius: var(--r-control);
+    background-color: var(--surface-sunk);
+    color: var(--text-muted);
+  }
+
+  .lrow__body {
+    flex: 1 1 240px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .lrow__title {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+  }
+
+  .lrow__meta {
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+    line-height: var(--lh-snug);
+  }
+
+  .lrow__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex: none;
+  }
+
+  /* The device you are using right now should be unmistakable. */
+  .lrow--current {
+    background-color: var(--accent-soft);
+    border-inline-start: 3px solid var(--accent);
+  }
+
+  /* ======================================================================
+     Two-column form — the task creation screens
+     Content on the start side, a live summary on the end side. The summary
+     is not decoration: it shows how complete the brief is, which is the
+     first component of the task's quality score.
+     ====================================================================== */
+  .form-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  .form-aside {
+    position: sticky;
+    inset-block-start: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  @media (max-width: 1100px) {
+    .form-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .form-aside {
+      position: static;
+    }
+  }
+
+  /* Numbered steps are correct here: a creation form genuinely is a
+     sequence, unlike most places numbering gets used. */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--r-control);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+
+  .step:hover {
+    background-color: var(--surface-sunk);
+    color: var(--text);
+  }
+
+  .step__num {
+    display: grid;
+    place-content: center;
+    width: 20px;
+    height: 20px;
+    flex: none;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step[data-done="true"] {
+    color: var(--text);
+  }
+
+  .step[data-done="true"] .step__num {
+    background-color: var(--success);
+    border-color: var(--success);
+    color: #ffffff;
+  }
+
+  .step[data-current="true"] {
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: var(--fw-semi);
+  }
+
+  .step[data-current="true"] .step__num {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+
+  /* ======================================================================
+     Review workbench — the side-by-side the reviewer actually needs
+     Requirements on one side, what was delivered on the other.
+     ====================================================================== */
+  .review-split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 0;
+  }
+
+  .review-split > * + * {
+    border-inline-start: 1px solid var(--line);
+  }
+
+  @media (max-width: 720px) {
+    .review-split > * + * {
+      border-inline-start: 0;
+      border-block-start: 1px solid var(--line);
+    }
+  }
+
+  .review-col {
+    padding: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    min-width: 0;
+  }
+
+  .review-col__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding-block-end: var(--sp-3);
+    border-block-end: 1px solid var(--line-soft);
+  }
+
+  .review-col__title {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semi);
+    color: var(--text-muted);
+  }
+
+  /* ======================================================================
+     Board — the team-leader assignment view
+     Columns by status. Horizontal scroll rather than wrapping, because a
+     board that wraps stops being a board.
+     ====================================================================== */
+  .board {
+    display: flex;
+    gap: var(--sp-4);
+    overflow-x: auto;
+    padding-block-end: var(--sp-3);
+    align-items: flex-start;
+  }
+
+  .board__col {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    background-color: var(--surface-sunk);
+    border-radius: var(--r-panel);
+    padding: var(--sp-3);
+  }
+
+  .board__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    padding-inline: var(--sp-1);
+    padding-block-end: var(--sp-2);
+    border-block-end: 2px solid var(--st, var(--line-strong));
+  }
+
+  .board__count {
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tcard {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    padding: var(--sp-3);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-data);
+    border-inline-start: 3px solid var(--st, var(--line-strong));
+  }
+
+  .tcard:hover {
+    border-color: var(--line-strong);
+  }
+
+  .tcard__title {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-snug);
+  }
+
+  .tcard__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+  }
+
+  /* ======================================================================
+     Report figure rows — a compact table-like readout
+     ====================================================================== */
+  .figures {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .figure-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    padding-block: var(--sp-3);
+    border-block-end: 1px solid var(--line-soft);
+    font-size: var(--fs-xs);
+  }
+
+  .figure-row:last-child {
+    border-block-end: 0;
+  }
+
+  .figure-row__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: var(--text-muted);
+  }
+
+  .figure-row__bar {
+    flex: 0 0 120px;
+    height: 5px;
+    border-radius: var(--r-pill);
+    background-color: var(--surface-sunk);
+    overflow: hidden;
+  }
+
+  .figure-row__fill {
+    display: block;
+    height: 100%;
+    border-radius: var(--r-pill);
+    background-color: var(--viz-1);
+  }
+
+  .figure-row__value {
+    flex: none;
+    min-width: 56px;
+    text-align: end;
+    font-weight: var(--fw-semi);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  @media (max-width: 480px) {
+    .figure-row__bar { display: none; }
+  }
+
+  /* ======================================================================
+     Key/value summary card — task detail sidebar
+     ====================================================================== */
+  .kv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kv__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding-block: var(--sp-3);
+    border-block-end: 1px solid var(--line-soft);
+    font-size: var(--fs-xs);
+  }
+
+  .kv__row:last-child {
+    border-block-end: 0;
+  }
+
+  .kv__key {
+    color: var(--text-muted);
+    flex: none;
+  }
+
+  .kv__val {
+    font-weight: var(--fw-medium);
+    text-align: end;
+    min-width: 0;
+  }
+}

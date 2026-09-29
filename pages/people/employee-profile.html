@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محمد فتحي · ملف الموظف · إدارة المشاريع</title>
+<meta name="description" content="ملف الموظف وإحصاءاته ومهامه وتعديلاته.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <nav class="crumbs" aria-label="مسار التنقل">
+        <a href="employees.html">الموظفون</a>
+        <span class="crumbs__sep" aria-hidden="true">/</span>
+        <span aria-current="page">محمد فتحي</span>
+      </nav>
+
+      <!-- ====================================================== header -->
+      <section class="panel">
+        <div class="panel__body">
+          <div class="profile row--between">
+            <div class="profile__id">
+              <span class="avatar avatar--xl" data-dept="prog">م ف</span>
+              <div class="profile__text">
+                <h1 class="profile__name">محمد فتحي</h1>
+                <div class="profile__meta">
+                  <span class="dept" data-dept="prog">البرمجة</span>
+                  <span>مطوّر</span>
+                  <span>فريق أحمد سعيد</span>
+                  <span class="ltr">m.fathi@nuwa.sa</span>
+                </div>
+                <div class="profile__meta">
+                  <span class="badge badge--success">يسمح له بتغيير حالة مهامه</span>
+                  <span class="badge">انضم في مارس 2025</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row row--tight">
+              <div class="profile__score">
+                <span class="t-3xs t-subtle">جودة الموظف — آخر 90 يومًا</span>
+                <div class="row row--tight">
+                  <span class="profile__score-value t-success">92%</span>
+                  <span class="delta delta--up">▲ 3</span>
+                </div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:92%; background-color:var(--success)"></span></div>
+                <button class="btn btn--quiet" type="button" data-open="scoreModal">كيف حُسبت؟</button>
+              </div>
+
+              <div class="stack-2">
+                <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="employee.move">نقل إلى فريق آخر</button>
+                <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="team.settings">إعدادات الصلاحيات</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================= tabs -->
+      <div class="tabs" role="tablist" aria-label="أقسام الملف">
+        <button class="tab" role="tab" id="pt1" aria-controls="pp1" aria-selected="true" tabindex="0">النظرة العامة</button>
+        <button class="tab" role="tab" id="pt2" aria-controls="pp2" aria-selected="false" tabindex="-1">المهام <span class="tab__count">42</span></button>
+        <button class="tab" role="tab" id="pt3" aria-controls="pp3" aria-selected="false" tabindex="-1">المرفوضة والتعديلات <span class="tab__count">3</span></button>
+        <button class="tab" role="tab" id="pt4" aria-controls="pp4" aria-selected="false" tabindex="-1">النشاط</button>
+      </div>
+
+      <!-- ================================================= overview tab -->
+      <div class="tab-panel stack-6" role="tabpanel" id="pp1" aria-labelledby="pt1">
+
+        <div class="grid grid--stats">
+          <article class="stat"><p class="stat__label">إجمالي المهام</p><p class="stat__value">42</p><p class="stat__foot"><span>خلال آخر 90 يومًا</span></p></article>
+          <article class="stat"><p class="stat__label">مكتملة</p><p class="stat__value">34</p><p class="stat__foot"><span>81% من الإجمالي</span></p></article>
+          <article class="stat"><p class="stat__label">قيد التنفيذ</p><p class="stat__value">4</p><p class="stat__foot"><span>ضمن الحمل الطبيعي</span></p></article>
+          <article class="stat"><p class="stat__label">بانتظار المراجعة</p><p class="stat__value">1</p><p class="stat__foot"><span>منتظرة 6 ساعات</span></p></article>
+          <article class="stat stat--flag" data-flag="warning"><p class="stat__label">تحتاج تعديل</p><p class="stat__value">1</p><p class="stat__foot"><span>الجولة الأولى</span></p></article>
+          <article class="stat stat--flag" data-flag="danger"><p class="stat__label">متأخرة</p><p class="stat__value">0</p><p class="stat__foot"><span>لا تأخير حاليًا</span></p></article>
+          <article class="stat"><p class="stat__label">متوسط زمن الإنجاز</p><p class="stat__value">2.8<span class="stat__unit">يوم</span></p><p class="stat__foot"><span class="delta delta--up">▼ 0.4</span><span>أسرع من متوسط القسم</span></p></article>
+          <article class="stat"><p class="stat__label">إجمالي التعديلات</p><p class="stat__value">5</p><p class="stat__foot"><span>على 42 مهمة</span></p></article>
+        </div>
+
+        <div class="grid grid--halves">
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">مؤشرات الأداء</h2>
+              <span class="section__note">آخر 90 يومًا</span>
+            </div>
+            <div class="panel__body stack-4">
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">متوسط جودة المهام</span><span class="meter__value">93%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:93%"></span></div>
+              </div>
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">معدل الإنجاز</span><span class="meter__value">81%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:81%"></span></div>
+              </div>
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">الالتزام بالمواعيد</span><span class="meter__value">95%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:95%"></span></div>
+              </div>
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">الاعتماد من أول مرة</span><span class="meter__value">88%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:88%"></span></div>
+              </div>
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">نسبة الرفض</span><span class="meter__value">4%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:4%"></span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">اتجاه الجودة</h2>
+              <span class="section__note">آخر 6 أشهر</span>
+            </div>
+            <div class="panel__body stack-4">
+              <div class="bars" role="img" aria-label="متوسط جودة المهام شهريًا: أبريل 78، مايو 82، يونيو 85، يوليو 88، أغسطس 90، سبتمبر 93">
+                <div class="bars__col"><span class="bars__bar" style="--h:78%"></span><span class="bars__label">أبريل</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:82%"></span><span class="bars__label">مايو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:85%"></span><span class="bars__label">يونيو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:88%"></span><span class="bars__label">يوليو</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:90%"></span><span class="bars__label">أغسطس</span></div>
+                <div class="bars__col"><span class="bars__bar" style="--h:93%"></span><span class="bars__label">سبتمبر</span></div>
+              </div>
+
+              <div class="alert alert--success">
+                <span class="alert__body">
+                  <strong class="alert__title">تحسّن مستمر على ستة أشهر</strong>
+                  <span class="alert__text">
+                    ارتفعت الجودة 15 نقطة، والسبب الأكبر انخفاض التعديلات من 3 إلى 0.4 لكل مهمة.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">توزيع مهامه على الحالات</h2></div>
+            <div class="panel__body stack-3">
+              <div class="bar-stack" role="img" aria-label="81% مكتملة، 10% قيد التنفيذ، 2% بانتظار المراجعة، 2% تحتاج تعديل، 5% ملغاة">
+                <span class="bar-stack__seg" data-status="approved" style="inline-size:81%"></span>
+                <span class="bar-stack__seg" data-status="progress" style="inline-size:10%"></span>
+                <span class="bar-stack__seg" data-status="review" style="inline-size:2%"></span>
+                <span class="bar-stack__seg" data-status="revision" style="inline-size:2%"></span>
+                <span class="bar-stack__seg" data-status="cancelled" style="inline-size:5%"></span>
+              </div>
+              <div class="legend">
+                <span class="legend__item"><i class="legend__swatch" data-status="approved"></i> مكتملة 34</span>
+                <span class="legend__item"><i class="legend__swatch" data-status="progress"></i> قيد التنفيذ 4</span>
+                <span class="legend__item"><i class="legend__swatch" data-status="review"></i> مراجعة 1</span>
+                <span class="legend__item"><i class="legend__swatch" data-status="revision"></i> تعديل 1</span>
+                <span class="legend__item"><i class="legend__swatch" data-status="cancelled"></i> ملغاة 2</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">أنواع المهام التي ينفّذها</h2></div>
+            <div class="panel__body">
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">سرعة الصفحات</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%"></span></span>
+                  <span class="figure-row__value">15</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">سيو تقني</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:73%"></span></span>
+                  <span class="figure-row__value">11</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">بيانات منظمة</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:60%"></span></span>
+                  <span class="figure-row__value">9</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">تتبّع وتحليلات</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:33%"></span></span>
+                  <span class="figure-row__value">5</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">إصلاح خلل</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:13%"></span></span>
+                  <span class="figure-row__value">2</span>
+                </div>
+              </div>
+              <p class="t-3xs t-subtle mbs-3">
+                أعلى جودة في «سرعة الصفحات» بمتوسط 96%. هذا مفيد في توزيع المهام القادمة.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ==================================================== tasks tab -->
+      <div class="tab-panel stack-4" role="tabpanel" id="pp2" aria-labelledby="pt2" hidden>
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">مهام محمد فتحي</h2>
+            <div class="row row--tight">
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="mpStatus" aria-expanded="false" aria-haspopup="true">
+                  الحالة <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--end menu--wide" id="mpStatus" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="progress">قيد التنفيذ</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="review">قيد المراجعة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="approved">معتمدة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span class="status" data-status="revision">تحتاج تعديل</span></label>
+                </div>
+              </div>
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="mpType" aria-expanded="false" aria-haspopup="true">
+                  النوع <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--end" id="mpType" hidden>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>سرعة الصفحات</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>سيو تقني</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>بيانات منظمة</span></label>
+                </div>
+              </div>
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="mpDate" data-active="true" aria-expanded="false" aria-haspopup="true">
+                  التاريخ: <strong>آخر 90 يومًا</strong> <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--end" id="mpDate" hidden>
+                  <button class="menu__item" type="button">آخر 30 يومًا</button>
+                  <button class="menu__item" type="button" aria-selected="true">آخر 90 يومًا</button>
+                  <button class="menu__item" type="button">هذا العام</button>
+                  <button class="menu__item" type="button">فترة مخصصة…</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <caption class="sr-only">مهام الموظف</caption>
+              <thead>
+                <tr>
+                  <th scope="col">المهمة</th>
+                  <th scope="col">المُنشئ</th>
+                  <th scope="col">الحالة</th>
+                  <th scope="col">الأولوية</th>
+                  <th scope="col">الجودة</th>
+                  <th scope="col">التعديلات</th>
+                  <th scope="col">الاستحقاق</th>
+                  <th scope="col">زمن الإنجاز</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-status="progress">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="../tasks/detail.html">تحسين زمن تحميل صفحة المنتج</a><span class="task-title__meta"><span class="task-ref">PRG-1842</span> · سرعة الصفحات</span></div></td>
+                  <td data-label="المُنشئ"><span class="person__name">أحمد سالم</span></td>
+                  <td data-label="الحالة"><span class="status status--live" data-status="progress">قيد التنفيذ</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">94%</span></td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                  <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="soon">18 سبتمبر</span></td>
+                  <td class="cell-num" data-label="زمن الإنجاز">—</td>
+                </tr>
+                <tr data-status="review">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="../tasks/detail.html">إضافة بيانات منظمة Article للمدونة</a><span class="task-title__meta"><span class="task-ref">PRG-1839</span> · بيانات منظمة</span></div></td>
+                  <td data-label="المُنشئ"><span class="person__name">لمى حسن</span></td>
+                  <td data-label="الحالة"><span class="status" data-status="review">قيد المراجعة</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">90%</span></td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="1">1</span></td>
+                  <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">22 سبتمبر</span></td>
+                  <td class="cell-num" data-label="زمن الإنجاز">3.1 يوم</td>
+                </tr>
+                <tr data-status="approved">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="../tasks/detail.html">إضافة وسوم canonical لصفحات التصفية</a><span class="task-title__meta"><span class="task-ref">PRG-1829</span> · سيو تقني</span></div></td>
+                  <td data-label="المُنشئ"><span class="person__name">ريم القحطاني</span></td>
+                  <td data-label="الحالة"><span class="status" data-status="approved">معتمدة</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">95%</span></td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                  <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">3 سبتمبر</span></td>
+                  <td class="cell-num" data-label="زمن الإنجاز">2.2 يوم</td>
+                </tr>
+                <tr data-status="approved">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="../tasks/detail.html">تقليل حجم حِزم الجافاسكربت في الصفحة الرئيسية</a><span class="task-title__meta"><span class="task-ref">PRG-1822</span> · سرعة الصفحات</span></div></td>
+                  <td data-label="المُنشئ"><span class="person__name">أحمد سالم</span></td>
+                  <td data-label="الحالة"><span class="status" data-status="approved">معتمدة</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">97%</span></td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                  <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">28 أغسطس</span></td>
+                  <td class="cell-num" data-label="زمن الإنجاز">1.8 يوم</td>
+                </tr>
+                <tr data-status="revision">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="../tasks/detail.html">إضافة ترميز Breadcrumb لكل المستويات</a><span class="task-title__meta"><span class="task-ref">PRG-1841</span> · بيانات منظمة</span></div></td>
+                  <td data-label="المُنشئ"><span class="person__name">ريم القحطاني</span></td>
+                  <td data-label="الحالة"><span class="status" data-status="revision">تحتاج تعديل</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                  <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">76%</span></td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="1">1</span></td>
+                  <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">24 سبتمبر</span></td>
+                  <td class="cell-num" data-label="زمن الإنجاز">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel__foot">
+            <p class="pagination__summary">عرض <strong>1–5</strong> من <strong>42</strong> مهمة</p>
+            <nav class="pagination__pages" aria-label="تنقل بين الصفحات">
+              <button class="page-btn" type="button" disabled aria-label="السابق">›</button>
+              <button class="page-btn" type="button" aria-current="page">1</button>
+              <button class="page-btn" type="button">2</button>
+              <span class="page-gap" aria-hidden="true">…</span>
+              <button class="page-btn" type="button">9</button>
+              <button class="page-btn" type="button" aria-label="التالي">‹</button>
+            </nav>
+            <div></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================================================= rejected tab -->
+      <div class="tab-panel stack-4" role="tabpanel" id="pp3" aria-labelledby="pt3" hidden>
+        <div class="grid grid--stats">
+          <article class="stat"><p class="stat__label">مرات الرفض</p><p class="stat__value">3</p><p class="stat__foot"><span>على 42 مهمة — 4%</span></p></article>
+          <article class="stat"><p class="stat__label">أُصلحت وقُبلت</p><p class="stat__value">2</p><p class="stat__foot"><span>من أصل 3</span></p></article>
+          <article class="stat"><p class="stat__label">متوسط زمن الإصلاح</p><p class="stat__value">1.2<span class="stat__unit">يوم</span></p><p class="stat__foot"><span>أسرع من متوسط القسم 2.1</span></p></article>
+          <article class="stat"><p class="stat__label">السبب الأكثر</p><p class="stat__value t-md fw-semi" style="font-size:var(--fs-lg)">تسليم غير كامل</p><p class="stat__foot"><span>مرتان من ثلاث</span></p></article>
+        </div>
+
+        <article class="panel">
+          <div class="panel__head">
+            <div class="stack-2">
+              <h2 class="panel__title"><a class="task-title__link" href="../tasks/detail.html">إضافة ترميز Breadcrumb لكل مستويات الأقسام</a></h2>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1841</span> · الجولة 1</p>
+            </div>
+            <span class="status" data-status="revision">تحتاج تعديل</span>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="reason reason--revision">
+              <span class="reason__label">سبب الرفض — رفضها أحمد سعيد في 9 سبتمبر 14:30</span>
+              الترميز مطبَّق على المستوى الأول فقط، والمطلوب كل المستويات الثلاثة.
+            </div>
+            <div class="stack-2">
+              <h3 class="t-xs fw-semi">التعديلات المطلوبة</h3>
+              <div class="checklist">
+                <div class="checklist__item" data-pass="true"><span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span class="checklist__text">تطبيق الترميز على المستويات الثلاثة</span></div>
+                <div class="checklist__item" data-pass="false"><span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="checklist__text">إرفاق اختبار لكل مستوى</span></div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="fix1">ما غيّرته</label>
+              <textarea class="textarea" id="fix1" placeholder="اشرح كل تعديل نفّذته."></textarea>
+            </div>
+          </div>
+          <div class="panel__foot">
+            <a class="btn btn--quiet" href="../tasks/history.html">سجل المهمة</a>
+            <button class="btn btn--primary btn--sm" type="button" data-action="demo-save" data-perm="tasks.submit">إعادة التقديم للمراجعة</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel__head">
+            <div class="stack-2">
+              <h2 class="panel__title"><a class="task-title__link" href="../tasks/detail.html">إضافة تتبّع أحداث البحث الداخلي</a></h2>
+              <p class="t-3xs t-subtle"><span class="task-ref">PRG-1814</span> · أُصلحت واعتُمدت</p>
+            </div>
+            <span class="status" data-status="approved">معتمدة</span>
+          </div>
+          <div class="panel__body stack-3">
+            <div class="reason">
+              <span class="reason__label">سبب الرفض السابق — أحمد سعيد في 20 أغسطس</span>
+              الأحداث تُرسل بدون تسمية موحّدة، فلا يمكن تجميعها في التقارير.
+            </div>
+            <div class="timeline">
+              <div class="tl-item" data-status="submitted">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+                <div class="tl-item__body"><div class="tl-item__head"><span class="tl-item__who">محمد فتحي</span><span class="tl-item__what">أعاد التقديم بعد توحيد التسمية</span><span class="tl-item__when">21 أغسطس 11:10</span></div></div>
+              </div>
+              <div class="tl-item" data-status="approved">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head"><span class="tl-item__who">أحمد سعيد</span><span class="tl-item__what">اعتمد المهمة</span><span class="tl-item__when">21 أغسطس 15:40</span></div>
+                  <span class="diff"><span class="diff__from">72%</span><svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="diff__to">86%</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="panel">
+          <div class="empty">
+            <span class="empty__glyph"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <p class="empty__title">لا توجد حالات رفض أخرى</p>
+            <p class="empty__text">حالة واحدة متبقية من 2024 خارج نطاق الفترة المعروضة.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================= activity tab -->
+      <div class="tab-panel" role="tabpanel" id="pp4" aria-labelledby="pt4" hidden>
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">نشاط الموظف</h2>
+            <a class="btn btn--quiet" href="../insights/activity-log.html" data-perm="audit.view">السجل الكامل</a>
+          </div>
+          <div class="panel__body">
+            <div class="timeline">
+              <div class="tl-item" data-status="submitted">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+                <div class="tl-item__body"><div class="tl-item__head"><span class="tl-item__who">محمد فتحي</span><span class="tl-item__what">قدّم PRG-1839 للمراجعة</span><span class="tl-item__when">اليوم 04:12</span></div></div>
+              </div>
+              <div class="tl-item" data-status="progress">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg></span>
+                <div class="tl-item__body">
+                  <div class="tl-item__head"><span class="tl-item__who">محمد فتحي</span><span class="tl-item__what">غيّر حالة PRG-1841</span><span class="tl-item__when">أمس 16:22</span></div>
+                  <span class="diff"><span class="diff__from">تحتاج تعديل</span><svg class="icon diff__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="diff__to">قيد التنفيذ</span></span>
+                </div>
+              </div>
+              <div class="tl-item">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+                <div class="tl-item__body"><div class="tl-item__head"><span class="tl-item__who">محمد فتحي</span><span class="tl-item__what">أرفق db-query-log.txt على PRG-1842</span><span class="tl-item__when">14 سبتمبر 11:20</span></div></div>
+              </div>
+              <div class="tl-item" data-status="assigned">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg></span>
+                <div class="tl-item__body"><div class="tl-item__head"><span class="tl-item__who">أحمد سعيد</span><span class="tl-item__what">أسند PRG-1842 إلى محمد فتحي</span><span class="tl-item__when">12 سبتمبر 10:02</span></div></div>
+              </div>
+              <div class="tl-item" data-status="created">
+                <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
+                <div class="tl-item__body"><div class="tl-item__head"><span class="tl-item__who">أحمد سعيد</span><span class="tl-item__what">منح محمد فتحي صلاحية تغيير حالة مهامه</span><span class="tl-item__when">2 سبتمبر 09:00</span></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- The employee-quality calculation, shown in full. -->
+<div class="backdrop" data-close="scoreModal" hidden></div>
+<div class="modal-shell" id="scoreModal" role="dialog" aria-modal="true" aria-labelledby="smTitle" hidden>
+  <div class="modal modal--wide">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="smTitle">كيف حُسبت جودة الموظف</h2>
+        <p class="modal__sub">متوسط متحرك على آخر 90 يومًا. لا يدخل فيه أي تقدير شخصي.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="scoreModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <table class="breakdown">
+        <thead><tr><th scope="col">المعيار</th><th scope="col">قيمة محمد</th><th scope="col">الوزن</th><th scope="col">المحقَّق</th></tr></thead>
+        <tbody>
+          <tr><td>متوسط جودة المهام</td><td>93%</td><td class="breakdown__weight">50</td><td class="breakdown__earned">46.5</td></tr>
+          <tr><td>معدل الإنجاز</td><td>81%</td><td class="breakdown__weight">15</td><td class="breakdown__earned">12.2</td></tr>
+          <tr><td>الالتزام بالمواعيد</td><td>95%</td><td class="breakdown__weight">15</td><td class="breakdown__earned">14.3</td></tr>
+          <tr><td>معاكس نسبة الرفض</td><td>96%</td><td class="breakdown__weight">10</td><td class="breakdown__earned">9.6</td></tr>
+          <tr><td>زمن الإنجاز مقابل وسيط القسم</td><td>أسرع بـ13%</td><td class="breakdown__weight">10</td><td class="breakdown__earned">9.4</td></tr>
+          <tr class="breakdown__total"><td>الإجمالي</td><td></td><td class="breakdown__weight">100</td><td class="breakdown__earned">92</td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert--info">
+        <span class="alert__body">
+          <strong class="alert__title">ما لا يدخل في الحساب</strong>
+          <span class="alert__text">
+            عدد ساعات العمل، وقت الاستجابة للرسائل، وأي تقييم شخصي غير مرتبط بمهمة. كل بند أعلاه
+            مشتق من بيانات مهام فعلية يمكن الرجوع إليها.
+          </span>
+        </span>
+      </div>
+
+      <p class="t-3xs t-subtle">
+        الأوزان قابلة للتعديل من <a href="../settings/task-settings.html">إعدادات المهام</a>،
+        وأي تغيير يُطبَّق على الفترات القادمة لا على المحسوب سابقًا.
+      </p>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="scoreModal">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'employees', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

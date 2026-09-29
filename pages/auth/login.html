@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تسجيل الدخول · إدارة المشاريع</title>
+<meta name="description" content="تسجيل الدخول إلى نظام إدارة المشاريع.">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+
+<style>
+  /* Page-scoped: the auth brand pane is the only place in the system with a
+     tinted full-bleed surface, so it lives here rather than in a component
+     file that no other page would use. */
+  @layer overrides {
+    .auth__aside {
+      background-color: var(--surface);
+      border-inline-start: 1px solid var(--line);
+      gap: var(--sp-8);
+    }
+
+    .auth__aside-inner {
+      max-width: 420px;
+      margin-inline: auto;
+      width: 100%;
+    }
+
+    /* A quiet restatement of what the product does: work leaves SEO and
+       arrives at two delivery teams. Same components as the dashboard, so the
+       login screen teaches the visual language before you are inside. */
+    .flow {
+      display: grid;
+      gap: var(--sp-3);
+    }
+
+    .flow__node {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) var(--sp-4);
+      background-color: var(--surface-alt);
+      border: 1px solid var(--line);
+      border-radius: var(--r-data);
+      border-inline-start: 3px solid var(--dept, var(--accent));
+    }
+
+    .flow__branch {
+      display: grid;
+      gap: var(--sp-3);
+      margin-inline-start: var(--sp-6);
+      padding-inline-start: var(--sp-5);
+      border-inline-start: 1px solid var(--line);
+      position: relative;
+    }
+
+    .flow__branch > .flow__node::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: calc(var(--sp-5) * -1);
+      inset-block-start: 50%;
+      width: var(--sp-5);
+      height: 1px;
+      background-color: var(--line);
+    }
+
+    .flow__branch > .flow__node { position: relative; }
+
+    .flow__count {
+      margin-inline-start: auto;
+      font-size: var(--fs-2xs);
+      color: var(--text-subtle);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+</style>
+</head>
+<body>
+
+<main class="auth">
+  <!-- ------------------------------------------------------------- form -->
+  <div class="auth__pane">
+    <div class="auth__form-wrap stack-6">
+
+      <div class="row row--tight">
+        <span class="brand-mark" aria-hidden="true">إم</span>
+        <span class="brand-word">
+          <span class="brand-word__name">إدارة المشاريع</span>
+          <span class="brand-word__org">مجموعة نُوى</span>
+        </span>
+      </div>
+
+      <div class="stack-2">
+        <h1 class="t-2xl fw-semi">تسجيل الدخول</h1>
+        <p class="t-xs t-muted">
+          استخدم بريد العمل الخاص بك. سنطلب رمز تحقق بعد إدخال كلمة المرور.
+        </p>
+      </div>
+
+      <form class="stack-4" action="two-factor.html">
+        <div class="field">
+          <label class="field__label" for="email">بريد العمل</label>
+          <input class="input" id="email" name="email" type="email" inputmode="email"
+                 autocomplete="username" placeholder="name@nuwa.sa" required dir="ltr">
+        </div>
+
+        <div class="field">
+          <div class="row row--between">
+            <label class="field__label" for="password">كلمة المرور</label>
+            <a class="t-2xs t-accent" href="forgot-password.html">نسيت كلمة المرور؟</a>
+          </div>
+          <div class="input-group">
+            <input class="input" id="password" name="password" type="password"
+                   autocomplete="current-password" required>
+            <button class="input-group__affix btn btn--quiet btn--icon" type="button"
+                    aria-label="إظهار كلمة المرور">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <label class="check">
+          <input class="check__input" type="checkbox" name="trust">
+          <span class="check__text">
+            <span>الإبقاء على هذا الجهاز موثوقًا</span>
+            <span class="check__hint">
+              يتخطّى رمز التحقق على هذا الجهاز لمدة 30 يومًا. سنطلب التحقق مجددًا بعد انتهاء المدة،
+              أو عند تسجيل الدخول من جهاز أو شبكة جديدة.
+            </span>
+          </span>
+        </label>
+
+        <button class="btn btn--primary btn--lg btn--block" type="submit">متابعة</button>
+      </form>
+
+      <div class="alert alert--info">
+        <span class="alert__body">
+          <strong class="alert__title">الدخول مقيَّد بحسابات المنظمة</strong>
+          <span class="alert__text">
+            إن لم يكن لديك حساب، اطلب من مسؤول النظام إضافتك وتحديد دورك وقسمك.
+          </span>
+        </span>
+      </div>
+
+      <p class="t-3xs t-subtle">
+        تُسجَّل كل محاولات الدخول مع الجهاز والشبكة وتوقيت المحاولة في سجل الأمان.
+      </p>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------------ aside -->
+  <aside class="auth__pane auth__aside">
+    <div class="auth__aside-inner stack-6">
+      <div class="stack-2">
+        <h2 class="t-lg fw-semi">مسار العمل في النظام</h2>
+        <p class="t-xs t-muted">
+          يُنشئ قسم السيو المهام ويُرسلها إلى فريقي التنفيذ. يتابع النظام كل مهمة من الإنشاء
+          حتى الاعتماد، ويقيس جودتها من بيانات المهمة نفسها.
+        </p>
+      </div>
+
+      <div class="flow">
+        <div class="flow__node" data-dept="seo">
+          <span class="avatar avatar--sm" data-dept="seo" aria-hidden="true">س</span>
+          <div class="person__text">
+            <span class="person__name">قسم السيو</span>
+            <span class="person__meta">ينشئ المهام ويحدد المتطلبات</span>
+          </div>
+          <span class="flow__count">284</span>
+        </div>
+
+        <div class="flow__branch">
+          <div class="flow__node" data-dept="prog">
+            <span class="avatar avatar--sm" data-dept="prog" aria-hidden="true">ب</span>
+            <div class="person__text">
+              <span class="person__name">البرمجة</span>
+              <span class="person__meta">3 فرق · 11 موظفًا</span>
+            </div>
+            <span class="flow__count">168</span>
+          </div>
+
+          <div class="flow__node" data-dept="uiux">
+            <span class="avatar avatar--sm" data-dept="uiux" aria-hidden="true">ت</span>
+            <div class="person__text">
+              <span class="person__name">UI/UX</span>
+              <span class="person__meta">2 فريق · 7 موظفين</span>
+            </div>
+            <span class="flow__count">116</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-2 border-bs" style="padding-block-start: var(--sp-5);">
+        <p class="t-2xs t-subtle">دورة حياة المهمة</p>
+        <div class="row row--tight">
+          <span class="status" data-status="created">بانتظار الإسناد</span>
+          <span class="status" data-status="assigned">مُسندة</span>
+          <span class="status" data-status="progress">قيد التنفيذ</span>
+          <span class="status" data-status="review">قيد المراجعة</span>
+          <span class="status" data-status="approved">معتمدة</span>
+        </div>
+        <p class="t-3xs t-subtle mbs-2">
+          وإن لم تستوفِ المهمة المتطلبات: مرفوضة ← تحتاج تعديل ← أُعيد التقديم ← قيد المراجعة.
+        </p>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<div class="toast-dock" id="toastDock" aria-live="polite"></div>
+
+<script src="../../assets/js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأقسام وأنواع المهام · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="إعدادات الأقسام وأنواع المهام وحقولها.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الأقسام وأنواع المهام</span>
+          </nav>
+          <h1 class="page-head__title">الأقسام وأنواع المهام</h1>
+          <p class="page-head__sub">
+            القسم وحدة قابلة للإضافة، ونوع المهمة يحدّد شكل نموذج الإنشاء. هنا يتحقق وعد التوسّع
+            عمليًا: قسم جديد بزرّ إنشاء خاص به وأنواع مهام خاصة به، دون تعديل الشيفرة.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--primary btn--sm" type="button" data-open="newDeptModal" data-perm="dept.manage">إضافة قسم</button>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="departments" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">الأقسام</h2>
+              <span class="section__note">3 أقسام · واحد مصدر واثنان تنفيذ</span>
+            </div>
+            <div class="panel__body panel__body--flush">
+
+              <div class="lrow">
+                <span class="avatar" data-dept="seo">س</span>
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    السيو
+                    <span class="badge badge--outline ltr">seo</span>
+                    <span class="badge badge--accent">قسم مصدر</span>
+                  </p>
+                  <p class="lrow__meta">
+                    9 موظفين · ينشئ المهام ولا يستلمها · لا زرّ إنشاء خاص به لأنه هو المُنشئ
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <label class="switch">
+                    <input class="switch__input" type="checkbox" checked aria-label="تفعيل قسم السيو">
+                    <span class="t-3xs t-subtle">مفعّل</span>
+                  </label>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل قسم السيو">⋯</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="avatar" data-dept="prog">ب</span>
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    البرمجة
+                    <span class="badge badge--outline ltr">prog</span>
+                    <span class="badge">قسم تنفيذ</span>
+                  </p>
+                  <p class="lrow__meta">
+                    11 موظفًا · 6 أنواع مهام · زرّ «مهمة برمجة» ظاهر في كل الصفحات
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <label class="switch">
+                    <input class="switch__input" type="checkbox" checked aria-label="تفعيل قسم البرمجة">
+                    <span class="t-3xs t-subtle">مفعّل</span>
+                  </label>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل قسم البرمجة">⋯</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="avatar" data-dept="uiux">ت</span>
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    UI/UX
+                    <span class="badge badge--outline ltr">uiux</span>
+                    <span class="badge">قسم تنفيذ</span>
+                  </p>
+                  <p class="lrow__meta">
+                    7 موظفين · 6 أنواع مهام · زرّ «مهمة UI/UX» ظاهر في كل الصفحات
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <label class="switch">
+                    <input class="switch__input" type="checkbox" checked aria-label="تفعيل قسم UI/UX">
+                    <span class="t-3xs t-subtle">مفعّل</span>
+                  </label>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل قسم UI/UX">⋯</button>
+                </div>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                تعطيل قسم يُخفي زرّ الإنشاء الخاص به ويمنع المهام الجديدة، مع بقاء المهام القائمة
+                والسجل كما هي. لا يوجد حذف للأقسام.
+              </p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أنواع مهام البرمجة</h2>
+              <button class="btn btn--secondary btn--sm" type="button" data-open="newTypeModal">إضافة نوع</button>
+            </div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">سرعة الصفحات <span class="badge badge--outline ltr">page_speed</span></p>
+                  <p class="lrow__meta">7 حقول مطلوبة · 38 مهمة · متوسط جودة 94%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">سيو تقني <span class="badge badge--outline ltr">technical_seo</span></p>
+                  <p class="lrow__meta">6 حقول مطلوبة · 45 مهمة · متوسط جودة 91%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">بيانات منظمة <span class="badge badge--outline ltr">structured_data</span></p>
+                  <p class="lrow__meta">6 حقول مطلوبة · 32 مهمة · متوسط جودة 89%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">تتبّع وتحليلات <span class="badge badge--outline ltr">analytics</span></p>
+                  <p class="lrow__meta">6 حقول مطلوبة · 28 مهمة · متوسط جودة 88%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">إعادة توجيه ومعالجة أخطاء <span class="badge badge--outline ltr">redirects</span></p>
+                  <p class="lrow__meta">6 حقول مطلوبة · 17 مهمة · متوسط جودة 85%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    إصلاح خلل <span class="badge badge--outline ltr">bugfix</span>
+                    <span class="badge badge--warning">حقل إضافي</span>
+                  </p>
+                  <p class="lrow__meta">
+                    7 حقول مطلوبة، منها «خطوات إعادة إنتاج المشكلة» · 8 مهام · متوسط جودة 81%
+                  </p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أنواع مهام UI/UX</h2>
+              <button class="btn btn--secondary btn--sm" type="button" data-open="newTypeModal">إضافة نوع</button>
+            </div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    تصميم صفحة <span class="badge badge--outline ltr">page_design</span>
+                    <span class="badge badge--warning">النصوص النهائية مطلوبة</span>
+                  </p>
+                  <p class="lrow__meta">8 حقول مطلوبة · 64 مهمة · متوسط جودة 74%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    تصميم مكوّن <span class="badge badge--outline ltr">component_design</span>
+                    <span class="badge badge--warning">حالات المكوّن مطلوبة</span>
+                  </p>
+                  <p class="lrow__meta">
+                    8 حقول مطلوبة، منها تعداد الحالات المطلوبة · 41 مهمة · متوسط جودة 71%
+                  </p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">تحسين تجربة <span class="badge badge--outline ltr">ux_improvement</span></p>
+                  <p class="lrow__meta">7 حقول مطلوبة · 22 مهمة · متوسط جودة 82%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">نظام تصميم <span class="badge badge--outline ltr">design_system</span></p>
+                  <p class="lrow__meta">7 حقول مطلوبة · 9 مهام · متوسط جودة 86%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">أصول بصرية <span class="badge badge--outline ltr">visual_assets</span></p>
+                  <p class="lrow__meta">6 حقول مطلوبة · 14 مهمة · متوسط جودة 79%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+              <div class="lrow">
+                <div class="lrow__body">
+                  <p class="lrow__title">مراجعة قابلية استخدام <span class="badge badge--outline ltr">usability_review</span></p>
+                  <p class="lrow__meta">6 حقول مطلوبة · 6 مهام · متوسط جودة 88%</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">الحقول</button></div>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                النوعان الأدنى جودة هما «تصميم صفحة» و«تصميم مكوّن»، وكلاهما يعتمد على أصول جاهزة.
+                لذلك أُضيفت لهما حقول مطلوبة إضافية.
+              </p>
+            </div>
+          </section>
+
+          <p class="note">
+            <strong>لماذا الحقول تُدار من هنا:</strong> لأن اكتمال الطلب يساوي 20 من جودة المهمة.
+            حين يتضح أن نوعًا معيّنًا يعود للتعديل كثيرًا، يكون الحل إضافة حقل مطلوب لهذا النوع، لا
+            مطالبة الموظفين بالاجتهاد.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="newDeptModal" hidden></div>
+<div class="modal-shell" id="newDeptModal" role="dialog" aria-modal="true" aria-labelledby="ndTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="ndTitle">إضافة قسم</h2>
+        <p class="modal__sub">القسم الجديد يحصل على هيكله وزرّ إنشاء خاص به تلقائيًا.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="newDeptModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="ndName">اسم القسم <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="ndName" type="text" placeholder="مثال: المحتوى" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="ndKey">المعرّف البرمجي <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="ndKey" type="text" dir="ltr" placeholder="content" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="ndKind">نوع القسم <span class="field__req" aria-hidden="true">*</span></label>
+          <select class="select" id="ndKind" required>
+            <option selected>قسم تنفيذ — يستلم المهام</option>
+            <option>قسم مصدر — ينشئ المهام</option>
+            <option>الاثنان</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="ndColor">لون القسم</label>
+          <select class="select" id="ndColor">
+            <option>أزرق</option><option>بنفسجي</option><option>أخضر</option><option>كهرماني</option>
+          </select>
+          <p class="field__help">لا يمكن اختيار اللون الأساسي للعلامة.</p>
+        </div>
+      </div>
+      <label class="check">
+        <input class="check__input" type="checkbox" checked>
+        <span class="check__text">
+          <span>إنشاء زرّ «إنشاء مهمة» خاص بهذا القسم</span>
+          <span class="check__hint">يظهر مع الأزرار الحالية في كل صفحة يملك فيها المستخدم صلاحية الإنشاء.</span>
+        </span>
+      </label>
+      <label class="check">
+        <input class="check__input" type="checkbox" checked>
+        <span class="check__text">
+          <span>نسخ أنواع المهام من قسم قائم</span>
+          <span class="check__hint">أسرع من البناء من الصفر، ويمكن تعديلها بعد ذلك.</span>
+        </span>
+      </label>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="newDeptModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="newDeptModal">إنشاء القسم</button>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop" data-close="newTypeModal" hidden></div>
+<div class="modal-shell" id="newTypeModal" role="dialog" aria-modal="true" aria-labelledby="ntTitle" hidden>
+  <div class="modal modal--wide">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="ntTitle">إضافة نوع مهمة</h2>
+        <p class="modal__sub">النوع يحدّد الحقول التي تظهر في نموذج الإنشاء.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="newTypeModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="ntName">اسم النوع <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="ntName" type="text" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="ntKey">المعرّف البرمجي <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" id="ntKey" type="text" dir="ltr" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="ntDept">القسم</label>
+        <select class="select" id="ntDept">
+          <option>البرمجة</option>
+          <option>UI/UX</option>
+        </select>
+      </div>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset__legend">الحقول المطلوبة لهذا النوع</legend>
+        <p class="t-3xs t-subtle">
+          الحقول الأساسية مطلوبة لكل الأنواع. ما تختاره هنا يُضاف إليها.
+        </p>
+        <label class="check"><input class="check__input" type="checkbox" checked><span class="check__text"><span>الهدف</span><span class="check__hint">أساسي — لا يمكن إلغاؤه</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox" checked><span class="check__text"><span>معايير القبول</span><span class="check__hint">أساسي — لا يمكن إلغاؤه</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox"><span class="check__text"><span>الصفحات المستهدفة</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox"><span class="check__text"><span>خطوات إعادة إنتاج المشكلة</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox"><span class="check__text"><span>النصوص النهائية</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox"><span class="check__text"><span>الجمهور المستهدف</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox"><span class="check__text"><span>حالات المكوّن المطلوبة</span></span></label>
+        <label class="check"><input class="check__input" type="checkbox"><span class="check__text"><span>مرفق واحد على الأقل</span></span></label>
+      </fieldset>
+
+      <div class="alert alert--info">
+        <span class="alert__body">
+          <span class="alert__text">
+            كل حقل مطلوب تضيفه يرفع الحد الأدنى لاكتمال الطلب، ويُفترض أن يخفض جولات التعديل لهذا
+            النوع. راقب الأثر في تقرير التعديلات بعد شهر.
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="newTypeModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="newTypeModal">إضافة النوع</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

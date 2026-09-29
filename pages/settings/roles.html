@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأدوار · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="أدوار النظام وعدد المستخدمين في كل دور.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <span>الإعدادات</span>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الأدوار</span>
+          </nav>
+          <h1 class="page-head__title">الأدوار</h1>
+          <p class="page-head__sub">
+            الدور مجموعة من الصلاحيات، لا شيء آخر. إضافة دور جديد لا تتطلب تغييرًا في بنية النظام
+            — فقط تحديد ما يملكه من صلاحيات.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--primary btn--sm" type="button" data-open="addRoleModal">إضافة دور</button>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="roles" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أدوار النظام</h2>
+              <span class="section__note">5 أدوار · 26 مستخدمًا</span>
+            </div>
+
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <span class="lrow__glyph"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg></span>
+                <div class="lrow__body">
+                  <p class="lrow__title">موظف <span class="badge">18 مستخدمًا</span></p>
+                  <p class="lrow__meta">
+                    نطاق الوصول: مهامه فقط · 6 صلاحيات · يستطيع إنشاء المهام وتقديمها،
+                    وتغيير حالتها إن سمح قائد الفريق
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <a class="btn btn--quiet" href="permissions.html">الصلاحيات</a>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل دور موظف">⋯</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></span>
+                <div class="lrow__body">
+                  <p class="lrow__title">قائد الفريق <span class="badge">5 مستخدمين</span></p>
+                  <p class="lrow__meta">
+                    نطاق الوصول: فريقه · 17 صلاحية · يُسند المهام ويراجعها ويضبط صلاحية تغيير
+                    الحالة لكل موظف
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <a class="btn btn--quiet" href="permissions.html">الصلاحيات</a>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل دور قائد الفريق">⋯</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l4 4 5-7 5 7 4-4v10H3z"/></svg></span>
+                <div class="lrow__body">
+                  <p class="lrow__title">رئيس القسم <span class="badge">3 مستخدمين</span></p>
+                  <p class="lrow__meta">
+                    نطاق الوصول: قسمه بالكامل · 21 صلاحية · يوزّع الموظفين على قادة الفرق وينقلهم
+                    ويرى إحصاءات القسم
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <a class="btn btn--quiet" href="permissions.html">الصلاحيات</a>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل دور رئيس القسم">⋯</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V6l7-3 7 3v15M4 21h16M9 21v-5h6v5"/></svg></span>
+                <div class="lrow__body">
+                  <p class="lrow__title">مدير <span class="badge">1 مستخدم</span></p>
+                  <p class="lrow__meta">
+                    نطاق الوصول: كل الأقسام · صلاحيات موسّعة · يعيّن رؤساء الأقسام ويزيلهم ويرى
+                    التقارير والسجل
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <a class="btn btn--quiet" href="permissions.html">الصلاحيات</a>
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="تعديل دور مدير">⋯</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    مسؤول النظام
+                    <span class="badge">1 مستخدم</span>
+                    <span class="badge badge--danger">وصول كامل</span>
+                  </p>
+                  <p class="lrow__meta">
+                    نطاق الوصول: النظام بالكامل · كل الصلاحيات · لا يمكن تقييد هذا الدور، لكن كل
+                    إجراءاته تُسجَّل في سجل التدقيق
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <span class="badge badge--outline">محمي</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">كيف يعمل نموذج الصلاحيات</h2></div>
+            <div class="panel__body stack-4">
+              <div class="alert alert--info">
+                <span class="alert__body">
+                  <strong class="alert__title">الصلاحية نص، لا شرط على الدور</strong>
+                  <span class="alert__text">
+                    كل عنصر في الواجهة يطلب صلاحية باسمها مثل <span class="ltr">tasks.assign</span>،
+                    ولا يسأل «هل هذا المستخدم مدير؟». لذلك إضافة دور سادس لا تتطلب تعديل أي شاشة.
+                  </span>
+                </span>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">مجموعات الصلاحيات</h3>
+                <div class="row row--tight">
+                  <span class="badge badge--outline ltr">tasks.*</span>
+                  <span class="badge badge--outline ltr">team.*</span>
+                  <span class="badge badge--outline ltr">employee.*</span>
+                  <span class="badge badge--outline ltr">dept.*</span>
+                  <span class="badge badge--outline ltr">heads.manage</span>
+                  <span class="badge badge--outline ltr">leads.manage</span>
+                  <span class="badge badge--outline ltr">reports.*</span>
+                  <span class="badge badge--outline ltr">audit.view</span>
+                  <span class="badge badge--outline ltr">settings.view</span>
+                </div>
+                <p class="t-3xs t-subtle">
+                  النجمة تعني كل ما تحت المجموعة. مثلًا <span class="ltr">tasks.*</span> تشمل
+                  الإسناد والمراجعة والاعتماد والرفض.
+                </p>
+              </div>
+
+              <div class="alert alert--warning">
+                <span class="alert__body">
+                  <strong class="alert__title">إخفاء زرّ ليس حماية</strong>
+                  <span class="alert__text">
+                    ما تراه هنا يضبط الواجهة فقط. في النظام الفعلي تُفحص كل صلاحية مرة ثانية على
+                    الخادم عند تنفيذ الإجراء، لأن إخفاء عنصر في المتصفح لا يمنع إرسال الطلب.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="addRoleModal" hidden></div>
+<div class="modal-shell" id="addRoleModal" role="dialog" aria-modal="true" aria-labelledby="arTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="arTitle">إضافة دور</h2>
+        <p class="modal__sub">ابدأ من دور قائم ثم عدّل صلاحياته، أو ابدأ من الصفر.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="addRoleModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field">
+        <label class="field__label" for="arName">اسم الدور <span class="field__req" aria-hidden="true">*</span></label>
+        <input class="input" id="arName" type="text" placeholder="مثال: مراجع جودة" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="arKey">المعرّف البرمجي <span class="field__req" aria-hidden="true">*</span></label>
+        <input class="input" id="arKey" type="text" dir="ltr" placeholder="quality_reviewer" required>
+        <p class="field__help">يُستخدم في الشيفرة ولا يمكن تغييره بعد الإنشاء.</p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="arBase">ابدأ من</label>
+        <select class="select" id="arBase">
+          <option>دور فارغ — بلا صلاحيات</option>
+          <option>موظف</option>
+          <option selected>قائد الفريق</option>
+          <option>رئيس القسم</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="arScope">نطاق الوصول</label>
+        <select class="select" id="arScope">
+          <option>مهامه فقط</option>
+          <option selected>فريقه</option>
+          <option>قسمه</option>
+          <option>كل الأقسام</option>
+        </select>
+        <p class="field__help">النطاق يحدّد البيانات المرئية؛ الصلاحيات تحدّد الإجراءات المتاحة.</p>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="addRoleModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="addRoleModal">إنشاء الدور وتحديد صلاحياته</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

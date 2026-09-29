@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إعدادات المهام · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="أوزان الجودة وقواعد المهام والمواعيد.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">إعدادات المهام</span>
+          </nav>
+          <h1 class="page-head__title">إعدادات المهام</h1>
+          <p class="page-head__sub">
+            هنا تُحدَّد قواعد احتساب الجودة. أي تعديل يسري على المهام الجديدة فقط، ولا يُعيد حساب
+            ما مضى.
+          </p>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="task-settings" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <!-- Task quality weights -->
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أوزان جودة المهمة</h2>
+              <span class="badge badge--success">المجموع 100</span>
+            </div>
+            <div class="panel__body stack-5">
+              <p class="t-xs t-muted">
+                يجب أن يبلغ مجموع الأوزان 100. إن غيّرت وزنًا، سيظهر الفارق ولن يُسمح بالحفظ قبل
+                تصحيحه.
+              </p>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="w1">اكتمال بيانات الطلب</label>
+                  <p class="field__help">الحقول والأصول المطلوبة عند الإنشاء. يُقاس قبل بدء التنفيذ.</p>
+                  <input class="input" id="w1" type="number" value="20" min="0" max="100">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="w2">مطابقة المتطلبات</label>
+                  <p class="field__help">بنود معايير القبول التي جازت في المراجعة.</p>
+                  <input class="input" id="w2" type="number" value="25" min="0" max="100">
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="w3">الاعتماد من أول مرة</label>
+                  <p class="field__help">الوزن كاملًا بلا رفض، ويُخفَّض بمقدار محدَّد مع كل رفض.</p>
+                  <input class="input" id="w3" type="number" value="20" min="0" max="100">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="w4">الالتزام بالموعد</label>
+                  <p class="field__help">يُخفَّض تدريجيًا بحسب مقدار التأخير لا بشكل ثنائي.</p>
+                  <input class="input" id="w4" type="number" value="15" min="0" max="100">
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="w5">عدد التعديلات</label>
+                  <input class="input" id="w5" type="number" value="10" min="0" max="100">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="w6">تقييم المراجع</label>
+                  <p class="field__help">التقييم من 5 الذي يضعه قائد الفريق، مُحوَّلًا إلى نسبة.</p>
+                  <input class="input" id="w6" type="number" value="10" min="0" max="100">
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="penReject">خصم كل رفض من بند الاعتماد الأول</label>
+                  <select class="select" id="penReject">
+                    <option>5 نقاط</option>
+                    <option selected>10 نقاط</option>
+                    <option>الوزن كاملًا من أول رفض</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="penRev">خصم كل جولة تعديل</label>
+                  <select class="select" id="penRev">
+                    <option>3 نقاط</option>
+                    <option selected>5 نقاط</option>
+                    <option>10 نقاط</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">مجموع الأوزان الحالي</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%; background-color:var(--success)"></span></span>
+                  <span class="figure-row__value">100</span>
+                </div>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">آخر تعديل: أمس 17:40 بواسطة دانة المهنا · يُسجَّل في سجل التدقيق</p>
+              <div class="row row--tight">
+                <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">استعادة الافتراضي</button>
+                <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ الأوزان</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Employee quality weights -->
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أوزان جودة الموظف</h2>
+              <span class="badge badge--success">المجموع 100</span>
+            </div>
+            <div class="panel__body stack-5">
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="e1">متوسط جودة المهام</label>
+                  <input class="input" id="e1" type="number" value="50" min="0" max="100">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="e2">معدل الإنجاز</label>
+                  <input class="input" id="e2" type="number" value="15" min="0" max="100">
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="e3">الالتزام بالمواعيد</label>
+                  <input class="input" id="e3" type="number" value="15" min="0" max="100">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="e4">معاكس نسبة الرفض</label>
+                  <input class="input" id="e4" type="number" value="10" min="0" max="100">
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="e5">زمن الإنجاز مقابل وسيط القسم</label>
+                  <input class="input" id="e5" type="number" value="10" min="0" max="100">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="ePeriod">فترة الاحتساب</label>
+                  <select class="select" id="ePeriod">
+                    <option>30 يومًا</option>
+                    <option>60 يومًا</option>
+                    <option selected>90 يومًا</option>
+                    <option>180 يومًا</option>
+                  </select>
+                  <p class="field__help">فترة قصيرة تتفاعل سريعًا لكنها تتأثر بمهمة واحدة سيئة.</p>
+                </div>
+              </div>
+
+              <div class="alert alert--info">
+                <span class="alert__body">
+                  <strong class="alert__title">ما لا يدخل في الحساب مطلقًا</strong>
+                  <span class="alert__text">
+                    ساعات العمل، سرعة الرد على الرسائل، أو أي تقييم شخصي غير مرتبط بمهمة. إضافة
+                    مقاييس كهذه تحوّل النظام إلى أداة مراقبة بدل أداة إدارة.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <div></div>
+              <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ الأوزان</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">قواعد المهام والمواعيد</h2></div>
+            <div class="panel__body stack-5">
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">الحقول المطلوبة عند الإنشاء</legend>
+                <p class="t-3xs t-subtle">
+                  الحقل المطلوب هنا يمنع إرسال المهمة بدونه، ويدخل في احتساب اكتمال الطلب.
+                </p>
+                <label class="switch"><input class="switch__input" type="checkbox" checked><span class="t-xs">الهدف</span></label>
+                <label class="switch"><input class="switch__input" type="checkbox" checked><span class="t-xs">معايير القبول</span></label>
+                <label class="switch"><input class="switch__input" type="checkbox" checked><span class="t-xs">تاريخ الاستحقاق</span></label>
+                <label class="switch"><input class="switch__input" type="checkbox" checked><span class="t-xs">الصفحات المستهدفة</span></label>
+                <label class="switch"><input class="switch__input" type="checkbox" checked><span class="t-xs">النصوص النهائية لمهام التصميم</span></label>
+                <label class="switch"><input class="switch__input" type="checkbox"><span class="t-xs">مرفق واحد على الأقل</span></label>
+                <label class="switch"><input class="switch__input" type="checkbox"><span class="t-xs">الحجم المتوقع</span></label>
+              </fieldset>
+
+              <hr>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">المواعيد والتنبيهات</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="dueMin">أقل مدة مسموحة للاستحقاق</label>
+                    <select class="select" id="dueMin">
+                      <option>بلا حد</option>
+                      <option selected>يوم عمل واحد</option>
+                      <option>يومان</option>
+                      <option>3 أيام</option>
+                    </select>
+                    <p class="field__help">يمنع إنشاء مهام مستحقة اليوم نفسه إلا للأولوية العاجلة.</p>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="warnBefore">التنبيه قبل الموعد</label>
+                    <select class="select" id="warnBefore">
+                      <option>12 ساعة</option>
+                      <option selected>24 ساعة</option>
+                      <option>48 ساعة</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="assignSla">مهلة الإسناد بعد الإنشاء</label>
+                    <select class="select" id="assignSla">
+                      <option>4 ساعات</option>
+                      <option selected>يوم عمل واحد</option>
+                      <option>يومان</option>
+                    </select>
+                    <p class="field__help">بعدها تُنبَّه رئاسة القسم أن المهمة ما زالت بلا إسناد.</p>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="reviewSla">مهلة المراجعة بعد التقديم</label>
+                    <select class="select" id="reviewSla">
+                      <option>8 ساعات</option>
+                      <option selected>24 ساعة</option>
+                      <option>48 ساعة</option>
+                    </select>
+                    <p class="field__help">انتظار المراجعة يُحسب على المهمة لا على الموظف.</p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <hr>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">التعديلات</legend>
+                <div class="field">
+                  <label class="field__label" for="maxRev">عدد جولات التعديل قبل التنبيه الإداري</label>
+                  <select class="select" id="maxRev">
+                    <option>جولتان</option>
+                    <option selected>3 جولات</option>
+                    <option>4 جولات</option>
+                  </select>
+                  <p class="field__help">
+                    تكرار التعديل غالبًا مؤشر على طلب غير واضح لا على تنفيذ ضعيف، فالتنبيه يذهب
+                    للطرفين.
+                  </p>
+                </div>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إلزام المراجع بتحديد سبب من قائمة عند الرفض</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إلزام المراجع بكتابة التعديلات المطلوبة</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إبلاغ رئيس القسم عند الجولة الثالثة</span>
+                </label>
+              </fieldset>
+
+              <hr>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">العرض</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="perPage">عدد المهام في الصفحة</label>
+                    <select class="select" id="perPage">
+                      <option>15</option>
+                      <option selected>30</option>
+                      <option>50</option>
+                      <option>100</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="defSort">الترتيب الافتراضي</label>
+                    <select class="select" id="defSort">
+                      <option selected>الأقرب استحقاقًا</option>
+                      <option>الأحدث إنشاءً</option>
+                      <option>الأعلى أولوية</option>
+                      <option>الأدنى جودة</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="panel__foot">
+              <div></div>
+              <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ القواعد</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

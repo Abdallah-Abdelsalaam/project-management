@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التحقق بخطوتين · إدارة المشاريع</title>
+<meta name="description" content="إدخال رمز التحقق المرسل إلى بريدك.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<main class="auth">
+  <div class="auth__pane">
+    <div class="auth__form-wrap stack-6">
+
+      <a class="row row--tight t-xs t-muted" href="login.html">
+        <svg class="icon icon--dir" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        الرجوع إلى تسجيل الدخول
+      </a>
+
+      <div class="stack-2">
+        <h1 class="t-2xl fw-semi">أدخل رمز التحقق</h1>
+        <p class="t-xs t-muted">
+          أرسلنا رمزًا من ستة أرقام إلى <strong class="ltr">a.salem@nuwa.sa</strong>.
+          الرمز صالح لمدة 10 دقائق.
+        </p>
+      </div>
+
+      <form class="stack-5" action="../dashboard/index.html">
+        <div class="field">
+          <label class="field__label" for="code1">رمز التحقق</label>
+          <div class="code-input">
+            <input class="code-input__box" id="code1" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="الرقم 1">
+            <input class="code-input__box" type="text" inputmode="numeric" maxlength="1" aria-label="الرقم 2">
+            <input class="code-input__box" type="text" inputmode="numeric" maxlength="1" aria-label="الرقم 3">
+            <input class="code-input__box" type="text" inputmode="numeric" maxlength="1" aria-label="الرقم 4">
+            <input class="code-input__box" type="text" inputmode="numeric" maxlength="1" aria-label="الرقم 5">
+            <input class="code-input__box" type="text" inputmode="numeric" maxlength="1" aria-label="الرقم 6">
+          </div>
+          <p class="field__help">يمكنك لصق الرمز كاملًا في أول خانة.</p>
+        </div>
+
+        <label class="check">
+          <input class="check__input" type="checkbox" checked>
+          <span class="check__text">
+            <span>الإبقاء على هذا الجهاز موثوقًا لمدة 30 يومًا</span>
+            <span class="check__hint">
+              لن نطلب الرمز على هذا الجهاز خلال المدة. سنطلبه مجددًا بعد انتهائها، أو إن تغيّرت
+              الشبكة أو المتصفح.
+            </span>
+          </span>
+        </label>
+
+        <button class="btn btn--primary btn--lg btn--block" type="submit">تأكيد الرمز</button>
+      </form>
+
+      <div class="stack-3 border-bs" style="padding-block-start: var(--sp-5);">
+        <div class="row row--between">
+          <span class="t-xs t-muted">لم يصلك الرمز؟</span>
+          <button class="btn btn--quiet" type="button" data-action="demo-soon">إعادة الإرسال</button>
+        </div>
+        <p class="t-3xs t-subtle">
+          يمكن إعادة الإرسال بعد 45 ثانية. بعد خمس محاولات فاشلة يُقفل الحساب مؤقتًا لمدة 15 دقيقة
+          ويُسجَّل ذلك في سجل الأمان.
+        </p>
+      </div>
+
+      <div class="alert alert--info">
+        <span class="alert__body">
+          <strong class="alert__title">تعذّر الوصول إلى بريدك؟</strong>
+          <span class="alert__text">تواصل مع مسؤول النظام لإعادة تعيين طريقة التحقق الخاصة بك.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="auth__pane auth__aside">
+    <div class="stack-6" style="max-width: 420px; margin-inline: auto; width: 100%;">
+      <div class="stack-2">
+        <h2 class="t-lg fw-semi">لماذا خطوة إضافية</h2>
+        <p class="t-xs t-muted">
+          كلمة المرور وحدها تكفي لدخول أي شخص يحصل عليها. الرمز المؤقت يربط الدخول بصندوق بريدك،
+          والجهاز الموثوق يجعل ذلك محتملًا في الاستخدام اليومي.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel__body stack-3">
+          <div class="row row--tight">
+            <span class="badge badge--success">مفعّل</span>
+            <span class="t-xs">رمز عبر البريد الإلكتروني</span>
+          </div>
+          <div class="kv">
+            <div class="kv__row"><span class="kv__key">مدة صلاحية الرمز</span><span class="kv__val">10 دقائق</span></div>
+            <div class="kv__row"><span class="kv__key">مدة الجهاز الموثوق</span><span class="kv__val">30 يومًا</span></div>
+            <div class="kv__row"><span class="kv__key">إعادة التحقق الإلزامية</span><span class="kv__val">بعد انتهاء المدة</span></div>
+            <div class="kv__row"><span class="kv__key">أقصى محاولات</span><span class="kv__val">5 ثم إيقاف 15 دقيقة</span></div>
+          </div>
+          <p class="t-3xs t-subtle">
+            هذه القيم قابلة للتعديل من إعدادات المصادقة الثنائية، ولا يحتاج تغييرها إلى تعديل النظام.
+          </p>
+        </div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<div class="toast-dock" id="toastDock" aria-live="polite"></div>
+<script src="../../assets/js/ui.js"></script>
+</body>
+</html>

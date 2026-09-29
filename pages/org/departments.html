@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأقسام · إدارة المشاريع</title>
+<meta name="description" content="أقسام المنظمة وأداؤها وأحجامها.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">الأقسام</h1>
+          <p class="page-head__sub">
+            ثلاثة أقسام حاليًا. النظام لا يفترض عددًا ثابتًا — إضافة قسم رابع لا تتطلب تغييرًا
+            في البنية.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <a class="btn btn--secondary btn--sm" href="structure.html">الهيكل التنظيمي</a>
+          <button class="btn btn--primary btn--sm" type="button" data-open="addDeptModal" data-perm="dept.manage">إضافة قسم</button>
+        </div>
+      </div>
+
+      <div class="grid grid--cards">
+
+        <!-- SEO: the source department. Measured differently from the two
+             delivery departments, because its output is requests not builds. -->
+        <article class="panel">
+          <div class="panel__head">
+            <div class="stack-2">
+              <h2 class="panel__title"><a class="task-title__link" href="department-detail.html">السيو</a></h2>
+              <p class="t-3xs t-subtle">قسم المصدر — يُنشئ المهام</p>
+            </div>
+            <span class="dept" data-dept="seo"></span>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="kv">
+              <div class="kv__row"><span class="kv__key">رئيس القسم</span><span class="kv__val">فيصل العمري</span></div>
+              <div class="kv__row"><span class="kv__key">الفرق</span><span class="kv__val">1</span></div>
+              <div class="kv__row"><span class="kv__key">الموظفون</span><span class="kv__val">9</span></div>
+              <div class="kv__row"><span class="kv__key">مهام أنشأها القسم</span><span class="kv__val">284</span></div>
+            </div>
+            <div class="meter" data-band="mid">
+              <div class="meter__head"><span class="meter__label">متوسط اكتمال الطلبات</span><span class="meter__value">76%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:76%"></span></div>
+            </div>
+            <p class="t-3xs t-subtle">
+              يُقاس هذا القسم باكتمال الطلبات التي يرسلها، لأن جودة التنفيذ تبدأ من جودة الطلب.
+            </p>
+          </div>
+          <div class="panel__foot">
+            <a class="btn btn--quiet" href="department-detail.html">تفاصيل القسم</a>
+            <span class="badge badge--outline">9 موظفين</span>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel__head">
+            <div class="stack-2">
+              <h2 class="panel__title"><a class="task-title__link" href="department-detail.html">البرمجة</a></h2>
+              <p class="t-3xs t-subtle">قسم تنفيذ</p>
+            </div>
+            <span class="dept" data-dept="prog"></span>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="kv">
+              <div class="kv__row"><span class="kv__key">رئيس القسم</span><span class="kv__val">خالد ناصر</span></div>
+              <div class="kv__row"><span class="kv__key">الفرق</span><span class="kv__val">2</span></div>
+              <div class="kv__row"><span class="kv__key">الموظفون</span><span class="kv__val">11</span></div>
+              <div class="kv__row"><span class="kv__key">مهام مستلمة</span><span class="kv__val">168</span></div>
+              <div class="kv__row"><span class="kv__key">نسبة التعديلات</span><span class="kv__val">6%</span></div>
+            </div>
+            <div class="meter" data-band="high">
+              <div class="meter__head"><span class="meter__label">متوسط جودة التنفيذ</span><span class="meter__value">91%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:91%"></span></div>
+            </div>
+            <div class="bar-stack" role="img" aria-label="توزيع مهام البرمجة على الحالات">
+              <span class="bar-stack__seg" data-status="approved" style="inline-size:43%"></span>
+              <span class="bar-stack__seg" data-status="progress" style="inline-size:24%"></span>
+              <span class="bar-stack__seg" data-status="assigned" style="inline-size:13%"></span>
+              <span class="bar-stack__seg" data-status="review" style="inline-size:8%"></span>
+              <span class="bar-stack__seg" data-status="created" style="inline-size:8%"></span>
+              <span class="bar-stack__seg" data-status="revision" style="inline-size:4%"></span>
+            </div>
+          </div>
+          <div class="panel__foot">
+            <a class="btn btn--quiet" href="department-detail.html">تفاصيل القسم</a>
+            <span class="badge badge--success">أعلى جودة</span>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel__head">
+            <div class="stack-2">
+              <h2 class="panel__title"><a class="task-title__link" href="department-detail.html">UI/UX</a></h2>
+              <p class="t-3xs t-subtle">قسم تنفيذ</p>
+            </div>
+            <span class="dept" data-dept="uiux"></span>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="kv">
+              <div class="kv__row"><span class="kv__key">رئيس القسم</span><span class="kv__val">هند العامري</span></div>
+              <div class="kv__row"><span class="kv__key">الفرق</span><span class="kv__val">2</span></div>
+              <div class="kv__row"><span class="kv__key">الموظفون</span><span class="kv__val">7</span></div>
+              <div class="kv__row"><span class="kv__key">مهام مستلمة</span><span class="kv__val">116</span></div>
+              <div class="kv__row"><span class="kv__key">نسبة التعديلات</span><span class="kv__val"><span class="t-warning fw-semi">11%</span></span></div>
+            </div>
+            <div class="meter" data-band="mid">
+              <div class="meter__head"><span class="meter__label">متوسط جودة التنفيذ</span><span class="meter__value">76%</span></div>
+              <div class="meter__track"><span class="meter__fill" style="inline-size:76%"></span></div>
+            </div>
+            <div class="alert alert--warning">
+              <span class="alert__body">
+                <span class="alert__text">
+                  أكثر سبب مسجَّل للتعديل: نقص الأصول في الطلب الأصلي، وهو سبب يعود إلى قسم السيو
+                  لا إلى التنفيذ.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="panel__foot">
+            <a class="btn btn--quiet" href="department-detail.html">تفاصيل القسم</a>
+            <span class="badge badge--warning">يحتاج متابعة</span>
+          </div>
+        </article>
+
+        <!-- The extensibility point, shown as UI rather than only claimed in
+             documentation. -->
+        <article class="panel" data-perm="dept.manage" style="border-style: dashed;">
+          <div class="panel__body">
+            <div class="empty">
+              <span class="empty__glyph">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+              <p class="empty__title">إضافة قسم جديد</p>
+              <p class="empty__text">
+                مثل المحتوى أو الإعلانات. القسم الجديد يحصل تلقائيًا على هيكل رئيس وقادة فرق
+                وموظفين، وعلى زرّ إنشاء مهمة خاص به.
+              </p>
+              <div class="empty__actions">
+                <button class="btn btn--primary btn--sm" type="button" data-open="addDeptModal">إضافة قسم</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <section class="panel">
+        <div class="panel__head">
+          <h2 class="panel__title">مقارنة الأقسام</h2>
+          <span class="section__note">آخر 90 يومًا</span>
+        </div>
+        <div class="panel__body stack-4">
+          <div class="figures">
+            <div class="figure-row">
+              <span class="figure-row__label">البرمجة — جودة التنفيذ</span>
+              <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:91%"></span></span>
+              <span class="figure-row__value">91%</span>
+            </div>
+            <div class="figure-row">
+              <span class="figure-row__label">UI/UX — جودة التنفيذ</span>
+              <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:76%; background-color:var(--warning)"></span></span>
+              <span class="figure-row__value">76%</span>
+            </div>
+            <div class="figure-row">
+              <span class="figure-row__label">البرمجة — الالتزام بالمواعيد</span>
+              <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:92%"></span></span>
+              <span class="figure-row__value">92%</span>
+            </div>
+            <div class="figure-row">
+              <span class="figure-row__label">UI/UX — الالتزام بالمواعيد</span>
+              <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:81%; background-color:var(--warning)"></span></span>
+              <span class="figure-row__value">81%</span>
+            </div>
+            <div class="figure-row">
+              <span class="figure-row__label">البرمجة — متوسط زمن الإنجاز</span>
+              <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:60%"></span></span>
+              <span class="figure-row__value">3.1 يوم</span>
+            </div>
+            <div class="figure-row">
+              <span class="figure-row__label">UI/UX — متوسط زمن الإنجاز</span>
+              <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:82%"></span></span>
+              <span class="figure-row__value">4.2 يوم</span>
+            </div>
+          </div>
+
+          <div class="alert alert--info">
+            <span class="alert__body">
+              <strong class="alert__title">القراءة الصحيحة للفرق بين القسمين</strong>
+              <span class="alert__text">
+                الفارق في الجودة 15 نقطة، لكن أكثر من نصف حالات التعديل في UI/UX سببها نقص في
+                الطلب. تحسين نموذج إنشاء مهام التصميم يعالج الفجوة أسرع من متابعة المصممين.
+              </span>
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="addDeptModal" hidden></div>
+<div class="modal-shell" id="addDeptModal" role="dialog" aria-modal="true" aria-labelledby="adTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="adTitle">إضافة قسم</h2>
+        <p class="modal__sub">يُنشأ القسم بهيكله الكامل: رئيس، قادة فرق، موظفون، أنواع مهام.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="addDeptModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field">
+        <label class="field__label" for="adName">اسم القسم <span class="field__req" aria-hidden="true">*</span></label>
+        <input class="input" id="adName" type="text" placeholder="مثال: المحتوى" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="adKind">نوع القسم <span class="field__req" aria-hidden="true">*</span></label>
+          <select class="select" id="adKind" required>
+            <option>قسم تنفيذ — يستلم المهام</option>
+            <option>قسم مصدر — ينشئ المهام</option>
+            <option>الاثنان</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="adColor">لون القسم</label>
+          <select class="select" id="adColor">
+            <option>أزرق</option><option>بنفسجي</option><option>أخضر</option><option>كهرماني</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="adHead">رئيس القسم</label>
+        <select class="select" id="adHead">
+          <option>تحديد لاحقًا</option>
+          <option>اختيار من الموظفين الحاليين</option>
+        </select>
+      </div>
+      <label class="check">
+        <input class="check__input" type="checkbox" checked>
+        <span class="check__text">
+          <span>إنشاء زرّ «إنشاء مهمة» خاص بهذا القسم</span>
+          <span class="check__hint">يظهر مع زرّي البرمجة وUI/UX في كل الصفحات.</span>
+        </span>
+      </label>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="addDeptModal">إلغاء</button>
+      <button class="btn btn--primary" type="button" data-close="addDeptModal">إنشاء القسم</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'departments', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

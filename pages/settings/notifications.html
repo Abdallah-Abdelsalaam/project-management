@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الإشعارات · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="تفضيلات الإشعارات وقنواتها.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الإشعارات</span>
+          </nav>
+          <h1 class="page-head__title">الإشعارات</h1>
+          <p class="page-head__sub">
+            اختر ما يستحق مقاطعتك وما يكفي أن تراه داخل النظام. الإشعار الذي يصل دائمًا يُصبح
+            إشعارًا لا يُقرأ أبدًا.
+          </p>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="notifications" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">القنوات المتاحة</h2>
+              <span class="section__note">البنية تدعم إضافة قنوات جديدة دون تعديل الأحداث</span>
+            </div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <span class="lrow__glyph" style="color: var(--success)">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 10-12 0c0 5-2 6-2 6h16s-2-1-2-6M13.7 20a2 2 0 01-3.4 0"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">داخل النظام <span class="badge badge--success">مفعّلة</span></p>
+                  <p class="lrow__meta">تظهر في جرس الإشعارات. لا يمكن تعطيلها لأنها سجلّك داخل النظام.</p>
+                </div>
+              </div>
+              <div class="lrow">
+                <span class="lrow__glyph" style="color: var(--success)">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2 3h6l2-3h4M5 5h14l2 7v7H3v-7z"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">البريد الإلكتروني <span class="badge badge--success">مفعّلة</span></p>
+                  <p class="lrow__meta"><span class="ltr">a.salem@nuwa.sa</span> · للأحداث المحدَّدة أدناه فقط</p>
+                </div>
+                <div class="lrow__actions">
+                  <label class="switch"><input class="switch__input" type="checkbox" checked aria-label="تفعيل إشعارات البريد"></label>
+                </div>
+              </div>
+              <div class="lrow">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18H7zM11 18h2"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">إشعارات الجوال <span class="badge">مخطَّطة</span></p>
+                  <p class="lrow__meta">مضافة في بنية الإشعارات ولم تُفعَّل بعد.</p>
+                </div>
+                <div class="lrow__actions">
+                  <label class="switch"><input class="switch__input" type="checkbox" disabled aria-label="إشعارات الجوال غير متاحة"></label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">الأحداث</h2>
+              <span class="section__note">اختر القناة لكل حدث</span>
+            </div>
+
+            <div class="matrix-wrap">
+              <table class="matrix">
+                <caption class="sr-only">تفضيلات الإشعارات لكل حدث</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">الحدث</th>
+                    <th scope="col">داخل النظام</th>
+                    <th scope="col">البريد</th>
+                    <th scope="col">ملخّص يومي</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="matrix__group"><th colspan="4" scope="colgroup">مهامي</th></tr>
+                  <tr>
+                    <th scope="row">أُسندت إليّ مهمة جديدة</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — مهمة جديدة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — مهمة جديدة"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — مهمة جديدة"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">أُعيد إسناد مهمتي لشخص آخر</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — إعادة إسناد"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — إعادة إسناد"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — إعادة إسناد"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">رُفضت مهمتي وطُلب تعديل</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — رفض"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — رفض"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — رفض"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">اعتُمدت مهمتي</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — اعتماد"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="بريد — اعتماد"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="ملخص — اعتماد"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">مهمتي تقترب من موعد التسليم</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — قرب الموعد"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — قرب الموعد"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — قرب الموعد"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">مهمتي تجاوزت موعد التسليم</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — تأخر"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — تأخر"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — تأخر"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">تعليق جديد على مهمتي</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — تعليق"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="بريد — تعليق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="ملخص — تعليق"></td>
+                  </tr>
+
+                  <tr class="matrix__group"><th colspan="4" scope="colgroup">مهام أنشأتها</th></tr>
+                  <tr>
+                    <th scope="row">أُسندت المهمة التي أنشأتها لموظف</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — إسناد مهمتي المنشأة"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="بريد — إسناد مهمتي المنشأة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="ملخص — إسناد مهمتي المنشأة"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">قُدِّمت للمراجعة</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — تقديم"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="بريد — تقديم"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="ملخص — تقديم"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">اعتُمدت أو رُفضت</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — نتيجة المراجعة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — نتيجة المراجعة"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — نتيجة المراجعة"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">طُلب توضيح على طلبي</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — طلب توضيح"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — طلب توضيح"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — طلب توضيح"></td>
+                  </tr>
+
+                  <tr class="matrix__group"><th colspan="4" scope="colgroup">إدارة الفريق</th></tr>
+                  <tr>
+                    <th scope="row">مهمة بانتظار مراجعتي</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — بانتظار مراجعتي"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="بريد — بانتظار مراجعتي"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="ملخص — بانتظار مراجعتي"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">مهمة في فريقي تجاوزت موعدها</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — تأخر في الفريق"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — تأخر في الفريق"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — تأخر في الفريق"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">مهمة عادت للتعديل ثلاث مرات أو أكثر</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — تعديل متكرر"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — تعديل متكرر"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — تعديل متكرر"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">نُقل موظف إلى فريقي أو منه</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — نقل موظف"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — نقل موظف"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — نقل موظف"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">انخفضت جودة موظف تحت 70%</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — انخفاض جودة"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="بريد — انخفاض جودة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="ملخص — انخفاض جودة"></td>
+                  </tr>
+
+                  <tr class="matrix__group"><th colspan="4" scope="colgroup">الأمان</th></tr>
+                  <tr>
+                    <th scope="row">تسجيل دخول من جهاز جديد</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — دخول جديد"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — دخول جديد"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — دخول جديد"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">محاولة دخول فاشلة</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — محاولة فاشلة"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — محاولة فاشلة"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — محاولة فاشلة"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">تغيير في صلاحياتي</th>
+                    <td><input class="check__input" type="checkbox" checked aria-label="داخل النظام — تغيير صلاحيات"></td>
+                    <td><input class="check__input" type="checkbox" checked aria-label="بريد — تغيير صلاحيات"></td>
+                    <td><input class="check__input" type="checkbox" aria-label="ملخص — تغيير صلاحيات"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                أحداث الأمان لا يمكن تعطيلها من قناة البريد بسياسة المنظمة.
+              </p>
+              <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ التفضيلات</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">التوقيت والهدوء</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="digestTime">وقت الملخّص اليومي</label>
+                  <select class="select" id="digestTime">
+                    <option>07:00</option>
+                    <option selected>08:30</option>
+                    <option>12:00</option>
+                    <option>17:00</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="digestDays">أيام الملخّص</label>
+                  <select class="select" id="digestDays">
+                    <option selected>أيام العمل فقط</option>
+                    <option>كل الأيام</option>
+                  </select>
+                </div>
+              </div>
+
+              <label class="switch">
+                <input class="switch__input" type="checkbox" checked>
+                <span class="t-xs">عدم إرسال بريد خارج ساعات العمل، عدا تنبيهات الأمان</span>
+              </label>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="quietFrom">بداية فترة الهدوء</label>
+                  <input class="input" id="quietFrom" type="time" value="18:00">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="quietTo">نهاية فترة الهدوء</label>
+                  <input class="input" id="quietTo" type="time" value="08:00">
+                </div>
+              </div>
+
+              <div class="alert alert--info">
+                <span class="alert__body">
+                  <strong class="alert__title">لا تُفقد الإشعارات المؤجّلة</strong>
+                  <span class="alert__text">
+                    ما يُمنع خلال فترة الهدوء يظهر داخل النظام فورًا، ويُضاف إلى ملخّص الصباح.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

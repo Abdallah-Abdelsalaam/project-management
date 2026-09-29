@@ -1,0 +1,482 @@
+/* ==========================================================================
+   Overlays — dropdown, popover, modal, drawer, toast, command palette
+   The only components in the system that carry a shadow, because they are the
+   only ones that actually float.
+   ========================================================================== */
+
+@layer components {
+  /* ---- Backdrop ---------------------------------------------------------- */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-backdrop);
+    background-color: rgb(20 18 26 / 0.44);
+    opacity: 0;
+    animation: fade-in var(--dur-base) var(--ease) forwards;
+  }
+
+  @keyframes fade-in {
+    to { opacity: 1; }
+  }
+
+  /* ---- Dropdown / menu --------------------------------------------------
+     Positioned by the anchor's wrapper. inset-inline-start aligns it to the
+     logical start, so it opens toward the reading direction under RTL.
+  */
+  .menu-anchor {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .menu {
+    position: absolute;
+    inset-block-start: calc(100% + var(--sp-2));
+    inset-inline-start: 0;
+    z-index: var(--z-dropdown);
+    min-width: 200px;
+    max-height: 340px;
+    overflow-y: auto;
+    padding: var(--sp-2);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-overlay);
+    box-shadow: var(--sh-overlay);
+    transform-origin: top;
+    animation: menu-in var(--dur-fast) var(--ease-out);
+  }
+
+  .menu--end {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+
+  .menu--wide { min-width: 280px; }
+
+  @keyframes menu-in {
+    from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .menu__label {
+    padding: var(--sp-2) var(--sp-3) var(--sp-1);
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    font-weight: var(--fw-medium);
+  }
+
+  .menu__item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    min-height: 32px;
+    padding-inline: var(--sp-3);
+    padding-block: var(--sp-2);
+    border-radius: var(--r-control);
+    color: var(--text);
+    font-size: var(--fs-xs);
+    text-align: start;
+    transition: background-color var(--dur-instant) var(--ease);
+  }
+
+  .menu__item:hover {
+    background-color: var(--surface-sunk);
+  }
+
+  .menu__item[aria-selected="true"] {
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: var(--fw-medium);
+  }
+
+  .menu__item--danger {
+    color: var(--danger);
+  }
+
+  .menu__item--danger:hover {
+    background-color: var(--danger-soft);
+  }
+
+  .menu__item:disabled {
+    color: var(--text-subtle);
+    pointer-events: none;
+  }
+
+  .menu__shortcut {
+    margin-inline-start: auto;
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    direction: ltr;
+  }
+
+  .menu__sep {
+    height: 1px;
+    margin: var(--sp-2) 0;
+    background-color: var(--line-soft);
+  }
+
+  /* Filter dropdowns hold a search box and a checkbox list. */
+  .menu__search {
+    padding: var(--sp-1) var(--sp-1) var(--sp-2);
+    position: sticky;
+    inset-block-start: 0;
+    background-color: var(--surface);
+  }
+
+  .menu__foot {
+    display: flex;
+    gap: var(--sp-2);
+    padding: var(--sp-2) var(--sp-1) 0;
+    margin-block-start: var(--sp-2);
+    border-block-start: 1px solid var(--line-soft);
+    position: sticky;
+    inset-block-end: 0;
+    background-color: var(--surface);
+  }
+
+  /* ---- Popover — for score breakdowns ---------------------------------- */
+  .popover {
+    position: absolute;
+    inset-block-start: calc(100% + var(--sp-2));
+    inset-inline-start: 0;
+    z-index: var(--z-dropdown);
+    width: 320px;
+    max-width: calc(100vw - var(--sp-8));
+    padding: var(--sp-4);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-overlay);
+    box-shadow: var(--sh-overlay);
+    animation: menu-in var(--dur-fast) var(--ease-out);
+  }
+
+  .popover--end {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+
+  .popover__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding-block-end: var(--sp-3);
+    margin-block-end: var(--sp-2);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .popover__title {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semi);
+  }
+
+  .popover__note {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    line-height: var(--lh-snug);
+    margin-block-start: var(--sp-3);
+    padding-block-start: var(--sp-3);
+    border-block-start: 1px dashed var(--line);
+  }
+
+  /* ---- Modal ------------------------------------------------------------- */
+  .modal-shell {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: grid;
+    place-items: center;
+    padding: var(--sp-5);
+    overflow-y: auto;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 520px;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-overlay);
+    box-shadow: var(--sh-modal);
+    animation: modal-in var(--dur-base) var(--ease-out);
+    max-height: calc(100dvh - var(--sp-10));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal--wide { max-width: 720px; }
+  .modal--form { max-width: 880px; }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-5);
+    border-block-end: 1px solid var(--line);
+    flex: none;
+  }
+
+  .modal__title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semi);
+    line-height: var(--lh-tight);
+  }
+
+  .modal__sub {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    margin-block-start: var(--sp-1);
+  }
+
+  .modal__body {
+    padding: var(--sp-5);
+    overflow-y: auto;
+    flex: 1 1 auto;
+  }
+
+  .modal__foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-5);
+    border-block-start: 1px solid var(--line);
+    background-color: var(--surface-alt);
+    flex: none;
+    flex-wrap: wrap;
+  }
+
+  .modal__foot--split {
+    justify-content: space-between;
+  }
+
+  /* ---- Drawer -----------------------------------------------------------
+     Slides from the inline-end edge, so under RTL it enters from the left.
+  */
+  .drawer {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-end: 0;
+    z-index: var(--z-drawer);
+    width: min(420px, 100vw);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface);
+    border-inline-start: 1px solid var(--line);
+    box-shadow: var(--sh-modal);
+    animation: drawer-in var(--dur-base) var(--ease-out);
+  }
+
+  .drawer--wide { width: min(560px, 100vw); }
+
+  @keyframes drawer-in {
+    from { transform: translateX(var(--drawer-from, 100%)); }
+    to   { transform: translateX(0); }
+  }
+
+  [dir="rtl"] .drawer {
+    --drawer-from: -100%;
+  }
+
+  .drawer__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-5);
+    border-block-end: 1px solid var(--line);
+    flex: none;
+  }
+
+  .drawer__title {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semi);
+  }
+
+  .drawer__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+
+  .drawer__foot {
+    flex: none;
+    padding: var(--sp-3) var(--sp-5);
+    border-block-start: 1px solid var(--line);
+    background-color: var(--surface-alt);
+  }
+
+  /* ---- Toast ------------------------------------------------------------
+     Confirms in the same words the action used: "نشر" produces "تم النشر".
+  */
+  .toast-dock {
+    position: fixed;
+    inset-block-end: var(--sp-6);
+    inset-inline-end: var(--sp-6);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    width: min(360px, calc(100vw - var(--sp-8)));
+    pointer-events: none;
+  }
+
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-inline-start: 3px solid var(--tone, var(--info));
+    border-radius: var(--r-overlay);
+    box-shadow: var(--sh-overlay);
+    font-size: var(--fs-xs);
+    pointer-events: auto;
+    animation: toast-in var(--dur-base) var(--ease-out);
+  }
+
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .toast--success { --tone: var(--success); }
+  .toast--warning { --tone: var(--warning); }
+  .toast--danger  { --tone: var(--danger); }
+  .toast--info    { --tone: var(--info); }
+
+  .toast__icon  { color: var(--tone); flex: none; margin-block-start: 1px; }
+  .toast__body  { flex: 1 1 auto; min-width: 0; }
+  .toast__title { font-weight: var(--fw-semi); }
+  .toast__text  { color: var(--text-muted); margin-block-start: 2px; line-height: var(--lh-snug); }
+
+  @media (max-width: 480px) {
+    .toast-dock {
+      inset-inline: var(--sp-4);
+      inset-block-end: var(--sp-4);
+      width: auto;
+    }
+  }
+
+  /* ---- Command palette --------------------------------------------------
+     Navigation that keeps working as the module count grows past what a
+     sidebar can hold.
+  */
+  .palette-shell {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-palette);
+    display: flex;
+    justify-content: center;
+    padding-block-start: 12vh;
+    padding-inline: var(--sp-5);
+  }
+
+  .palette {
+    width: 100%;
+    max-width: 560px;
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-overlay);
+    box-shadow: var(--sh-modal);
+    overflow: hidden;
+    animation: modal-in var(--dur-base) var(--ease-out);
+  }
+
+  .palette__input-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-5);
+    border-block-end: 1px solid var(--line);
+    flex: none;
+  }
+
+  .palette__input {
+    flex: 1 1 auto;
+    border: 0;
+    background: transparent;
+    font-size: var(--fs-md);
+    color: var(--text);
+  }
+
+  .palette__input:focus {
+    outline: none;
+  }
+
+  .palette__input::placeholder {
+    color: var(--text-subtle);
+  }
+
+  .palette__list {
+    overflow-y: auto;
+    padding: var(--sp-2);
+    flex: 1 1 auto;
+  }
+
+  .palette__group {
+    padding: var(--sp-2) var(--sp-3) var(--sp-1);
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    font-weight: var(--fw-medium);
+  }
+
+  .palette__item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--r-control);
+    font-size: var(--fs-sm);
+    text-align: start;
+    color: var(--text);
+  }
+
+  .palette__item:hover,
+  .palette__item[data-active="true"] {
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+  }
+
+  .palette__item-path {
+    margin-inline-start: auto;
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+  }
+
+  .palette__foot {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    padding: var(--sp-2) var(--sp-5);
+    border-block-start: 1px solid var(--line);
+    background-color: var(--surface-alt);
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    flex: none;
+  }
+
+  .kbd {
+    display: inline-grid;
+    place-content: center;
+    min-width: 18px;
+    padding-inline: 4px;
+    padding-block: 1px;
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    background-color: var(--surface);
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-medium);
+    color: var(--text-muted);
+    direction: ltr;
+  }
+}

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأمان والجلسات · الإعدادات · إدارة المشاريع</title>
+<meta name="description" content="حالة الأمان والجلسات النشطة وسياسات الحماية.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الأمان والجلسات</span>
+          </nav>
+          <h1 class="page-head__title">الأمان والجلسات</h1>
+          <p class="page-head__sub">
+            حالة حسابك، وأين أنت مسجَّل الدخول، وسياسات الأمان المطبَّقة على المنظمة.
+          </p>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="security" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <!-- A security posture readout: what is protected and what is not. -->
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">حالة أمان حسابك</h2>
+              <span class="badge badge--success">جيدة</span>
+            </div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow">
+                <span class="lrow__glyph" style="color: var(--success)">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">المصادقة الثنائية مفعّلة</p>
+                  <p class="lrow__meta">رمز عبر البريد الإلكتروني · لا يمكن تعطيلها بسياسة المنظمة</p>
+                </div>
+                <div class="lrow__actions"><a class="btn btn--quiet" href="two-factor.html">الإعدادات</a></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="color: var(--success)">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">كلمة المرور قوية وحديثة</p>
+                  <p class="lrow__meta">آخر تغيير قبل 42 يومًا · تنتهي بعد 48 يومًا</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">تغيير</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="color: var(--warning)">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">3 أجهزة موثوقة</p>
+                  <p class="lrow__meta">
+                    جهاز واحد لم يُستخدم منذ 5 أيام وتنتهي ثقته بعد 3 أيام. أزل ما لا تعرفه.
+                  </p>
+                </div>
+                <div class="lrow__actions"><a class="btn btn--quiet" href="../auth/trusted-devices.html">إدارة</a></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph" style="color: var(--danger)">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">محاولة دخول فاشلة من موقع غير معتاد</p>
+                  <p class="lrow__meta">
+                    فرانكفورت، ألمانيا · 12 سبتمبر 03:17 · لم تنجح. إن لم تكن أنت، غيّر كلمة المرور.
+                  </p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--danger-quiet btn--sm" type="button" data-action="demo-soon">غيّر كلمة المرور</button></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">الجلسات النشطة</h2>
+              <button class="btn btn--danger-quiet btn--sm" type="button" data-open="endAllModal">إنهاء كل الجلسات الأخرى</button>
+            </div>
+            <div class="panel__body panel__body--flush">
+              <div class="lrow lrow--current">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">Windows 11 · Chrome <span class="badge badge--accent">جلستك الحالية</span></p>
+                  <p class="lrow__meta">الرياض، السعودية · <span class="ltr">156.203.44.18</span> · بدأت اليوم 08:41</p>
+                </div>
+                <div class="lrow__actions"><span class="badge badge--outline">نشطة</span></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18H7zM11 18h2"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">iPhone 15 · Safari</p>
+                  <p class="lrow__meta">الرياض، السعودية · <span class="ltr">156.203.44.18</span> · آخر نشاط أمس 20:14</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">إنهاء</button></div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">macOS · Firefox</p>
+                  <p class="lrow__meta">جدة، السعودية · <span class="ltr">41.68.112.9</span> · آخر نشاط 11 سبتمبر 09:32</p>
+                </div>
+                <div class="lrow__actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">إنهاء</button></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Organization-wide policy, editable by admins only. -->
+          <section class="panel" data-perm="settings.view">
+            <div class="panel__head">
+              <h2 class="panel__title">سياسات الأمان للمنظمة</h2>
+              <span class="section__note">تنطبق على كل الحسابات</span>
+            </div>
+            <div class="panel__body stack-5">
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">الجلسات</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="sesIdle">إنهاء الجلسة بعد خمول</label>
+                    <select class="select" id="sesIdle">
+                      <option>30 دقيقة</option>
+                      <option selected>ساعتان</option>
+                      <option>8 ساعات</option>
+                      <option>لا تنتهِ بالخمول</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="sesMax">أقصى عمر للجلسة</label>
+                    <select class="select" id="sesMax">
+                      <option>12 ساعة</option>
+                      <option selected>7 أيام</option>
+                      <option>30 يومًا</option>
+                    </select>
+                  </div>
+                </div>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إنهاء كل الجلسات عند تغيير كلمة المرور</span>
+                </label>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">كلمات المرور</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="pwLen">أقل طول</label>
+                    <select class="select" id="pwLen">
+                      <option>8 أحرف</option>
+                      <option selected>12 حرفًا</option>
+                      <option>16 حرفًا</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="pwAge">صلاحية كلمة المرور</label>
+                    <select class="select" id="pwAge">
+                      <option>60 يومًا</option>
+                      <option selected>90 يومًا</option>
+                      <option>180 يومًا</option>
+                      <option>لا تنتهِ</option>
+                    </select>
+                  </div>
+                </div>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">منع إعادة استخدام آخر 5 كلمات مرور</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">رفض كلمات المرور المعروفة في تسريبات البيانات</span>
+                </label>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">محاولات الدخول</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field__label" for="loginTries">أقصى محاولات فاشلة</label>
+                    <select class="select" id="loginTries">
+                      <option>3</option>
+                      <option selected>5</option>
+                      <option>10</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="loginLock">مدة الإيقاف المؤقت</label>
+                    <select class="select" id="loginLock">
+                      <option>5 دقائق</option>
+                      <option selected>15 دقيقة</option>
+                      <option>ساعة</option>
+                    </select>
+                  </div>
+                </div>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إشعار المستخدم بالبريد عند محاولة دخول فاشلة من جهاز جديد</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إشعار مسؤول النظام عند 3 محاولات فاشلة أو أكثر لحساب واحد</span>
+                </label>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">الإجراءات الحسّاسة</legend>
+                <p class="t-3xs t-subtle">
+                  الإجراءات التي تتطلب تأكيدًا إضافيًا بكلمة المرور حتى داخل جلسة نشطة.
+                </p>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">إزالة رئيس قسم أو قائد فريق</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">تعديل صلاحيات دور</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox" checked>
+                  <span class="t-xs">تعطيل حساب مستخدم</span>
+                </label>
+                <label class="switch">
+                  <input class="switch__input" type="checkbox">
+                  <span class="t-xs">تصدير بيانات المنظمة</span>
+                </label>
+              </fieldset>
+            </div>
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">كل تعديل هنا يُسجَّل في سجل التدقيق باسمك وتوقيته.</p>
+              <button class="btn btn--primary btn--sm" type="button" data-action="demo-save">حفظ السياسات</button>
+            </div>
+          </section>
+
+          <p class="note">
+            <strong>مبدأ عام:</strong> الأمان في هذا النظام ليس شاشة إعدادات فقط. كل صلاحية تُفحص
+            على الخادم، وكل بيانات مُدخلة تُتحقَّق قبل الحفظ، وكل إجراء حسّاس يُسجَّل. ما تراه هنا
+            هو الجزء الذي يديره المستخدم من منظومة أوسع.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="endAllModal" hidden></div>
+<div class="modal-shell" id="endAllModal" role="dialog" aria-modal="true" aria-labelledby="eaTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="eaTitle">إنهاء كل الجلسات الأخرى</h2>
+        <p class="modal__sub">ستبقى هذه الجلسة فقط. الجلستان الأخريان ستحتاجان تسجيل دخول جديدًا.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="endAllModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="alert alert--info">
+        <span class="alert__body">
+          <span class="alert__text">
+            هذا لا يزيل ثقة الأجهزة. إن أردت طلب رمز تحقق أيضًا، أزل الثقة من صفحة الأجهزة الموثوقة.
+          </span>
+        </span>
+      </div>
+      <div class="field">
+        <label class="field__label" for="eaPw">أكّد بكلمة المرور <span class="field__req" aria-hidden="true">*</span></label>
+        <p class="field__help">إجراء حسّاس يتطلب تأكيدًا حتى داخل جلسة نشطة.</p>
+        <input class="input" id="eaPw" type="password" autocomplete="current-password">
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="endAllModal">إلغاء</button>
+      <button class="btn btn--danger" type="button" data-close="endAllModal">إنهاء الجلستين</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

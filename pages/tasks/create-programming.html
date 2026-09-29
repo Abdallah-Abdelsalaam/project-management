@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إنشاء مهمة برمجة · إدارة المشاريع</title>
+<meta name="description" content="نموذج إنشاء مهمة موجهة إلى قسم البرمجة.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="list.html">المهام</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">إنشاء مهمة برمجة</span>
+          </nav>
+          <h1 class="page-head__title">
+            <span class="dept" data-dept="prog"></span>
+            إنشاء مهمة برمجة
+          </h1>
+          <p class="page-head__sub">
+            كل حقل مطلوب هنا يصبح جزءًا من احتساب جودة المهمة. الطلب الناقص يُنتج عملًا ناقصًا،
+            ويظهر ذلك في تقييمك أنت أيضًا كمُنشئ.
+          </p>
+        </div>
+      </div>
+
+      <form class="form-layout">
+        <!-- ================================================== form column -->
+        <div class="stack-4">
+
+          <section class="panel" id="sec-basics">
+            <div class="panel__head"><h2 class="panel__title">1 · الأساسيات</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field">
+                <label class="field__label" for="title">عنوان المهمة <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">صِف النتيجة المطلوبة، لا الخطوات. مثال: «خفض زمن تحميل صفحة المنتج إلى أقل من ثانيتين».</p>
+                <input class="input" id="title" type="text" required>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="type">نوع المهمة <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="type" required>
+                    <option value="">اختر النوع</option>
+                    <option>سيو تقني</option>
+                    <option>سرعة الصفحات</option>
+                    <option>بيانات منظمة</option>
+                    <option>بنية الروابط</option>
+                    <option>إعادة توجيه ومعالجة أخطاء</option>
+                    <option>تتبّع وتحليلات</option>
+                    <option>تطوير ميزة</option>
+                    <option>إصلاح خلل</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="priority">الأولوية <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="priority" required>
+                    <option>منخفضة</option>
+                    <option selected>متوسطة</option>
+                    <option>عالية</option>
+                    <option>عاجلة</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="due">تاريخ الاستحقاق <span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="input" id="due" type="date" required>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="effort">الحجم المتوقع <span class="field__optional">اختياري</span></label>
+                  <select class="select" id="effort">
+                    <option value="">غير محدد</option>
+                    <option>صغير — أقل من يوم</option>
+                    <option>متوسط — 1 إلى 3 أيام</option>
+                    <option>كبير — أكثر من 3 أيام</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-brief">
+            <div class="panel__head"><h2 class="panel__title">2 · الطلب والمتطلبات</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field">
+                <label class="field__label" for="goal">الهدف <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">لماذا هذه المهمة مطلوبة، وما المشكلة التي تحلّها.</p>
+                <textarea class="textarea" id="goal" required placeholder="مثال: الصفحة تفقد ترتيبها بسبب مؤشرات تجربة الصفحة على الجوال."></textarea>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="scope">المطلوب تنفيذه <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">نقطة لكل بند. كلما كان الطلب أدق، قلّت جولات التعديل.</p>
+                <textarea class="textarea" id="scope" required style="min-height:140px" placeholder="— …&#10;— …&#10;— …"></textarea>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="accept">معايير القبول <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">
+                  ما الذي يجعل المهمة مقبولة. هذه البنود تصبح قائمة تحقق للمراجع، ومنها يُحتسب بند
+                  «مطابقة المتطلبات» بوزن 25 من جودة المهمة.
+                </p>
+                <textarea class="textarea" id="accept" required style="min-height:120px" placeholder="— زمن التحميل أقل من ثانيتين على الجوال&#10;— لا تراجع في مؤشر ثبات التصميم&#10;— تقرير قياس مرفق قبل وبعد"></textarea>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="urls">الصفحات المستهدفة <span class="field__req" aria-hidden="true">*</span></label>
+                <p class="field__help">رابط أو نمط في كل سطر.</p>
+                <textarea class="textarea" id="urls" required dir="ltr" placeholder="/products/*&#10;/category/electronics"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-tech">
+            <div class="panel__head"><h2 class="panel__title">3 · تفاصيل تقنية</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="env">البيئة <span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="select" id="env" required>
+                    <option>الإنتاج</option>
+                    <option>التجريبية</option>
+                    <option>التطوير</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="device">الجهاز المتأثر</label>
+                  <select class="select" id="device">
+                    <option>الجوال والحاسب</option>
+                    <option>الجوال فقط</option>
+                    <option>الحاسب فقط</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="repro">خطوات إعادة إنتاج المشكلة <span class="field__optional">اختياري</span></label>
+                <p class="field__help">مطلوب لمهام إصلاح الأخطاء. اتركه فارغًا لمهام التطوير.</p>
+                <textarea class="textarea" id="repro"></textarea>
+              </div>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset__legend">أثر متوقع على السيو</legend>
+                <label class="check">
+                  <input class="check__input" type="checkbox">
+                  <span class="check__text">
+                    <span>قد تتغيّر الروابط أو بنية العناوين</span>
+                    <span class="check__hint">يستلزم خطة إعادة توجيه قبل النشر.</span>
+                  </span>
+                </label>
+                <label class="check">
+                  <input class="check__input" type="checkbox">
+                  <span class="check__text">
+                    <span>قد يتأثر المحتوى الظاهر لمحركات البحث</span>
+                    <span class="check__hint">يستلزم مراجعة بعد النشر.</span>
+                  </span>
+                </label>
+                <label class="check">
+                  <input class="check__input" type="checkbox">
+                  <span class="check__text"><span>يحتاج إعادة زحف بعد التنفيذ</span></span>
+                </label>
+              </fieldset>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-assets">
+            <div class="panel__head">
+              <h2 class="panel__title">4 · الأصول والمرفقات</h2>
+              <span class="section__note">وزن 20 من جودة المهمة</span>
+            </div>
+            <div class="panel__body stack-3">
+              <div class="dropzone">
+                <svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M8 8l4-4 4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+                <span class="dropzone__title">أرفق تقارير القياس ولقطات الشاشة والمستندات</span>
+                <span>حتى 25 ميجابايت للملف</span>
+              </div>
+              <div class="row row--tight">
+                <span class="badge badge--outline ltr">speed-report-before.pdf</span>
+                <span class="badge badge--outline ltr">product-page-mobile.png</span>
+              </div>
+              <div class="field">
+                <label class="field__label" for="refs">روابط مرجعية <span class="field__optional">اختياري</span></label>
+                <textarea class="textarea" id="refs" dir="ltr" placeholder="رابط في كل سطر"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sec-assign">
+            <div class="panel__head"><h2 class="panel__title">5 · التوجيه</h2></div>
+            <div class="panel__body stack-4">
+              <div class="field">
+                <label class="field__label" for="lead">قائد الفريق</label>
+                <p class="field__help">اترك الخيار التلقائي ليوزّع رئيس القسم المهمة على الفريق الأقل حملًا.</p>
+                <select class="select" id="lead">
+                  <option selected>توزيع تلقائي — يحدده رئيس القسم</option>
+                  <option>أحمد سعيد — 4 موظفين · حمل 68%</option>
+                  <option>عمر الحارثي — 3 موظفين · حمل 42%</option>
+                </select>
+              </div>
+
+              <div class="field" data-perm="tasks.assign">
+                <label class="field__label" for="emp">الموظف <span class="field__optional">اختياري</span></label>
+                <p class="field__help">يظهر هذا الخيار لمن يملك صلاحية الإسناد المباشر فقط.</p>
+                <select class="select" id="emp">
+                  <option selected>يحدده قائد الفريق</option>
+                  <option>محمد فتحي — 4 مهام · جودة 92%</option>
+                  <option>ياسر الدوسري — 6 مهام · جودة 88%</option>
+                  <option>سارة يوسف — 2 مهام · جودة 96%</option>
+                </select>
+              </div>
+
+              <label class="check">
+                <input class="check__input" type="checkbox" checked>
+                <span class="check__text">
+                  <span>إبلاغي عند كل تغيير في حالة المهمة</span>
+                  <span class="check__hint">يمكن تعديل هذا لاحقًا من تفضيلات الإشعارات.</span>
+                </span>
+              </label>
+            </div>
+          </section>
+
+          <div class="form-dock">
+            <p class="t-2xs t-subtle">
+              اكتمال الطلب <strong class="t-accent">72%</strong> — أكمل الحقول المطلوبة لتفادي جولات التعديل.
+            </p>
+            <div class="row row--tight">
+              <button class="btn btn--secondary" type="button" data-action="demo-save">حفظ كمسودة</button>
+              <button class="btn btn--primary" type="button" data-action="demo-save">إنشاء المهمة وإرسالها</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================= aside column -->
+        <aside class="form-aside">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">اكتمال الطلب</h2></div>
+            <div class="panel__body stack-4">
+              <div class="meter" data-band="mid">
+                <div class="meter__head"><span class="meter__label">مكتمل</span><span class="meter__value">72%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:72%"></span></div>
+              </div>
+
+              <div class="steps">
+                <a class="step" href="#sec-basics" data-done="true"><span class="step__num">1</span><span>الأساسيات</span></a>
+                <a class="step" href="#sec-brief" data-current="true"><span class="step__num">2</span><span>الطلب والمتطلبات</span></a>
+                <a class="step" href="#sec-tech"><span class="step__num">3</span><span>تفاصيل تقنية</span></a>
+                <a class="step" href="#sec-assets" data-done="true"><span class="step__num">4</span><span>الأصول والمرفقات</span></a>
+                <a class="step" href="#sec-assign"><span class="step__num">5</span><span>التوجيه</span></a>
+              </div>
+
+              <div class="alert alert--warning">
+                <span class="alert__body">
+                  <strong class="alert__title">ناقص: معايير القبول</strong>
+                  <span class="alert__text">
+                    بدونها لا يستطيع المراجع الحكم على المهمة موضوعيًا، ويسقط وزن 25 من جودتها.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">أثر الطلب على الجودة</h2></div>
+            <div class="panel__body">
+              <p class="t-3xs t-subtle mbe-3">
+                هذه البنود تُقاس من الطلب نفسه، قبل أن يبدأ التنفيذ.
+              </p>
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">اكتمال بيانات الطلب</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:72%"></span></span>
+                  <span class="figure-row__value">14 / 20</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">وضوح معايير القبول</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:0%"></span></span>
+                  <span class="figure-row__value">0 / 25</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">الأصول المرفقة</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%"></span></span>
+                  <span class="figure-row__value">تم</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="note">
+            <strong>نموذج أولي:</strong> النسب هنا ثابتة لتوضيح الفكرة. في النظام الفعلي تُحدَّث
+            أثناء الكتابة.
+          </div>
+        </aside>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'tasks', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

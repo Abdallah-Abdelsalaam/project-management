@@ -1,0 +1,420 @@
+/* ==========================================================================
+   Feedback — empty, loading, error, alerts, audit trail, timeline
+   Empty screens invite an action. Errors say what happened and what to do.
+   ========================================================================== */
+
+@layer components {
+  /* ---- Empty state ------------------------------------------------------- */
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-12) var(--sp-6);
+    text-align: center;
+  }
+
+  .empty__glyph {
+    display: grid;
+    place-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-panel);
+    background-color: var(--surface-sunk);
+    color: var(--text-subtle);
+    margin-block-end: var(--sp-1);
+  }
+
+  .empty__title {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semi);
+  }
+
+  .empty__text {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    max-width: 48ch;
+    line-height: var(--lh-normal);
+  }
+
+  .empty__actions {
+    display: flex;
+    gap: var(--sp-2);
+    margin-block-start: var(--sp-2);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* An empty state caused by filters is a different problem from an empty
+     state caused by no data, and it offers a different way out. */
+  .empty--filtered .empty__glyph {
+    background-color: var(--accent-soft);
+    color: var(--accent-text);
+  }
+
+  /* ---- Skeleton ---------------------------------------------------------
+     The shimmer is the one piece of non-user-triggered motion in the system,
+     and it exists to say "this is loading, not broken".
+  */
+  .skel {
+    background-color: var(--surface-sunk);
+    border-radius: var(--r-data);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--surface) 70%, transparent),
+      transparent
+    );
+    animation: skel-sweep 1.4s var(--ease) infinite;
+  }
+
+  @keyframes skel-sweep {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(100%); }
+  }
+
+  .skel--text  { height: 10px; }
+  .skel--title { height: 14px; width: 60%; }
+  .skel--pill  { height: 18px; width: 72px; border-radius: var(--r-pill); }
+  .skel--av    { height: 28px; width: 28px; border-radius: var(--r-pill); }
+  .skel--w-25  { width: 25%; }
+  .skel--w-40  { width: 40%; }
+  .skel--w-60  { width: 60%; }
+  .skel--w-80  { width: 80%; }
+
+  .skel-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--cell-pad-x);
+    border-block-end: 1px solid var(--line-soft);
+  }
+
+  /* ---- Alert ------------------------------------------------------------- */
+  .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    border: 1px solid var(--tone-line, var(--line));
+    border-inline-start: 3px solid var(--tone, var(--info));
+    border-radius: var(--r-data);
+    background-color: var(--tone-bg, var(--info-soft));
+    font-size: var(--fs-xs);
+    line-height: var(--lh-normal);
+  }
+
+  .alert--info    { --tone: var(--info);    --tone-bg: var(--info-soft); }
+  .alert--success { --tone: var(--success); --tone-bg: var(--success-soft); }
+  .alert--warning { --tone: var(--warning); --tone-bg: var(--warning-soft); }
+  .alert--danger  { --tone: var(--danger);  --tone-bg: var(--danger-soft); }
+
+  .alert__icon  { color: var(--tone); flex: none; margin-block-start: 1px; }
+  .alert__body  { flex: 1 1 auto; min-width: 0; }
+  .alert__title { font-weight: var(--fw-semi); display: block; }
+  .alert__text  { color: var(--text-muted); }
+  .alert__text p { max-width: none; }
+
+  /* A note block that is quieter than an alert — for scaffolding notes and
+     design commentary inside the prototype. */
+  .note {
+    padding: var(--sp-3) var(--sp-4);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--r-data);
+    background-color: var(--surface-alt);
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+    line-height: var(--lh-normal);
+  }
+
+  .note strong {
+    color: var(--text);
+  }
+
+  /* ======================================================================
+     Timeline — task history and audit trail
+     Section 15: who, what, when, from, to. The from/to diff is the whole
+     point, so it gets its own treatment rather than being buried in prose.
+     ====================================================================== */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: var(--sp-3);
+    padding-block-end: var(--sp-5);
+    position: relative;
+  }
+
+  /* The connecting rail sits under the markers, stopping at the last item. */
+  .tl-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 26px;
+    inset-block-end: 0;
+    inset-inline-start: 13px;
+    width: 1px;
+    background-color: var(--line);
+  }
+
+  .tl-item__marker {
+    display: grid;
+    place-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: var(--r-pill);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--text-subtle);
+    flex: none;
+    z-index: 1;
+  }
+
+  .tl-item[data-status] .tl-item__marker {
+    border-color: color-mix(in srgb, var(--st) 40%, transparent);
+    background-color: color-mix(in srgb, var(--st) 10%, var(--surface));
+    color: var(--st);
+  }
+
+  .tl-item__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    min-width: 0;
+    padding-block-start: 3px;
+  }
+
+  .tl-item__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+    font-size: var(--fs-xs);
+  }
+
+  .tl-item__who {
+    font-weight: var(--fw-semi);
+  }
+
+  .tl-item__what {
+    color: var(--text-muted);
+  }
+
+  .tl-item__when {
+    margin-inline-start: auto;
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* ---- The from → to diff ---------------------------------------------- */
+  .diff {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+    font-size: var(--fs-2xs);
+  }
+
+  .diff__from {
+    padding-inline: var(--sp-2);
+    padding-block: 2px;
+    border-radius: var(--r-data);
+    background-color: var(--surface-sunk);
+    color: var(--text-subtle);
+    text-decoration: line-through;
+    text-decoration-color: var(--line-strong);
+  }
+
+  .diff__to {
+    padding-inline: var(--sp-2);
+    padding-block: 2px;
+    border-radius: var(--r-data);
+    background-color: var(--success-soft);
+    color: var(--success);
+    font-weight: var(--fw-medium);
+  }
+
+  /* Mirrors under RTL so the arrow points from the old value to the new one
+     in reading order. */
+  .diff__arrow {
+    color: var(--text-subtle);
+    flex: none;
+  }
+
+  [dir="rtl"] .diff__arrow {
+    transform: scaleX(-1);
+  }
+
+  /* ---- Quoted reason — rejection reasons, review comments ------------- */
+  .reason {
+    padding: var(--sp-3) var(--sp-4);
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-inline-start: 3px solid var(--st-rejected);
+    border-radius: var(--r-data);
+    font-size: var(--fs-xs);
+    line-height: var(--lh-normal);
+    color: var(--text);
+  }
+
+  .reason__label {
+    display: block;
+    font-size: var(--fs-3xs);
+    color: var(--danger);
+    font-weight: var(--fw-semi);
+    margin-block-end: var(--sp-1);
+  }
+
+  .reason--revision {
+    border-inline-start-color: var(--st-revision);
+  }
+
+  .reason--revision .reason__label {
+    color: var(--st-revision);
+  }
+
+  /* ---- Checklist — review criteria driving the quality score ---------- */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .checklist__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--r-data);
+    font-size: var(--fs-xs);
+  }
+
+  .checklist__item:hover {
+    background-color: var(--surface-alt);
+  }
+
+  .checklist__mark {
+    display: grid;
+    place-content: center;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    border-radius: var(--r-data);
+    border: 1px solid var(--line-strong);
+    color: transparent;
+    margin-block-start: 1px;
+  }
+
+  .checklist__item[data-pass="true"] .checklist__mark {
+    background-color: var(--success);
+    border-color: var(--success);
+    color: #ffffff;
+  }
+
+  .checklist__item[data-pass="false"] .checklist__mark {
+    background-color: var(--danger-soft);
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+
+  .checklist__text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .checklist__weight {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+
+  /* ======================================================================
+     Mini bar chart — department and trend panels
+     Pure CSS so the wireframe has no chart dependency. Bars carry the viz
+     palette, never the brand red.
+     ====================================================================== */
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--sp-2);
+    height: 120px;
+    padding-block-start: var(--sp-2);
+  }
+
+  .bars__col {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--sp-2);
+    height: 100%;
+    min-width: 0;
+  }
+
+  .bars__bar {
+    width: 100%;
+    max-width: 28px;
+    border-radius: var(--r-data) var(--r-data) 0 0;
+    background-color: var(--viz-1);
+    height: var(--h, 50%);
+    transition: height var(--dur-slow) var(--ease-out);
+  }
+
+  .bars__label {
+    font-size: var(--fs-3xs);
+    color: var(--text-subtle);
+    white-space: nowrap;
+  }
+
+  /* Stacked variant for status composition. */
+  .bar-stack {
+    display: flex;
+    height: 8px;
+    border-radius: var(--r-pill);
+    overflow: hidden;
+    background-color: var(--surface-sunk);
+  }
+
+  .bar-stack__seg {
+    height: 100%;
+    background-color: var(--st, var(--viz-1));
+  }
+
+  .legend {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    font-size: var(--fs-3xs);
+    color: var(--text-muted);
+  }
+
+  .legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .legend__swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background-color: var(--st, var(--viz-1));
+    flex: none;
+  }
+}

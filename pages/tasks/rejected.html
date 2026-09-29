@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المرفوضة والتعديلات · إدارة المشاريع</title>
+<meta name="description" content="المهام المرفوضة وأسبابها والتعديلات المطلوبة.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">المرفوضة والتعديلات</h1>
+          <p class="page-head__sub">
+            كل مهمة رُفضت أو طُلب تعديلها، مع السبب ومَن رفضها والمطلوب تغييره. بعد الإصلاح تُعاد
+            للمراجعة ويبقى المسار كاملًا في السجل.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid--stats">
+        <article class="stat stat--flag" data-flag="danger">
+          <p class="stat__label">تحتاج تعديلًا الآن</p>
+          <p class="stat__value">9</p>
+          <p class="stat__foot"><span>6 برمجة · 3 UI/UX</span></p>
+        </article>
+        <article class="stat">
+          <p class="stat__label">نسبة الرفض</p>
+          <p class="stat__value">8<span class="stat__unit">%</span></p>
+          <p class="stat__foot"><span class="delta delta--down">▲ 2</span><span>نقاط عن الشهر الماضي</span></p>
+        </article>
+        <article class="stat">
+          <p class="stat__label">متوسط جولات التعديل</p>
+          <p class="stat__value">1.4</p>
+          <p class="stat__foot"><span>للمهام التي رُفضت مرة على الأقل</span></p>
+        </article>
+        <article class="stat stat--flag" data-flag="warning">
+          <p class="stat__label">تجاوزت جولتين</p>
+          <p class="stat__value">3</p>
+          <p class="stat__foot"><span>تستدعي مراجعة الطلب نفسه</span></p>
+        </article>
+      </div>
+
+      <div class="grid grid--split">
+        <div class="stack-4">
+
+          <div class="row row--between">
+            <div class="views" role="group" aria-label="تصفية سريعة">
+              <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="true">الكل <span class="view-tab__count">22</span></button>
+              <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">تحتاج تعديل <span class="view-tab__count">9</span></button>
+              <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">أُعيد تقديمها <span class="view-tab__count">7</span></button>
+              <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">مرفوضة نهائيًا <span class="view-tab__count">6</span></button>
+            </div>
+          </div>
+
+          <!-- One card per rejected task: the reason is the content, so it gets
+               the room rather than being truncated into a table cell. -->
+          <article class="panel">
+            <div class="panel__head">
+              <div class="stack-2">
+                <h2 class="panel__title"><a class="task-title__link" href="detail.html">تصميم صفحة هبوط لحملة الرياض الموسمية</a></h2>
+                <p class="t-3xs t-subtle"><span class="task-ref">UIX-0391</span> · <span class="dept" data-dept="uiux">UI/UX</span> · رنا خليل</p>
+              </div>
+              <div class="row row--tight">
+                <span class="status" data-status="revision">تحتاج تعديل</span>
+                <span class="revisions" data-count="3" data-warn="true">3 جولات</span>
+              </div>
+            </div>
+
+            <div class="panel__body stack-4">
+              <div class="reason reason--revision">
+                <span class="reason__label">سبب الرفض — رفضتها ليان مرزوق في 14 سبتمبر 16:45</span>
+                النصوص المستخدمة في التصميم مؤقتة، والنسخة العربية لا تظهر بشكل صحيح على عرض 360
+                بكسل. كما استُخدم لون أساسي غير موجود في نظام التصميم.
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">التعديلات المطلوبة</h3>
+                <div class="checklist">
+                  <div class="checklist__item" data-pass="true">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                    <span class="checklist__text">استبدال النص المؤقت بالنص النهائي المرفق</span>
+                  </div>
+                  <div class="checklist__item" data-pass="true">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                    <span class="checklist__text">إصلاح التخطيط العربي على عرض 360 بكسل</span>
+                  </div>
+                  <div class="checklist__item" data-pass="false">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+                    <span class="checklist__text">استخدام رموز نظام التصميم اللونية فقط</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="fixNote">ما غيّرته</label>
+                <p class="field__help">اشرح كل تعديل. يُقرأ هذا في إعادة المراجعة ويُسجَّل في التاريخ.</p>
+                <textarea class="textarea" id="fixNote" placeholder="نقطة لكل تعديل نفّذته."></textarea>
+              </div>
+
+              <div class="dropzone">
+                <svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M8 8l4-4 4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+                <span class="dropzone__title">أرفق النسخة المعدَّلة</span>
+              </div>
+            </div>
+
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">
+                موعد إعادة التقديم: <strong class="t-danger">تجاوز الموعد بيومين</strong>
+              </p>
+              <div class="row row--tight">
+                <a class="btn btn--secondary btn--sm" href="history.html">سجل المهمة</a>
+                <button class="btn btn--primary btn--sm" type="button" data-action="demo-save" data-perm="tasks.submit">
+                  إعادة التقديم للمراجعة
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel__head">
+              <div class="stack-2">
+                <h2 class="panel__title"><a class="task-title__link" href="detail.html">تصميم قوالب بطاقات المنتجات لنتائج البحث</a></h2>
+                <p class="t-3xs t-subtle"><span class="task-ref">UIX-0387</span> · <span class="dept" data-dept="uiux">UI/UX</span> · بدر الزهراني</p>
+              </div>
+              <div class="row row--tight">
+                <span class="status" data-status="rejected">مرفوضة</span>
+                <span class="revisions" data-count="2" data-warn="true">جولتان</span>
+              </div>
+            </div>
+
+            <div class="panel__body stack-4">
+              <div class="reason">
+                <span class="reason__label">سبب الرفض — رفضتها نورة الشمري في 12 سبتمبر 10:20</span>
+                التصميم لا يغطي حالة البطاقة بدون صورة، وهي الحالة الأكثر شيوعًا في نتائج البحث.
+                المطلوب تغطية كل الحالات لا الحالة المثالية فقط.
+              </div>
+
+              <div class="alert alert--warning">
+                <span class="alert__body">
+                  <strong class="alert__title">الطلب الأصلي لم يذكر الحالات المطلوبة</strong>
+                  <span class="alert__text">
+                    رُفضت المهمة مرتين للسبب ذاته. يُستحسن مراجعة الطلب نفسه مع المُنشئ قبل جولة
+                    ثالثة.
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">بانتظار توضيح من المُنشئ طارق عوض</p>
+              <div class="row row--tight">
+                <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">مناقشة الطلب</button>
+                <button class="btn btn--primary btn--sm" type="button" data-action="demo-save" data-perm="tasks.submit">إعادة التقديم</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel__head">
+              <div class="stack-2">
+                <h2 class="panel__title"><a class="task-title__link" href="detail.html">إضافة ترميز Breadcrumb لكل مستويات الأقسام</a></h2>
+                <p class="t-3xs t-subtle"><span class="task-ref">PRG-1841</span> · <span class="dept" data-dept="prog">البرمجة</span> · فهد المطيري</p>
+              </div>
+              <div class="row row--tight">
+                <span class="status" data-status="progress">أُعيد التقديم</span>
+                <span class="revisions" data-count="1">جولة واحدة</span>
+              </div>
+            </div>
+            <div class="panel__body stack-3">
+              <div class="reason reason--revision">
+                <span class="reason__label">سبب الرفض السابق — أحمد سعيد في 9 سبتمبر</span>
+                الترميز مطبَّق على المستوى الأول فقط، والمطلوب كل المستويات.
+              </div>
+              <div class="alert alert--success">
+                <span class="alert__body">
+                  <strong class="alert__title">أُعيد التقديم في 15 سبتمبر</strong>
+                  <span class="alert__text">طُبّق الترميز على المستويات الثلاثة وأُرفق اختبار لكل مستوى. بانتظار المراجعة.</span>
+                </span>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <p class="t-3xs t-subtle">في قائمة المراجعة منذ 18 ساعة</p>
+              <a class="btn btn--secondary btn--sm" href="review.html" data-perm="tasks.review">مراجعتها الآن</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================================================== side ====== -->
+        <aside class="stack-4">
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">أسباب الرفض الأكثر تكرارًا</h2></div>
+            <div class="panel__body">
+              <p class="t-3xs t-subtle mbe-3">آخر 90 يومًا · 22 حالة</p>
+              <div class="figures">
+                <div class="figure-row">
+                  <span class="figure-row__label">نقص الأصول أو النصوص</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:100%; background-color:var(--st-rejected)"></span></span>
+                  <span class="figure-row__value">9</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">لا يطابق المتطلبات</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:55%; background-color:var(--st-revision)"></span></span>
+                  <span class="figure-row__value">5</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">أخطاء تقنية</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:44%"></span></span>
+                  <span class="figure-row__value">4</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">تسليم غير كامل</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:22%"></span></span>
+                  <span class="figure-row__value">2</span>
+                </div>
+                <div class="figure-row">
+                  <span class="figure-row__label">خارج معايير الجودة</span>
+                  <span class="figure-row__bar"><span class="figure-row__fill" style="inline-size:22%"></span></span>
+                  <span class="figure-row__value">2</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__body">
+              <div class="alert alert--info">
+                <span class="alert__body">
+                  <strong class="alert__title">القراءة المهمة في هذه الأرقام</strong>
+                  <span class="alert__text">
+                    أكثر من نصف حالات الرفض سببها الطلب لا التنفيذ. تحسين نموذج إنشاء المهمة يخفض
+                    الرفض أسرع من متابعة الموظفين.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head"><h2 class="panel__title">التعديلات بحسب القسم</h2></div>
+            <div class="panel__body stack-3">
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">البرمجة</span><span class="meter__value">6%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:6%"></span></div>
+              </div>
+              <div class="meter" data-band="low">
+                <div class="meter__head"><span class="meter__label">UI/UX</span><span class="meter__value">11%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:11%"></span></div>
+              </div>
+              <p class="t-3xs t-subtle">النسبة من إجمالي مهام القسم في الفترة.</p>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>window.PM_PAGE = { id: 'rejected', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

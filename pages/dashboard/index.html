@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة التحكم · إدارة المشاريع</title>
+<meta name="description" content="نظرة عامة على المهام التي ينشئها قسم السيو ويسلمها فريقا البرمجة وUI/UX.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <!-- sidebar and topbar are injected by shell.js -->
+
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <!-- ============================================================ head -->
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">لوحة التحكم</h1>
+          <p class="page-head__sub">
+            كل المهام التي أنشأها قسم السيو وأُرسلت إلى البرمجة وUI/UX، مع حالتها وجودتها
+            والمسؤول عنها. النطاق المعروض: <strong data-role-scope>كل الأقسام</strong>.
+          </p>
+        </div>
+
+        <div class="page-head__actions">
+          <div class="menu-anchor">
+            <button class="btn btn--secondary btn--sm" type="button" data-menu="rangeMenu" aria-expanded="false" aria-haspopup="true">
+              <span>آخر 30 يومًا</span>
+              <span class="filter-chip__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="menu menu--end" id="rangeMenu" hidden>
+              <p class="menu__label">الفترة الزمنية</p>
+              <button class="menu__item" type="button">اليوم</button>
+              <button class="menu__item" type="button">آخر 7 أيام</button>
+              <button class="menu__item" type="button" aria-selected="true">آخر 30 يومًا</button>
+              <button class="menu__item" type="button">آخر 90 يومًا</button>
+              <button class="menu__item" type="button">هذا الربع</button>
+              <div class="menu__sep"></div>
+              <button class="menu__item" type="button">فترة مخصصة…</button>
+            </div>
+          </div>
+
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="reports.view">
+            تصدير التقرير
+          </button>
+        </div>
+      </div>
+
+      <!-- ======================================================= dispatch
+           The opening element. SEO creates, Programming and UI/UX deliver —
+           so the page starts with the actual shape of the business rather
+           than a row of decorative figures. Every stage filters the table.
+      -->
+      <section class="dispatch" aria-label="حركة المهام بين الأقسام">
+        <div class="dispatch__source">
+          <p class="dispatch__source-label">مصدر المهام</p>
+          <p class="dispatch__source-name">
+            <span class="dept" data-dept="seo"></span>
+            قسم السيو
+          </p>
+          <p class="dispatch__source-count">284 مهمة في آخر 30 يومًا · 9 منشئين</p>
+        </div>
+
+        <div class="dispatch__lanes">
+          <!-- Programming lane -->
+          <div class="lane" data-dept="prog">
+            <div class="lane__head">
+              <p class="lane__name">البرمجة</p>
+              <p class="lane__total">168 مهمة · 3 فرق</p>
+            </div>
+            <div class="lane__stages" role="group" aria-label="مراحل مهام البرمجة">
+              <button class="stage" type="button" data-status="created"   data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">14</span><span class="stage__label">بانتظار الإسناد</span>
+              </button>
+              <button class="stage" type="button" data-status="assigned"  data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">22</span><span class="stage__label">مُسندة</span>
+              </button>
+              <button class="stage" type="button" data-status="progress"  data-action="toggle-stage" aria-pressed="true">
+                <span class="stage__count">41</span><span class="stage__label">قيد التنفيذ</span>
+              </button>
+              <button class="stage" type="button" data-status="review"    data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">12</span><span class="stage__label">قيد المراجعة</span>
+              </button>
+              <button class="stage" type="button" data-status="revision"  data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">6</span><span class="stage__label">تحتاج تعديل</span>
+              </button>
+              <button class="stage" type="button" data-status="approved"  data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">73</span><span class="stage__label">معتمدة</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- UI/UX lane -->
+          <div class="lane" data-dept="uiux">
+            <div class="lane__head">
+              <p class="lane__name">UI/UX</p>
+              <p class="lane__total">116 مهمة · 2 فريق</p>
+            </div>
+            <div class="lane__stages" role="group" aria-label="مراحل مهام UI/UX">
+              <button class="stage" type="button" data-status="created"  data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">8</span><span class="stage__label">بانتظار الإسناد</span>
+              </button>
+              <button class="stage" type="button" data-status="assigned" data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">15</span><span class="stage__label">مُسندة</span>
+              </button>
+              <button class="stage" type="button" data-status="progress" data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">27</span><span class="stage__label">قيد التنفيذ</span>
+              </button>
+              <button class="stage" type="button" data-status="review"   data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">9</span><span class="stage__label">قيد المراجعة</span>
+              </button>
+              <button class="stage" type="button" data-status="revision" data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">3</span><span class="stage__label">تحتاج تعديل</span>
+              </button>
+              <button class="stage" type="button" data-status="approved" data-action="toggle-stage" aria-pressed="false">
+                <span class="stage__count">54</span><span class="stage__label">معتمدة</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================== stats -->
+      <div class="grid grid--stats">
+        <article class="stat">
+          <p class="stat__label">إجمالي المهام</p>
+          <p class="stat__value">284</p>
+          <p class="stat__foot">
+            <span class="delta delta--up">▲ 12%</span>
+            <span>مقارنة بالفترة السابقة</span>
+          </p>
+        </article>
+
+        <article class="stat">
+          <p class="stat__label">قيد التنفيذ</p>
+          <p class="stat__value">68</p>
+          <p class="stat__foot"><span>41 برمجة · 27 UI/UX</span></p>
+        </article>
+
+        <article class="stat stat--flag" data-flag="warning">
+          <p class="stat__label">قيد المراجعة</p>
+          <p class="stat__value">21</p>
+          <p class="stat__foot"><span>أقدم طلب مراجعة: 3 أيام</span></p>
+        </article>
+
+        <article class="stat stat--flag" data-flag="danger">
+          <p class="stat__label">متأخرة عن الموعد</p>
+          <p class="stat__value">9</p>
+          <p class="stat__foot">
+            <span class="delta delta--down">▲ 3</span>
+            <span>عن الأسبوع الماضي</span>
+          </p>
+        </article>
+
+        <article class="stat">
+          <p class="stat__label">متوسط جودة المهام</p>
+          <p class="stat__value">87<span class="stat__unit">%</span></p>
+          <p class="stat__foot">
+            <span class="delta delta--up">▲ 4</span>
+            <span>نقاط</span>
+          </p>
+        </article>
+
+        <article class="stat">
+          <p class="stat__label">متوسط زمن الإنجاز</p>
+          <p class="stat__value">3.4<span class="stat__unit">يوم</span></p>
+          <p class="stat__foot">
+            <span class="delta delta--up">▼ 0.6</span>
+            <span>أسرع من الفترة السابقة</span>
+          </p>
+        </article>
+      </div>
+
+      <!-- ========================================================== tasks -->
+      <section class="panel">
+        <div class="panel__head">
+          <h2 class="panel__title">المهام</h2>
+          <div class="row row--tight">
+            <button class="btn btn--quiet" type="button" data-action="demo-soon">حفظ العرض الحالي</button>
+            <div class="menu-anchor">
+              <button class="btn btn--secondary btn--sm" type="button" data-menu="colsMenu" aria-expanded="false" aria-haspopup="true">
+                الأعمدة
+                <span class="filter-chip__caret" aria-hidden="true">▾</span>
+              </button>
+              <div class="menu menu--end" id="colsMenu" hidden>
+                <p class="menu__label">إظهار الأعمدة</p>
+                <label class="menu__item" data-keep-open>
+                  <input class="check__input" type="checkbox" checked> <span>المُنشئ</span></label>
+                <label class="menu__item" data-keep-open>
+                  <input class="check__input" type="checkbox" checked> <span>قائد الفريق</span></label>
+                <label class="menu__item" data-keep-open>
+                  <input class="check__input" type="checkbox" checked> <span>الأولوية</span></label>
+                <label class="menu__item" data-keep-open>
+                  <input class="check__input" type="checkbox" checked> <span>جودة المهمة</span></label>
+                <label class="menu__item" data-keep-open>
+                  <input class="check__input" type="checkbox" checked> <span>عدد التعديلات</span></label>
+                <label class="menu__item" data-keep-open>
+                  <input class="check__input" type="checkbox"> <span>تاريخ الإنشاء</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved views: the queues people actually work from, ahead of the
+             raw filter controls. -->
+        <div class="panel__body" style="padding-block-end: var(--sp-4);">
+          <div class="views" role="group" aria-label="عروض محفوظة">
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="true">
+              كل المهام <span class="view-tab__count">284</span>
+            </button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">
+              بانتظار الإسناد <span class="view-tab__count">22</span>
+            </button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">
+              بانتظار المراجعة <span class="view-tab__count">21</span>
+            </button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">
+              متأخرة <span class="view-tab__count">9</span>
+            </button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">
+              تحتاج تعديل <span class="view-tab__count">9</span>
+            </button>
+            <button class="view-tab" type="button" data-action="toggle-view" aria-pressed="false">
+              جودة منخفضة <span class="view-tab__count">5</span>
+            </button>
+          </div>
+
+          <!-- ==================================================== filters
+               Chips that open a dropdown each, collapsing into removable
+               pills below. No modal, no nested accordion.
+          -->
+          <div class="filters mbs-4">
+            <div class="filters__row">
+              <span class="t-3xs t-subtle flex-none">تصفية:</span>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fDept" data-active="true" aria-expanded="false" aria-haspopup="true">
+                  القسم: <strong>البرمجة</strong>
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fDept" hidden>
+                  <p class="menu__label">القسم</p>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox" checked> <span>البرمجة</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>UI/UX</span></label>
+                  <div class="menu__foot">
+                    <button class="btn btn--primary btn--sm btn--block" type="button">تطبيق</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fHead" aria-expanded="false" aria-haspopup="true">
+                  رئيس القسم
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fHead" hidden>
+                  <div class="menu__search">
+                    <input class="input" type="search" placeholder="ابحث عن رئيس قسم" aria-label="بحث">
+                  </div>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>خالد ناصر — البرمجة</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>هند العامري — UI/UX</span></label>
+                  <div class="menu__foot">
+                    <button class="btn btn--primary btn--sm btn--block" type="button">تطبيق</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fLead" data-active="true" aria-expanded="false" aria-haspopup="true">
+                  قائد الفريق: <strong>أحمد سعيد</strong>
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fLead" hidden>
+                  <div class="menu__search">
+                    <input class="input" type="search" placeholder="ابحث عن قائد فريق" aria-label="بحث">
+                  </div>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox" checked> <span>أحمد سعيد</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>ليان مرزوق</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>عمر الحارثي</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>نورة الشمري</span></label>
+                  <div class="menu__foot">
+                    <button class="btn btn--primary btn--sm btn--block" type="button">تطبيق</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fEmp" aria-expanded="false" aria-haspopup="true">
+                  الموظف
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fEmp" hidden>
+                  <div class="menu__search">
+                    <input class="input" type="search" placeholder="ابحث عن موظف" aria-label="بحث">
+                  </div>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>محمد فتحي</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>ياسر الدوسري</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>رنا خليل</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span>سارة يوسف</span></label>
+                  <div class="menu__foot">
+                    <button class="btn btn--primary btn--sm btn--block" type="button">تطبيق</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fStatus" data-active="true" aria-expanded="false" aria-haspopup="true">
+                  الحالة: <strong>قيد التنفيذ</strong>
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu menu--wide" id="fStatus" hidden>
+                  <p class="menu__label">حالة المهمة</p>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="created">بانتظار الإسناد</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="assigned">مُسندة</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox" checked> <span class="status" data-status="progress">قيد التنفيذ</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="submitted">مُقدَّمة</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="review">قيد المراجعة</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="revision">تحتاج تعديل</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="rejected">مرفوضة</span></label>
+                  <label class="menu__item" data-keep-open>
+                    <input class="check__input" type="checkbox"> <span class="status" data-status="approved">معتمدة</span></label>
+                  <div class="menu__foot">
+                    <button class="btn btn--primary btn--sm btn--block" type="button">تطبيق</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fPriority" aria-expanded="false" aria-haspopup="true">
+                  الأولوية
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fPriority" hidden>
+                  <p class="menu__label">الأولوية</p>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>عاجلة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>عالية</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>متوسطة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>منخفضة</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fType" aria-expanded="false" aria-haspopup="true">
+                  نوع المهمة
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fType" hidden>
+                  <p class="menu__label">نوع المهمة</p>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>سيو تقني</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>بيانات منظمة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>سرعة الصفحات</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>تصميم صفحة</span></label>
+                  <label class="menu__item" data-keep-open><input class="check__input" type="checkbox"> <span>تحسين تجربة</span></label>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fQuality" aria-expanded="false" aria-haspopup="true">
+                  الجودة
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fQuality" hidden>
+                  <p class="menu__label">نطاق جودة المهمة</p>
+                  <button class="menu__item" type="button">90% وأعلى — ممتاز</button>
+                  <button class="menu__item" type="button">75% إلى 89% — مقبول</button>
+                  <button class="menu__item" type="button">أقل من 75% — يحتاج متابعة</button>
+                  <button class="menu__item" type="button">لم تُقيَّم بعد</button>
+                </div>
+              </div>
+
+              <div class="menu-anchor">
+                <button class="filter-chip" type="button" data-menu="fDate" data-active="true" aria-expanded="false" aria-haspopup="true">
+                  التاريخ: <strong>آخر 30 يومًا</strong>
+                  <span class="filter-chip__caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="menu" id="fDate" hidden>
+                  <p class="menu__label">الحقل المرجعي</p>
+                  <button class="menu__item" type="button" aria-selected="true">تاريخ الإنشاء</button>
+                  <button class="menu__item" type="button">تاريخ الاستحقاق</button>
+                  <button class="menu__item" type="button">تاريخ الإسناد</button>
+                  <div class="menu__sep"></div>
+                  <p class="menu__label">الفترة</p>
+                  <button class="menu__item" type="button">اليوم</button>
+                  <button class="menu__item" type="button">آخر 7 أيام</button>
+                  <button class="menu__item" type="button" aria-selected="true">آخر 30 يومًا</button>
+                  <button class="menu__item" type="button">فترة مخصصة…</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Applied filters, each removable on its own. -->
+            <div class="filters__applied">
+              <span class="t-3xs t-subtle">مُطبَّق:</span>
+
+              <span class="applied-pill">
+                <span class="applied-pill__key">القسم</span>
+                <span class="applied-pill__val">البرمجة</span>
+                <button class="applied-pill__x" type="button" data-action="remove-filter" aria-label="إزالة تصفية القسم">×</button>
+              </span>
+
+              <span class="applied-pill">
+                <span class="applied-pill__key">قائد الفريق</span>
+                <span class="applied-pill__val">أحمد سعيد</span>
+                <button class="applied-pill__x" type="button" data-action="remove-filter" aria-label="إزالة تصفية قائد الفريق">×</button>
+              </span>
+
+              <span class="applied-pill">
+                <span class="applied-pill__key">الحالة</span>
+                <span class="applied-pill__val">قيد التنفيذ</span>
+                <button class="applied-pill__x" type="button" data-action="remove-filter" aria-label="إزالة تصفية الحالة">×</button>
+              </span>
+
+              <span class="applied-pill">
+                <span class="applied-pill__key">التاريخ</span>
+                <span class="applied-pill__val">آخر 30 يومًا</span>
+                <button class="applied-pill__x" type="button" data-action="remove-filter" aria-label="إزالة تصفية التاريخ">×</button>
+              </span>
+
+              <button class="btn btn--quiet" type="button" data-action="clear-filters">مسح الكل</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bulk action bar: appears once rows are selected. -->
+        <div class="bulk-bar" hidden data-perm-any="tasks.assign,tasks.bulk">
+          <span class="bulk-bar__count">0 مهمة محددة</span>
+          <span class="topbar__divider" aria-hidden="true"></span>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="tasks.assign">إسناد إلى موظف</button>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="tasks.reassign">تغيير قائد الفريق</button>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon" data-perm="tasks.status.any">تغيير الحالة</button>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">تعديل الأولوية</button>
+          <span class="spacer"></span>
+          <button class="btn btn--quiet" type="button" data-action="demo-soon">تصدير المحدد</button>
+        </div>
+
+        <!-- ======================================================= table
+             The status spine on each row's leading edge turns this from a
+             grid of text into a board that can be read at a glance.
+        -->
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">قائمة المهام مع الحالة والمسؤول والجودة وموعد التسليم</caption>
+            <thead>
+              <tr>
+                <th class="cell-select" scope="col">
+                  <input class="check__input all-check" type="checkbox" aria-label="تحديد كل المهام في الصفحة">
+                </th>
+                <th scope="col">
+                  <button class="th-sort" type="button">المهمة <span class="th-sort__caret" aria-hidden="true">▾</span></button>
+                </th>
+                <th scope="col">المُنشئ</th>
+                <th scope="col">القسم</th>
+                <th scope="col">قائد الفريق</th>
+                <th scope="col">الموظف المسؤول</th>
+                <th scope="col">الحالة</th>
+                <th scope="col">الأولوية</th>
+                <th scope="col" aria-sort="descending">
+                  <button class="th-sort" type="button">الجودة <span class="th-sort__caret" aria-hidden="true">▾</span></button>
+                </th>
+                <th scope="col">التعديلات</th>
+                <th scope="col">
+                  <button class="th-sort" type="button">الاستحقاق <span class="th-sort__caret" aria-hidden="true">▾</span></button>
+                </th>
+                <th class="cell-actions" scope="col"><span class="sr-only">إجراءات</span></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <!-- Row 1 carries the full quality-breakdown popover to show the
+                   pattern. In production every score chip binds to it. -->
+              <tr data-status="progress">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة PRG-1842"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">تحسين زمن تحميل صفحة المنتج إلى أقل من ثانيتين</a>
+                    <span class="task-title__meta"><span class="task-ref">PRG-1842</span> · سرعة الصفحات · أُنشئت 12 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">أ س</span><div class="person__text"><span class="person__name">أحمد سالم</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">أحمد سعيد</span></td>
+                <td data-label="الموظف">
+                  <div class="person">
+                    <span class="avatar avatar--sm" data-dept="prog">م ف</span>
+                    <div class="person__text">
+                      <span class="person__name">محمد فتحي</span>
+                      <span class="person__meta">جودة الموظف: 92%</span>
+                    </div>
+                  </div>
+                </td>
+                <td data-label="الحالة"><span class="status status--live" data-status="progress">قيد التنفيذ</span></td>
+                <td data-label="الأولوية">
+                  <span class="priority" data-priority="high">
+                    <span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span>
+                    <span class="priority__label">عالية</span>
+                  </span>
+                </td>
+                <td class="cell-num" data-label="الجودة">
+                  <div class="menu-anchor">
+                    <button class="score" type="button" data-band="high" data-popover="scoreDemo" aria-expanded="false">
+                      <span>94%</span>
+                      <span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:94%"></span></span>
+                    </button>
+
+                    <!-- The score is never a bare number: it opens its own
+                         weighted breakdown so it can survive a review. -->
+                    <div class="popover" id="scoreDemo" hidden>
+                      <div class="popover__head">
+                        <p class="popover__title">احتساب جودة المهمة</p>
+                        <p class="score" data-band="high">94 / 100</p>
+                      </div>
+                      <table class="breakdown">
+                        <thead>
+                          <tr><th scope="col">المعيار</th><th scope="col">الوزن</th><th scope="col">المحقَّق</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>اكتمال بيانات الطلب</td><td class="breakdown__weight">20</td><td class="breakdown__earned">20</td></tr>
+                          <tr><td>مطابقة المتطلبات</td><td class="breakdown__weight">25</td><td class="breakdown__earned">23</td></tr>
+                          <tr><td>الاعتماد من أول مرة</td><td class="breakdown__weight">20</td><td class="breakdown__earned">20</td></tr>
+                          <tr><td>الالتزام بالموعد</td><td class="breakdown__weight">15</td><td class="breakdown__earned">15</td></tr>
+                          <tr><td>عدد التعديلات</td><td class="breakdown__weight">10</td><td class="breakdown__earned">10</td></tr>
+                          <tr><td>تقييم المراجع</td><td class="breakdown__weight">10</td><td class="breakdown__earned">6</td></tr>
+                          <tr class="breakdown__total"><td>الإجمالي</td><td class="breakdown__weight">100</td><td class="breakdown__earned">94</td></tr>
+                        </tbody>
+                      </table>
+                      <p class="popover__note">
+                        تُحتسب الجودة من بيانات المهمة نفسها، لا من تقدير شخصي. أوزان المعايير قابلة
+                        للتعديل من <a href="../settings/task-settings.html">إعدادات المهام</a>.
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="soon">18 سبتمبر <span class="due__rel">بعد يومين</span></span></td>
+                <td class="cell-actions">
+                  <button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات المهمة PRG-1842">⋯</button>
+                </td>
+              </tr>
+
+              <tr data-status="review">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة PRG-1839"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">إضافة بيانات منظمة Article لصفحات المدونة</a>
+                    <span class="task-title__meta"><span class="task-ref">PRG-1839</span> · بيانات منظمة · أُنشئت 11 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ل ح</span><div class="person__text"><span class="person__name">لمى حسن</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">أحمد سعيد</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">ي د</span><div class="person__text"><span class="person__name">ياسر الدوسري</span><span class="person__meta">جودة الموظف: 88%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="review">قيد المراجعة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">90%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:90%"></span></span></span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="1">1</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">22 سبتمبر <span class="due__rel">بعد 6 أيام</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="revision">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة UIX-0391"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">تصميم صفحة هبوط لحملة الرياض الموسمية</a>
+                    <span class="task-title__meta"><span class="task-ref">UIX-0391</span> · تصميم صفحة · أُنشئت 8 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">أ س</span><div class="person__text"><span class="person__name">أحمد سالم</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">ليان مرزوق</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ر خ</span><div class="person__text"><span class="person__name">رنا خليل</span><span class="person__meta">جودة الموظف: 71%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="revision">تحتاج تعديل</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="urgent"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عاجلة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="low">62%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:62%"></span></span></span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="3" data-warn="true">3</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="overdue">14 سبتمبر <span class="due__rel">متأخرة بيومين</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="created">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة PRG-1845"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">معالجة المحتوى المكرر في صفحات التصفية</a>
+                    <span class="task-title__meta"><span class="task-ref">PRG-1845</span> · سيو تقني · أُنشئت اليوم</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ط ع</span><div class="person__text"><span class="person__name">طارق عوض</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">أحمد سعيد</span></td>
+                <td data-label="الموظف">
+                  <div class="person person--unassigned">
+                    <span class="avatar avatar--sm" aria-hidden="true">؟</span>
+                    <div class="person__text"><span class="person__name">لم يُسند بعد</span><span class="person__meta">بانتظار قائد الفريق</span></div>
+                  </div>
+                </td>
+                <td data-label="الحالة"><span class="status" data-status="created">بانتظار الإسناد</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="none">—</span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">25 سبتمبر <span class="due__rel">بعد 9 أيام</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="approved">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة PRG-1836"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">إصلاح روابط 404 الناتجة عن تغيير بنية الأقسام</a>
+                    <span class="task-title__meta"><span class="task-ref">PRG-1836</span> · سيو تقني · أُنشئت 5 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ل ح</span><div class="person__text"><span class="person__name">لمى حسن</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">عمر الحارثي</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">س ي</span><div class="person__text"><span class="person__name">سارة يوسف</span><span class="person__meta">جودة الموظف: 96%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="approved">معتمدة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="high">98%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:98%"></span></span></span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">10 سبتمبر <span class="due__rel">سُلّمت قبل الموعد</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="rejected">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة UIX-0387"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">تصميم قوالب بطاقات المنتجات لنتائج البحث</a>
+                    <span class="task-title__meta"><span class="task-ref">UIX-0387</span> · تصميم مكوّن · أُنشئت 3 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ط ع</span><div class="person__text"><span class="person__name">طارق عوض</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">نورة الشمري</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ب ز</span><div class="person__text"><span class="person__name">بدر الزهراني</span><span class="person__meta">جودة الموظف: 64%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="rejected">مرفوضة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="low"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">منخفضة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="low">48%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:48%"></span></span></span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="2" data-warn="true">2</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="overdue">12 سبتمبر <span class="due__rel">متأخرة 4 أيام</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="assigned">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة PRG-1844"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">بناء خريطة موقع XML ديناميكية مع أولويات محدثة</a>
+                    <span class="task-title__meta"><span class="task-ref">PRG-1844</span> · سيو تقني · أُنشئت أمس</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">أ س</span><div class="person__text"><span class="person__name">أحمد سالم</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">أحمد سعيد</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">م ف</span><div class="person__text"><span class="person__name">محمد فتحي</span><span class="person__meta">جودة الموظف: 92%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="assigned">مُسندة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="none">—</span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">28 سبتمبر <span class="due__rel">بعد 12 يومًا</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="submitted">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة UIX-0390"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">تحسين تجربة التنقل في نتائج البحث الداخلي</a>
+                    <span class="task-title__meta"><span class="task-ref">UIX-0390</span> · تحسين تجربة · أُنشئت 9 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ر ق</span><div class="person__text"><span class="person__name">ريم القحطاني</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">ليان مرزوق</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ه ع</span><div class="person__text"><span class="person__name">هيا العتيبي</span><span class="person__meta">جودة الموظف: 84%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="submitted">مُقدَّمة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">81%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:81%"></span></span></span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="1">1</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="soon">17 سبتمبر <span class="due__rel">غدًا</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="progress">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة PRG-1841"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">إضافة ترميز Breadcrumb لكل مستويات الأقسام</a>
+                    <span class="task-title__meta"><span class="task-ref">PRG-1841</span> · بيانات منظمة · أُنشئت 10 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ر ق</span><div class="person__text"><span class="person__name">ريم القحطاني</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">عمر الحارثي</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="prog">ف م</span><div class="person__text"><span class="person__name">فهد المطيري</span><span class="person__meta">جودة الموظف: 79%</span></div></div></td>
+                <td data-label="الحالة"><span class="status status--live" data-status="progress">قيد التنفيذ</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="mid">76%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:76%"></span></span></span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="1">1</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="ok">24 سبتمبر <span class="due__rel">بعد 8 أيام</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+
+              <tr data-status="hold">
+                <td class="cell-select"><input class="check__input row-check" type="checkbox" aria-label="تحديد المهمة UIX-0384"></td>
+                <td class="cell-title" data-label="المهمة">
+                  <div class="task-title">
+                    <a class="task-title__link" href="../tasks/detail.html">تصميم نظام أيقونات موحّد لصفحات الأقسام</a>
+                    <span class="task-title__meta"><span class="task-ref">UIX-0384</span> · تصميم مكوّن · أُنشئت 1 سبتمبر</span>
+                  </div>
+                </td>
+                <td data-label="المُنشئ"><div class="person"><span class="avatar avatar--sm" data-dept="seo">ل ح</span><div class="person__text"><span class="person__name">لمى حسن</span><span class="person__meta">السيو</span></div></div></td>
+                <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                <td data-label="قائد الفريق"><span class="person__name">نورة الشمري</span></td>
+                <td data-label="الموظف"><div class="person"><span class="avatar avatar--sm" data-dept="uiux">ب ز</span><div class="person__text"><span class="person__name">بدر الزهراني</span><span class="person__meta">جودة الموظف: 64%</span></div></div></td>
+                <td data-label="الحالة"><span class="status" data-status="hold">معلّقة</span></td>
+                <td data-label="الأولوية"><span class="priority" data-priority="low"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">منخفضة</span></span></td>
+                <td class="cell-num" data-label="الجودة"><span class="score" data-band="none">—</span></td>
+                <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                <td class="cell-date" data-label="الاستحقاق"><span class="due" data-sla="none">بلا موعد <span class="due__rel">معلّقة بانتظار المحتوى</span></span></td>
+                <td class="cell-actions"><button class="btn btn--quiet btn--icon" type="button" data-action="demo-soon" aria-label="إجراءات">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination: 30 per page as specified, with the size exposed as a
+             control so the number is a setting rather than a constant. -->
+        <div class="panel__foot">
+          <p class="pagination__summary">
+            عرض <strong>1–30</strong> من <strong>284</strong> مهمة
+          </p>
+
+          <nav class="pagination__pages" aria-label="تنقل بين الصفحات">
+            <button class="page-btn" type="button" disabled aria-label="الصفحة السابقة">›</button>
+            <button class="page-btn" type="button" aria-current="page">1</button>
+            <button class="page-btn" type="button">2</button>
+            <button class="page-btn" type="button">3</button>
+            <button class="page-btn" type="button">4</button>
+            <span class="page-gap" aria-hidden="true">…</span>
+            <button class="page-btn" type="button">10</button>
+            <button class="page-btn" type="button" aria-label="الصفحة التالية">‹</button>
+          </nav>
+
+          <div class="pagination__size">
+            <label for="pageSize">لكل صفحة</label>
+            <select class="select" id="pageSize">
+              <option>15</option>
+              <option selected>30</option>
+              <option>50</option>
+              <option>100</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================ secondary panels -->
+      <div class="grid grid--halves">
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">توزيع المهام على الحالات</h2>
+            <span class="section__note">آخر 30 يومًا</span>
+          </div>
+          <div class="panel__body stack-3">
+            <div class="bar-stack" role="img" aria-label="توزيع المهام: 45% معتمدة، 24% قيد التنفيذ، 8% قيد المراجعة، 8% مُسندة، 5% بانتظار الإسناد، 6% تحتاج تعديل، 4% مرفوضة">
+              <span class="bar-stack__seg" data-status="approved"  style="inline-size:45%"></span>
+              <span class="bar-stack__seg" data-status="progress"  style="inline-size:24%"></span>
+              <span class="bar-stack__seg" data-status="review"    style="inline-size:8%"></span>
+              <span class="bar-stack__seg" data-status="assigned"  style="inline-size:8%"></span>
+              <span class="bar-stack__seg" data-status="created"   style="inline-size:5%"></span>
+              <span class="bar-stack__seg" data-status="revision"  style="inline-size:6%"></span>
+              <span class="bar-stack__seg" data-status="rejected"  style="inline-size:4%"></span>
+            </div>
+
+            <div class="legend">
+              <span class="legend__item"><i class="legend__swatch" data-status="approved"></i> معتمدة 127</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="progress"></i> قيد التنفيذ 68</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="review"></i> قيد المراجعة 21</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="assigned"></i> مُسندة 22</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="created"></i> بانتظار الإسناد 15</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="revision"></i> تحتاج تعديل 18</span>
+              <span class="legend__item"><i class="legend__swatch" data-status="rejected"></i> مرفوضة 13</span>
+            </div>
+
+            <div class="alert alert--warning mbs-2">
+              <span class="alert__body">
+                <strong class="alert__title">نسبة التعديلات في UI/UX أعلى من المعتاد</strong>
+                <span class="alert__text">
+                  11% من مهام UI/UX عادت للتعديل هذا الشهر مقابل 6% في البرمجة. الأسباب الأكثر تكرارًا:
+                  نقص الأصول في الطلب الأصلي.
+                </span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">جودة الفرق</h2>
+            <a class="btn btn--quiet" href="../insights/reports.html" data-perm="reports.view">التقرير الكامل</a>
+          </div>
+          <div class="panel__body stack-4">
+            <div class="bars" role="img" aria-label="متوسط جودة المهام لكل فريق">
+              <div class="bars__col"><span class="bars__bar" style="--h:94%; background-color:var(--viz-1)"></span><span class="bars__label">أحمد سعيد</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:88%; background-color:var(--viz-1)"></span><span class="bars__label">عمر الحارثي</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:81%; background-color:var(--viz-3)"></span><span class="bars__label">ليان مرزوق</span></div>
+              <div class="bars__col"><span class="bars__bar" style="--h:69%; background-color:var(--viz-3)"></span><span class="bars__label">نورة الشمري</span></div>
+            </div>
+
+            <div class="stack-3 border-bs" style="padding-block-start: var(--sp-4);">
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">البرمجة — متوسط الجودة</span><span class="meter__value">91%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:91%"></span></div>
+              </div>
+              <div class="meter" data-band="mid">
+                <div class="meter__head"><span class="meter__label">UI/UX — متوسط الجودة</span><span class="meter__value">76%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:76%"></span></div>
+              </div>
+              <div class="meter" data-band="high">
+                <div class="meter__head"><span class="meter__label">الالتزام بمواعيد التسليم</span><span class="meter__value">88%</span></div>
+                <div class="meter__track"><span class="meter__fill" style="inline-size:88%"></span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <p class="note">
+        <strong>نموذج أولي:</strong> هذه الشاشة واجهة ثابتة لمراجعة التصميم قبل البناء. الأرقام والأسماء
+        تمثيلية، وعوامل التصفية والترتيب تعرض حالتها البصرية دون تنفيذ استعلام فعلي. استخدم
+        <strong>«معاينة كـ»</strong> في الشريط العلوي لرؤية الصفحة بصلاحيات كل دور.
+      </p>
+
+    </div>
+  </main>
+</div>
+
+<!-- Rejection modal: reached from the review flow and from row actions. -->
+<div class="backdrop" data-close="rejectModal" hidden></div>
+<div class="modal-shell" id="rejectModal" role="dialog" aria-modal="true" aria-labelledby="rejectTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="rejectTitle">رفض المهمة وطلب تعديل</h2>
+        <p class="modal__sub">ستعود المهمة إلى الموظف بحالة «تحتاج تعديل» مع سبب الرفض.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="rejectModal" aria-label="إغلاق">×</button>
+    </div>
+
+    <div class="modal__body stack-4">
+      <div class="field">
+        <label class="field__label" for="rejectReason">
+          سبب الرفض <span class="field__req" aria-hidden="true">*</span>
+        </label>
+        <p class="field__help">اكتب سببًا محددًا وقابلًا للتنفيذ. يظهر هذا النص للموظف ويُسجَّل في تاريخ المهمة.</p>
+        <select class="select" id="rejectReason">
+          <option>نقص في الأصول أو الملفات المطلوبة</option>
+          <option>لا يطابق المتطلبات المذكورة في الطلب</option>
+          <option>أخطاء تقنية في التنفيذ</option>
+          <option>لم تُتَّبع معايير الجودة المتفق عليها</option>
+          <option>سبب آخر</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="rejectNotes">التعديلات المطلوبة</label>
+        <textarea class="textarea" id="rejectNotes" placeholder="اذكر ما يجب تغييره تحديدًا، نقطة بنقطة."></textarea>
+      </div>
+
+      <label class="check">
+        <input class="check__input" type="checkbox">
+        <span class="check__text">
+          <span>إبلاغ قائد الفريق</span>
+          <span class="check__hint">يُرسل إشعارًا إضافيًا إلى قائد فريق الموظف.</span>
+        </span>
+      </label>
+    </div>
+
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="rejectModal">إلغاء</button>
+      <button class="btn btn--danger" type="button" data-close="rejectModal">رفض وطلب تعديل</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'dashboard', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

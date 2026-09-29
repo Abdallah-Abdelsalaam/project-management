@@ -1,0 +1,321 @@
+/* ==========================================================================
+   Layout — app shell grid and page scaffolding
+   Logical properties only. Flipping dir on <html> flips the whole app.
+   ========================================================================== */
+
+@layer layout {
+  /* ---- Shell ------------------------------------------------------------
+     Two columns, two rows. The sidebar spans both rows so the brand mark
+     sits above the nav rather than beside the topbar.
+  */
+  .app {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+    grid-template-rows: var(--topbar-h) minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar topbar"
+      "sidebar main";
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .app[data-sidebar="rail"] {
+    grid-template-columns: var(--sidebar-rail-w) minmax(0, 1fr);
+  }
+
+  .app__sidebar { grid-area: sidebar; }
+  .app__topbar  { grid-area: topbar; }
+  .app__main    { grid-area: main; min-width: 0; }
+
+  /* ---- Main scroll region ----------------------------------------------- */
+  .app__main {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: var(--paper);
+  }
+
+  /* ---- Page -------------------------------------------------------------- */
+  .page {
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: var(--page-pad);
+    padding-block-end: var(--sp-20);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .page--narrow {
+    max-width: 880px;
+  }
+
+  .page--form {
+    max-width: 1080px;
+  }
+
+  /* ---- Page header ------------------------------------------------------
+     The title block and its actions share a baseline. No eyebrow label above
+     the heading — the breadcrumb already says where you are.
+  */
+  .page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-4);
+  }
+
+  .page-head__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    min-width: 0;
+  }
+
+  .page-head__title {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semi);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+  }
+
+  .page-head__sub {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    max-width: 72ch;
+  }
+
+  .page-head__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+  }
+
+  /* ---- Sections ---------------------------------------------------------- */
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .section__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+  }
+
+  .section__title {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semi);
+  }
+
+  .section__note {
+    font-size: var(--fs-2xs);
+    color: var(--text-subtle);
+  }
+
+  /* ---- Grids ------------------------------------------------------------
+     auto-fit so a column count is never hardcoded per breakpoint.
+  */
+  .grid {
+    display: grid;
+    gap: var(--sp-4);
+  }
+
+  .grid--stats  { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .grid--cards  { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid--wide   { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+  .grid--halves { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+
+  .grid--split {
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  }
+
+  @media (max-width: 1100px) {
+    .grid--split {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ---- Stacks and rows -------------------------------------------------- */
+  .stack   { display: flex; flex-direction: column; gap: var(--sp-4); }
+  .stack-2 { display: flex; flex-direction: column; gap: var(--sp-2); }
+  .stack-3 { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .stack-6 { display: flex; flex-direction: column; gap: var(--sp-6); }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+  }
+
+  .row--tight  { gap: var(--sp-2); }
+  .row--nowrap { flex-wrap: nowrap; }
+  .row--between { justify-content: space-between; }
+  .row--end     { justify-content: flex-end; }
+
+  .spacer { flex: 1 1 auto; }
+
+  /* ---- Panel ------------------------------------------------------------
+     The workhorse surface. Bordered, never shadowed — a shadow here would
+     claim it floats, and it does not.
+  */
+  .panel {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-panel);
+    overflow: hidden;
+  }
+
+  .panel__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    border-block-end: 1px solid var(--line);
+    background-color: var(--surface);
+  }
+
+  .panel__title {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semi);
+  }
+
+  .panel__body {
+    padding: var(--sp-5);
+  }
+
+  .panel__body--flush {
+    padding: 0;
+  }
+
+  .panel__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-5);
+    border-block-start: 1px solid var(--line);
+    background-color: var(--surface-alt);
+    flex-wrap: wrap;
+  }
+
+  /* ---- Responsive shell ------------------------------------------------- */
+
+  /* Tablet: sidebar shrinks to an icon rail. */
+  @media (max-width: 1100px) {
+    .app {
+      grid-template-columns: var(--sidebar-rail-w) minmax(0, 1fr);
+    }
+  }
+
+  /* Mobile: sidebar leaves the grid and becomes an off-canvas drawer. */
+  @media (max-width: 768px) {
+    :root {
+      --page-pad: var(--sp-4);
+    }
+
+    .app {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "topbar"
+        "main";
+    }
+
+    .app__sidebar {
+      position: fixed;
+      inset-block: 0;
+      inset-inline-start: 0;
+      z-index: var(--z-drawer);
+      width: var(--sidebar-w);
+      transform: translateX(var(--sidebar-offset, 100%));
+      transition: transform var(--dur-base) var(--ease-out);
+    }
+
+    [dir="ltr"] .app__sidebar {
+      --sidebar-offset: -100%;
+    }
+
+    .app[data-sidebar="open"] .app__sidebar {
+      --sidebar-offset: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page {
+      gap: var(--sp-4);
+    }
+  }
+
+  /* ---- Auth layout ------------------------------------------------------
+     Two panes: the form, and a brand pane carrying the product's actual
+     subject matter rather than a stock illustration.
+  */
+  .auth {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .auth__pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--sp-12) var(--sp-10);
+  }
+
+  .auth__form-wrap {
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 960px) {
+    .auth {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .auth__aside {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .auth__pane {
+      padding: var(--sp-8) var(--sp-5);
+    }
+  }
+
+  /* ---- Print ------------------------------------------------------------- */
+  @media print {
+    .app__sidebar,
+    .app__topbar,
+    .fab-dock,
+    .toast-dock {
+      display: none !important;
+    }
+
+    .app {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "main";
+    }
+
+    .panel {
+      break-inside: avoid;
+    }
+  }
+}

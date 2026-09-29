@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>قائمة المراجعة · إدارة المشاريع</title>
+<meta name="description" content="مراجعة المهام المقدَّمة واعتمادها أو طلب تعديلها.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <h1 class="page-head__title">قائمة المراجعة</h1>
+          <p class="page-head__sub">
+            المهام المقدَّمة بانتظار حكمك. راجع المتطلبات مقابل التسليم، ثم اعتمد أو اطلب تعديلًا
+            بسبب محدد.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <span class="badge badge--warning">أقدم طلب: 3 أيام</span>
+        </div>
+      </div>
+
+      <!-- Roles without review rights get the reason, not a blank page. -->
+      <div class="alert alert--info" data-perm-none="tasks.review">
+        <span class="alert__body">
+          <strong class="alert__title">هذه الصفحة لقادة الفرق ومن أعلى</strong>
+          <span class="alert__text">
+            دورك الحالي لا يملك صلاحية مراجعة المهام. استخدم «معاينة كـ» في الشريط العلوي لتجربتها
+            بدور قائد فريق.
+          </span>
+        </span>
+      </div>
+
+      <div data-perm="tasks.review" class="stack-6">
+
+        <div class="grid grid--stats">
+          <article class="stat stat--flag" data-flag="warning">
+            <p class="stat__label">بانتظار المراجعة</p>
+            <p class="stat__value">21</p>
+            <p class="stat__foot"><span>12 برمجة · 9 UI/UX</span></p>
+          </article>
+          <article class="stat">
+            <p class="stat__label">راجعتها اليوم</p>
+            <p class="stat__value">7</p>
+            <p class="stat__foot"><span>5 اعتماد · 2 تعديل</span></p>
+          </article>
+          <article class="stat">
+            <p class="stat__label">متوسط زمن المراجعة</p>
+            <p class="stat__value">6<span class="stat__unit">ساعات</span></p>
+            <p class="stat__foot"><span class="delta delta--up">▼ ساعتان</span><span>عن الأسبوع الماضي</span></p>
+          </article>
+          <article class="stat stat--flag" data-flag="danger">
+            <p class="stat__label">تجاوزت 48 ساعة</p>
+            <p class="stat__value">3</p>
+            <p class="stat__foot"><span>تؤثر على التزام الفريق بالمواعيد</span></p>
+          </article>
+        </div>
+
+        <!-- ================================== the review workbench ======== -->
+        <section class="panel">
+          <div class="panel__head">
+            <div class="stack-2">
+              <h2 class="panel__title">
+                <a class="task-title__link" href="detail.html">إضافة بيانات منظمة Article لصفحات المدونة</a>
+              </h2>
+              <p class="t-3xs t-subtle">
+                <span class="task-ref">PRG-1839</span> · قدّمها ياسر الدوسري قبل 6 ساعات ·
+                <span class="dept" data-dept="prog">البرمجة</span>
+              </p>
+            </div>
+            <div class="row row--tight">
+              <span class="status" data-status="review">قيد المراجعة</span>
+              <span class="revisions" data-count="1">تعديل واحد سابق</span>
+            </div>
+          </div>
+
+          <div class="review-split">
+            <div class="review-col">
+              <div class="review-col__head">
+                <p class="review-col__title">ما طُلب</p>
+                <span class="t-3xs t-subtle">أنشأته لمى حسن · 11 سبتمبر</span>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">الهدف</h3>
+                <p class="t-xs t-muted">
+                  إظهار مقالات المدونة كنتائج غنية في البحث عبر إضافة ترميز Article كامل لكل مقال.
+                </p>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">معايير القبول</h3>
+                <div class="checklist">
+                  <div class="checklist__item" data-pass="true">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                    <span class="checklist__text">ترميز صالح بلا أخطاء في أداة الاختبار</span>
+                    <span class="checklist__weight">10</span>
+                  </div>
+                  <div class="checklist__item" data-pass="true">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                    <span class="checklist__text">يشمل العنوان والكاتب وتاريخ النشر والصورة</span>
+                    <span class="checklist__weight">8</span>
+                  </div>
+                  <div class="checklist__item" data-pass="true">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                    <span class="checklist__text">مطبَّق على كل المقالات لا على عيّنة</span>
+                    <span class="checklist__weight">5</span>
+                  </div>
+                  <div class="checklist__item" data-pass="false">
+                    <span class="checklist__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+                    <span class="checklist__text">لقطة من أداة الاختبار مرفقة</span>
+                    <span class="checklist__weight">2</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">الأصول المرفقة بالطلب</h3>
+                <div class="row row--tight">
+                  <span class="badge badge--outline ltr">article-fields.md</span>
+                  <span class="badge badge--outline ltr">blog-urls.csv</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-col">
+              <div class="review-col__head">
+                <p class="review-col__title">ما سُلّم</p>
+                <span class="t-3xs t-subtle">قدّمه ياسر الدوسري · اليوم 04:12</span>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">وصف التسليم</h3>
+                <p class="t-xs t-muted">
+                  أُضيف ترميز Article لكل قوالب المقالات مع الحقول المطلوبة. اختبرت 12 رابطًا عيّنة
+                  بلا أخطاء. لم أرفق لقطة الأداة لأن النتيجة كانت خالية من الأخطاء تمامًا.
+                </p>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">المرفقات</h3>
+                <div class="row row--tight">
+                  <span class="badge badge--outline ltr">schema-diff.patch</span>
+                  <span class="badge badge--outline ltr">tested-urls.txt</span>
+                </div>
+              </div>
+
+              <div class="stack-2">
+                <h3 class="t-xs fw-semi">تقييمك</h3>
+                <div class="field">
+                  <label class="field__label" for="revScore">جودة التنفيذ من 5</label>
+                  <p class="field__help">يُحتسب منه وزن 10 من جودة المهمة.</p>
+                  <select class="select" id="revScore">
+                    <option>5 — تجاوز المطلوب</option>
+                    <option selected>4 — مطابق مع ملاحظة بسيطة</option>
+                    <option>3 — مقبول مع نواقص</option>
+                    <option>2 — ناقص</option>
+                    <option>1 — غير مقبول</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="revNote">ملاحظات المراجعة</label>
+                  <textarea class="textarea" id="revNote" placeholder="تظهر للموظف وتُسجَّل في تاريخ المهمة."></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__foot">
+            <div class="row row--tight">
+              <span class="t-3xs t-subtle">الجودة المحتسبة إن اعتمدتها الآن:</span>
+              <span class="score" data-band="high">90%<span class="score__track" aria-hidden="true"><span class="score__fill" style="inline-size:90%"></span></span></span>
+            </div>
+            <div class="row row--tight">
+              <button class="btn btn--secondary btn--sm" type="button" data-action="demo-soon">تخطٍّ مؤقت</button>
+              <button class="btn btn--danger-quiet" type="button" data-action="demo-reject" data-perm="tasks.reject">رفض وطلب تعديل</button>
+              <button class="btn btn--approve" type="button" data-action="demo-approve" data-perm="tasks.approve">اعتماد المهمة</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================== the rest of the queue ======= -->
+        <section class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">بقية القائمة</h2>
+            <div class="menu-anchor">
+              <button class="filter-chip" type="button" data-menu="rvSort" aria-expanded="false" aria-haspopup="true">
+                الترتيب: <strong>الأقدم أولًا</strong> <span class="filter-chip__caret" aria-hidden="true">▾</span>
+              </button>
+              <div class="menu menu--end" id="rvSort" hidden>
+                <button class="menu__item" type="button" aria-selected="true">الأقدم أولًا</button>
+                <button class="menu__item" type="button">الأقرب استحقاقًا</button>
+                <button class="menu__item" type="button">الأعلى أولوية</button>
+                <button class="menu__item" type="button">الأكثر تعديلات</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <caption class="sr-only">المهام الأخرى بانتظار المراجعة</caption>
+              <thead>
+                <tr>
+                  <th scope="col">المهمة</th>
+                  <th scope="col">القسم</th>
+                  <th scope="col">الموظف</th>
+                  <th scope="col">منتظرة منذ</th>
+                  <th scope="col">التعديلات</th>
+                  <th scope="col">الأولوية</th>
+                  <th class="cell-actions" scope="col"><span class="sr-only">إجراءات</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-status="submitted">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">تحسين تجربة التنقل في نتائج البحث الداخلي</a><span class="task-title__meta"><span class="task-ref">UIX-0390</span></span></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                  <td data-label="الموظف"><span class="person__name">هيا العتيبي</span></td>
+                  <td class="cell-num" data-label="منتظرة منذ"><span class="t-warning fw-semi">3 أيام</span></td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="1">1</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="high"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عالية</span></span></td>
+                  <td class="cell-actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">مراجعة</button></td>
+                </tr>
+                <tr data-status="submitted">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">إضافة تتبّع أحداث النقر على نتائج البحث</a><span class="task-title__meta"><span class="task-ref">PRG-1833</span></span></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                  <td data-label="الموظف"><span class="person__name">سارة يوسف</span></td>
+                  <td class="cell-num" data-label="منتظرة منذ">18 ساعة</td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="normal"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">متوسطة</span></span></td>
+                  <td class="cell-actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">مراجعة</button></td>
+                </tr>
+                <tr data-status="submitted">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">تصميم بطاقات المقالات المرتبطة</a><span class="task-title__meta"><span class="task-ref">UIX-0388</span></span></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="uiux">UI/UX</span></td>
+                  <td data-label="الموظف"><span class="person__name">رنا خليل</span></td>
+                  <td class="cell-num" data-label="منتظرة منذ">9 ساعات</td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="2" data-warn="true">2</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="low"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">منخفضة</span></span></td>
+                  <td class="cell-actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">مراجعة</button></td>
+                </tr>
+                <tr data-status="submitted">
+                  <td class="cell-title" data-label="المهمة"><div class="task-title"><a class="task-title__link" href="detail.html">معالجة أخطاء الزحف في صفحات الوسوم</a><span class="task-title__meta"><span class="task-ref">PRG-1831</span></span></div></td>
+                  <td data-label="القسم"><span class="dept" data-dept="prog">البرمجة</span></td>
+                  <td data-label="الموظف"><span class="person__name">فهد المطيري</span></td>
+                  <td class="cell-num" data-label="منتظرة منذ">4 ساعات</td>
+                  <td data-label="التعديلات"><span class="revisions" data-count="0">0</span></td>
+                  <td data-label="الأولوية"><span class="priority" data-priority="urgent"><span class="priority__bars" aria-hidden="true"><i class="priority__bar"></i><i class="priority__bar"></i><i class="priority__bar"></i></span><span class="priority__label">عاجلة</span></span></td>
+                  <td class="cell-actions"><button class="btn btn--quiet" type="button" data-action="demo-soon">مراجعة</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel__foot">
+            <p class="pagination__summary">عرض <strong>1–4</strong> من <strong>20</strong> مهمة متبقية</p>
+            <nav class="pagination__pages" aria-label="تنقل بين الصفحات">
+              <button class="page-btn" type="button" disabled aria-label="السابق">›</button>
+              <button class="page-btn" type="button" aria-current="page">1</button>
+              <button class="page-btn" type="button">2</button>
+              <button class="page-btn" type="button">3</button>
+              <button class="page-btn" type="button" aria-label="التالي">‹</button>
+            </nav>
+            <div></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="rejectModal" hidden></div>
+<div class="modal-shell" id="rejectModal" role="dialog" aria-modal="true" aria-labelledby="rjTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="rjTitle">رفض المهمة وطلب تعديل</h2>
+        <p class="modal__sub">ستعود المهمة إلى ياسر الدوسري بحالة «تحتاج تعديل» مع سببك.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="rejectModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body stack-4">
+      <div class="field">
+        <label class="field__label" for="rjReason">سبب الرفض <span class="field__req" aria-hidden="true">*</span></label>
+        <p class="field__help">السبب يُستخدم في تقارير أسباب التعديل، فاختره بدقة.</p>
+        <select class="select" id="rjReason">
+          <option>نقص في الأصول أو الملفات المطلوبة</option>
+          <option>لا يطابق المتطلبات المذكورة في الطلب</option>
+          <option>أخطاء تقنية في التنفيذ</option>
+          <option>لم تُتَّبع معايير الجودة المتفق عليها</option>
+          <option>التسليم غير كامل</option>
+          <option>سبب آخر</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="rjWhat">التعديلات المطلوبة <span class="field__req" aria-hidden="true">*</span></label>
+        <textarea class="textarea" id="rjWhat" style="min-height:120px" placeholder="نقطة بنقطة: ما يجب تغييره وكيف يُقاس أنه تم."></textarea>
+      </div>
+      <div class="field">
+        <label class="field__label" for="rjDue">موعد إعادة التقديم</label>
+        <input class="input" id="rjDue" type="date">
+      </div>
+      <label class="check">
+        <input class="check__input" type="checkbox" checked>
+        <span class="check__text">
+          <span>إبلاغ رئيس القسم</span>
+          <span class="check__hint">يُستحسن عند التعديل الثالث لنفس المهمة.</span>
+        </span>
+      </label>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="rejectModal">إلغاء</button>
+      <button class="btn btn--danger" type="button" data-close="rejectModal">رفض وطلب تعديل</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'review', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>

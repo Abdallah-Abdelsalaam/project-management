@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فهرس النموذج · إدارة المشاريع</title>
+<meta name="description" content="فهرس صفحات النموذج الأولي لنظام إدارة المشاريع.">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<style>
+  @layer overrides {
+    .launcher {
+      max-width: 940px;
+      margin-inline: auto;
+      padding: var(--sp-12) var(--sp-6) var(--sp-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-8);
+    }
+
+    .plan {
+      display: grid;
+      gap: var(--sp-1);
+    }
+
+    .plan__row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) var(--sp-4);
+      border: 1px solid var(--line);
+      border-radius: var(--r-data);
+      background-color: var(--surface);
+      font-size: var(--fs-sm);
+    }
+
+    .plan__row[data-state="planned"] {
+      background-color: transparent;
+      border-style: dashed;
+      color: var(--text-subtle);
+    }
+
+    a.plan__row:hover {
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+
+    .plan__path {
+      margin-inline-start: auto;
+      font-size: var(--fs-3xs);
+      color: var(--text-subtle);
+      direction: ltr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="launcher">
+
+  <header class="stack-3">
+    <div class="row row--tight">
+      <span class="brand-mark" aria-hidden="true">إم</span>
+      <span class="brand-word">
+        <span class="brand-word__name">إدارة المشاريع</span>
+        <span class="brand-word__org">النموذج الأولي للواجهة</span>
+      </span>
+    </div>
+
+    <h1 class="t-2xl fw-semi">فهرس صفحات النموذج</h1>
+    <p class="t-sm t-muted">
+      نموذج ثابت بلغة HTML وCSS لمراجعة الواجهة قبل بناء النظام. اللغة الأساسية عربية
+      باتجاه RTL، واللون الأساسي <span class="ltr">#e7033e</span>.
+      ابدأ من <a href="pages/dashboard/index.html">لوحة التحكم</a>
+      أو من <a href="ui/components.html">دليل الواجهة</a>.
+    </p>
+  </header>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">ابدأ من هنا</h2>
+      <span class="section__note">أهم ثلاث شاشات</span>
+    </div>
+
+    <div class="plan">
+      <a class="plan__row" href="pages/dashboard/index.html">
+        <span class="badge badge--accent">الأهم</span>
+        <span>لوحة التحكم — شريط التوزيع، الإحصاءات، التصفية، جدول المهام، ترقيم الصفحات</span>
+        <span class="plan__path">pages/dashboard/index.html</span>
+      </a>
+      <a class="plan__row" href="ui/components.html">
+        <span class="badge badge--accent">مرجع</span>
+        <span>دليل الواجهة — الألوان والخطوط وكل المكوّنات وحالاتها</span>
+        <span class="plan__path">ui/components.html</span>
+      </a>
+      <a class="plan__row" href="pages/people/employee-profile.html">
+        <span class="badge badge--accent">الأغنى</span>
+        <span>ملف الموظف — الإحصاءات والمهام والمرفوضة والنشاط في أربعة تبويبات</span>
+        <span class="plan__path">pages/people/employee-profile.html</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">الدخول والأمان</h2>
+      <span class="section__note">5 صفحات</span>
+    </div>
+    <div class="plan">
+      <a class="plan__row" href="pages/auth/login.html"><span class="badge badge--success">جاهز</span><span>تسجيل الدخول — مع خيار الجهاز الموثوق</span><span class="plan__path">auth/login.html</span></a>
+      <a class="plan__row" href="pages/auth/two-factor.html"><span class="badge badge--success">جاهز</span><span>التحقق بخطوتين — رمز من ستة أرقام</span><span class="plan__path">auth/two-factor.html</span></a>
+      <a class="plan__row" href="pages/auth/forgot-password.html"><span class="badge badge--success">جاهز</span><span>استعادة كلمة المرور</span><span class="plan__path">auth/forgot-password.html</span></a>
+      <a class="plan__row" href="pages/auth/reset-password.html"><span class="badge badge--success">جاهز</span><span>تعيين كلمة مرور جديدة</span><span class="plan__path">auth/reset-password.html</span></a>
+      <a class="plan__row" href="pages/auth/trusted-devices.html"><span class="badge badge--success">جاهز</span><span>الأجهزة الموثوقة والأحداث الأمنية</span><span class="plan__path">auth/trusted-devices.html</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">المهام</h2>
+      <span class="section__note">8 صفحات</span>
+    </div>
+    <div class="plan">
+      <a class="plan__row" href="pages/dashboard/my-work.html"><span class="badge badge--success">جاهز</span><span>مهامي — لوح الموظف المركّز</span><span class="plan__path">dashboard/my-work.html</span></a>
+      <a class="plan__row" href="pages/tasks/list.html"><span class="badge badge--success">جاهز</span><span>كل المهام — قائمة كاملة بالتصفية</span><span class="plan__path">tasks/list.html</span></a>
+      <a class="plan__row" href="pages/tasks/detail.html"><span class="badge badge--success">جاهز</span><span>تفاصيل المهمة — المتطلبات والتسليم والمرفقات والتعليقات</span><span class="plan__path">tasks/detail.html</span></a>
+      <a class="plan__row" href="pages/tasks/create-programming.html"><span class="badge badge--success">جاهز</span><span>إنشاء مهمة برمجة — مع مقياس اكتمال الطلب</span><span class="plan__path">tasks/create-programming.html</span></a>
+      <a class="plan__row" href="pages/tasks/create-uiux.html"><span class="badge badge--success">جاهز</span><span>إنشاء مهمة UI/UX</span><span class="plan__path">tasks/create-uiux.html</span></a>
+      <a class="plan__row" href="pages/tasks/review.html"><span class="badge badge--success">جاهز</span><span>قائمة المراجعة — المطلوب مقابل المُسلَّم جنبًا إلى جنب</span><span class="plan__path">tasks/review.html</span></a>
+      <a class="plan__row" href="pages/tasks/rejected.html"><span class="badge badge--success">جاهز</span><span>المرفوضة والتعديلات — الأسباب وإعادة التقديم</span><span class="plan__path">tasks/rejected.html</span></a>
+      <a class="plan__row" href="pages/tasks/history.html"><span class="badge badge--success">جاهز</span><span>سجل المهمة — المسار الكامل بالقيم قبل وبعد</span><span class="plan__path">tasks/history.html</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">الأشخاص والمنظمة</h2>
+      <span class="section__note">9 صفحات</span>
+    </div>
+    <div class="plan">
+      <a class="plan__row" href="pages/people/employees.html"><span class="badge badge--success">جاهز</span><span>الموظفون — الأداء والحمل وصلاحية تغيير الحالة</span><span class="plan__path">people/employees.html</span></a>
+      <a class="plan__row" href="pages/people/employee-profile.html"><span class="badge badge--success">جاهز</span><span>ملف الموظف — 4 تبويبات</span><span class="plan__path">people/employee-profile.html</span></a>
+      <a class="plan__row" href="pages/people/teams.html"><span class="badge badge--success">جاهز</span><span>الفرق — الحمل والجودة لكل فريق</span><span class="plan__path">people/teams.html</span></a>
+      <a class="plan__row" href="pages/people/team-detail.html"><span class="badge badge--success">جاهز</span><span>تفاصيل الفريق — الأعضاء ومفاتيح صلاحياتهم</span><span class="plan__path">people/team-detail.html</span></a>
+      <a class="plan__row" href="pages/org/departments.html"><span class="badge badge--success">جاهز</span><span>الأقسام — مقارنة وإضافة قسم</span><span class="plan__path">org/departments.html</span></a>
+      <a class="plan__row" href="pages/org/department-detail.html"><span class="badge badge--success">جاهز</span><span>تفاصيل القسم — 4 تبويبات</span><span class="plan__path">org/department-detail.html</span></a>
+      <a class="plan__row" href="pages/org/structure.html"><span class="badge badge--success">جاهز</span><span>الهيكل التنظيمي — شجرة كاملة</span><span class="plan__path">org/structure.html</span></a>
+      <a class="plan__row" href="pages/org/heads.html"><span class="badge badge--success">جاهز</span><span>رؤساء الأقسام — تعيين وإزالة</span><span class="plan__path">org/heads.html</span></a>
+      <a class="plan__row" href="pages/org/team-leaders.html"><span class="badge badge--success">جاهز</span><span>قادة الفرق — الأداء وإعادة التوزيع</span><span class="plan__path">org/team-leaders.html</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">التحليلات والإعدادات</h2>
+      <span class="section__note">10 صفحات</span>
+    </div>
+    <div class="plan">
+      <a class="plan__row" href="pages/insights/reports.html"><span class="badge badge--success">جاهز</span><span>التقارير — 4 تبويبات بقراءات مستخلصة</span><span class="plan__path">insights/reports.html</span></a>
+      <a class="plan__row" href="pages/insights/activity-log.html"><span class="badge badge--success">جاهز</span><span>سجل النشاط والتدقيق</span><span class="plan__path">insights/activity-log.html</span></a>
+      <a class="plan__row" href="pages/settings/roles.html"><span class="badge badge--success">جاهز</span><span>الأدوار</span><span class="plan__path">settings/roles.html</span></a>
+      <a class="plan__row" href="pages/settings/permissions.html"><span class="badge badge--success">جاهز</span><span>الصلاحيات — مصفوفة 22 صلاحية × 5 أدوار</span><span class="plan__path">settings/permissions.html</span></a>
+      <a class="plan__row" href="pages/settings/security.html"><span class="badge badge--success">جاهز</span><span>الأمان والجلسات وسياسات المنظمة</span><span class="plan__path">settings/security.html</span></a>
+      <a class="plan__row" href="pages/settings/two-factor.html"><span class="badge badge--success">جاهز</span><span>المصادقة الثنائية وإعادة التحقق الدورية</span><span class="plan__path">settings/two-factor.html</span></a>
+      <a class="plan__row" href="pages/settings/notifications.html"><span class="badge badge--success">جاهز</span><span>الإشعارات — الأحداث والقنوات</span><span class="plan__path">settings/notifications.html</span></a>
+      <a class="plan__row" href="pages/settings/task-settings.html"><span class="badge badge--success">جاهز</span><span>إعدادات المهام — أوزان الجودة والمواعيد</span><span class="plan__path">settings/task-settings.html</span></a>
+      <a class="plan__row" href="pages/settings/statuses.html"><span class="badge badge--success">جاهز</span><span>الحالات وسير العمل — آلة الحالات</span><span class="plan__path">settings/statuses.html</span></a>
+      <a class="plan__row" href="pages/settings/departments.html"><span class="badge badge--success">جاهز</span><span>الأقسام وأنواع المهام وحقولها</span><span class="plan__path">settings/departments.html</span></a>
+    </div>
+  </section>
+
+  <p class="note">
+    <strong>ملاحظة:</strong> لا يوجد خلفية برمجية في هذه المرحلة. الأزرار وعوامل التصفية تعرض
+    حالتها البصرية فقط، والأرقام تمثيلية لكنها متسقة بين الصفحات. استخدم
+    <strong>«معاينة كـ»</strong> في الشريط العلوي لرؤية كل صفحة بصلاحيات كل دور.
+    بعد اعتماد الواجهة، تأتي مرحلة توثيق معمارية النظام في ملفات <span class="ltr">.md</span> منظمة.
+  </p>
+
+</div>
+
+</body>
+</html>

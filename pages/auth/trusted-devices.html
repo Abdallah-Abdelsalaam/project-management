@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأجهزة الموثوقة · إدارة المشاريع</title>
+<meta name="description" content="إدارة الأجهزة التي تتخطى رمز التحقق.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+
+<div class="app" data-sidebar="full">
+  <main class="app__main" id="main">
+    <div class="page">
+
+      <div class="page-head">
+        <div class="page-head__text">
+          <nav class="crumbs" aria-label="مسار التنقل">
+            <a href="../settings/roles.html">الإعدادات</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">الأجهزة الموثوقة</span>
+          </nav>
+          <h1 class="page-head__title">الأجهزة الموثوقة</h1>
+          <p class="page-head__sub">
+            الأجهزة التي لا نطلب فيها رمز التحقق حتى انتهاء مدة الثقة. إن لم تتعرف على جهاز،
+            أزل ثقته وغيّر كلمة المرور.
+          </p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--danger-quiet" type="button" data-open="revokeAllModal">
+            إزالة الثقة من كل الأجهزة
+          </button>
+        </div>
+      </div>
+
+      <div class="settings">
+        <nav class="subnav" data-subnav="settings" data-active="devices" aria-label="أقسام الإعدادات"></nav>
+
+        <div class="stack-6">
+
+          <div class="grid grid--stats">
+            <article class="stat">
+              <p class="stat__label">أجهزة موثوقة</p>
+              <p class="stat__value">3</p>
+              <p class="stat__foot"><span>من أصل 5 مسموح بها</span></p>
+            </article>
+            <article class="stat">
+              <p class="stat__label">مدة الثقة</p>
+              <p class="stat__value">30<span class="stat__unit">يومًا</span></p>
+              <p class="stat__foot"><span>ثم يُطلب التحقق مجددًا</span></p>
+            </article>
+            <article class="stat stat--flag" data-flag="warning">
+              <p class="stat__label">تنتهي قريبًا</p>
+              <p class="stat__value">1</p>
+              <p class="stat__foot"><span>جهاز واحد خلال 3 أيام</span></p>
+            </article>
+          </div>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أجهزتك</h2>
+              <span class="section__note">مرتبة بآخر استخدام</span>
+            </div>
+
+            <div class="panel__body panel__body--flush">
+              <div class="lrow lrow--current">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    Windows 11 · Chrome
+                    <span class="badge badge--accent">هذا الجهاز</span>
+                  </p>
+                  <p class="lrow__meta">
+                    الرياض، السعودية · <span class="ltr">156.203.44.18</span> · آخر استخدام: الآن
+                    · تنتهي الثقة في 16 أكتوبر
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <button class="btn btn--quiet" type="button" data-action="demo-soon">إزالة الثقة</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18H7zM11 18h2"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">iPhone 15 · Safari</p>
+                  <p class="lrow__meta">
+                    الرياض، السعودية · <span class="ltr">156.203.44.18</span> · آخر استخدام: أمس 20:14
+                    · تنتهي الثقة في 8 أكتوبر
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <button class="btn btn--quiet" type="button" data-action="demo-soon">إزالة الثقة</button>
+                </div>
+              </div>
+
+              <div class="lrow">
+                <span class="lrow__glyph">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg>
+                </span>
+                <div class="lrow__body">
+                  <p class="lrow__title">
+                    macOS · Firefox
+                    <span class="badge badge--warning">تنتهي بعد 3 أيام</span>
+                  </p>
+                  <p class="lrow__meta">
+                    جدة، السعودية · <span class="ltr">41.68.112.9</span> · آخر استخدام: 11 سبتمبر 09:32
+                    · تنتهي الثقة في 19 سبتمبر
+                  </p>
+                </div>
+                <div class="lrow__actions">
+                  <button class="btn btn--quiet" type="button" data-action="demo-soon">إزالة الثقة</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">أحداث أمنية حديثة</h2>
+              <a class="btn btn--quiet" href="../insights/activity-log.html" data-perm="audit.view">السجل الكامل</a>
+            </div>
+            <div class="panel__body">
+              <div class="timeline">
+                <div class="tl-item" data-status="approved">
+                  <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+                  <div class="tl-item__body">
+                    <div class="tl-item__head">
+                      <span class="tl-item__who">أنت</span>
+                      <span class="tl-item__what">سجّلت الدخول من Windows 11 · Chrome</span>
+                      <span class="tl-item__when">اليوم 08:41</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="tl-item" data-status="created">
+                  <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
+                  <div class="tl-item__body">
+                    <div class="tl-item__head">
+                      <span class="tl-item__who">أنت</span>
+                      <span class="tl-item__what">وثّقت جهازًا جديدًا: iPhone 15 · Safari</span>
+                      <span class="tl-item__when">أمس 20:14</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="tl-item" data-status="rejected">
+                  <span class="tl-item__marker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+                  <div class="tl-item__body">
+                    <div class="tl-item__head">
+                      <span class="tl-item__who">محاولة دخول فاشلة</span>
+                      <span class="tl-item__what">رمز تحقق خاطئ، من جهاز غير معروف</span>
+                      <span class="tl-item__when">12 سبتمبر 03:17</span>
+                    </div>
+                    <div class="reason">
+                      <span class="reason__label">تفاصيل</span>
+                      <span class="ltr">IP 193.24.88.51</span> — فرانكفورت، ألمانيا. أُوقف الحساب
+                      تلقائيًا 15 دقيقة بعد 5 محاولات.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <p class="note">
+            <strong>كيف تعمل الثقة:</strong> عند اختيار «الإبقاء على هذا الجهاز موثوقًا» يُخزَّن
+            رمز مرتبط بالجهاز والمتصفح، لا بكلمة المرور. تنتهي صلاحيته تلقائيًا بعد المدة المحددة،
+            ويُلغى فورًا عند تغيير كلمة المرور أو إزالة الثقة من هنا.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" data-close="revokeAllModal" hidden></div>
+<div class="modal-shell" id="revokeAllModal" role="dialog" aria-modal="true" aria-labelledby="raTitle" hidden>
+  <div class="modal">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="raTitle">إزالة الثقة من كل الأجهزة</h2>
+        <p class="modal__sub">سيُطلب رمز تحقق في المرة القادمة على كل جهاز، بما فيه هذا الجهاز.</p>
+      </div>
+      <button class="btn btn--ghost btn--icon btn--sm" type="button" data-close="revokeAllModal" aria-label="إغلاق">×</button>
+    </div>
+    <div class="modal__body">
+      <div class="alert alert--warning">
+        <span class="alert__body">
+          <strong class="alert__title">لن تُنهى جلساتك المفتوحة</strong>
+          <span class="alert__text">
+            هذا الإجراء يزيل الثقة فقط. لإنهاء الجلسات أيضًا، استخدم «إنهاء كل الجلسات» من صفحة
+            الأمان.
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" data-close="revokeAllModal">إلغاء</button>
+      <button class="btn btn--danger" type="button" data-close="revokeAllModal">إزالة الثقة من 3 أجهزة</button>
+    </div>
+  </div>
+</div>
+
+<script>window.PM_PAGE = { id: 'settings', base: '../../' };</script>
+<script src="../../assets/js/shell.js"></script>
+<script src="../../assets/js/ui.js"></script>
+<script src="../../assets/js/role.js"></script>
+</body>
+</html>
