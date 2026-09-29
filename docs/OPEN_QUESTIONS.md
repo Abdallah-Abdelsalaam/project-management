@@ -66,15 +66,19 @@ Task requests and deliveries both carry files (`المرفقات 4`, with downlo
 
 ## Q5 · Email sending domain
 
-**Status:** open · needed by session 2
+**Status:** **answered** session 3 · raised session 1
 
-2FA codes, password resets, employee invitations and the daily digest all need email. Resend is the chosen provider. The sending domain and from-address are not specified.
+2FA codes, password resets, employee invitations and the daily digest all need email. Resend is the chosen provider. The sending domain and from-address were not specified.
 
-**Assumption:** `no-reply@nuwa.sa` pending confirmation, with the domain verified in Resend before session 2 ships. Until then, development uses Resend's sandbox address.
+**Assumption was:** `no-reply@nuwa.sa`, with development on Resend's sandbox address.
 
-**Cost of changing:** trivial, it is an environment variable — but DNS verification takes time, so it is worth starting early.
+**Answer (2026-09-30):** **`no-reply@pm.apqrinu-co.com`** — verified in Resend. The _subdomain_ was verified rather than the apex, which is the better choice: transactional sending reputation stays separate from anything the apex domain sends, so a marketing blast or a compromised mailbox on `apqrinu-co.com` cannot get 2FA codes filed as spam. `nuwa.sa` was not available to verify.
 
-**Answer:** _(pending)_
+`EMAIL_FROM=no-reply@pm.apqrinu-co.com` is set in the deployed environment.
+
+**The API key is set on the server only, never in `.env.local`.** `src/features/auth/mail.ts` writes to `AUTH_MAIL_OUTBOX` _and_ sends when a key is present, so a local E2E run with a key would dispatch ~30 real messages to the seed's fabricated `@nuwa.sa` addresses — a bounce rate that gets a new sending domain throttled. The suite reads codes from the outbox file and needs no delivery at all. `src/lib/env.ts` keeps `onboarding@resend.dev` as the _default_ so a development machine works before verification — that default is a sandbox sender and **delivers only to the Resend account owner's own address**, which is why it cannot be the production value: every account here requires an emailed second factor, so a sender that reaches one person means one person can sign in.
+
+**Known cost of this answer:** employees of مجموعة نُوى receive security email from a domain that does not carry the organisation's name. Revisit if `nuwa.sa` becomes available — it is one environment variable plus a second domain verification.
 
 ---
 

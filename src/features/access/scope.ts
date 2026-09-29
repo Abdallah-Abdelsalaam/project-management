@@ -1,4 +1,4 @@
-import { SCOPE_RANK, type Scope } from "@/db/schema";
+import { SCOPE_RANK, type Scope } from "@/lib/permissions";
 
 /**
  * Scope — the half of authorization that capability strings cannot express.

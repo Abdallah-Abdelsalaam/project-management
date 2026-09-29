@@ -1,8 +1,14 @@
 import { asc } from "drizzle-orm";
 import { unstable_cache, updateTag } from "next/cache";
 import { db } from "@/db";
-import { role, rolePermission, type Scope } from "@/db/schema";
-import { expandGrants, grantBreadth, grantsInclude, type Capability } from "@/lib/permissions";
+import { role, rolePermission } from "@/db/schema";
+import {
+  expandGrants,
+  grantBreadth,
+  grantsInclude,
+  type Capability,
+  type Scope,
+} from "@/lib/permissions";
 
 /**
  * The access model — every role and the grants it holds, read from the

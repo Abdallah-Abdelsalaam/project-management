@@ -89,3 +89,75 @@ The template is `.env.example`. Copy it to `.env.local`; never commit a filled-i
 - **Vitest** — `vitest.config.mts`, happy-dom, native tsconfig path resolution, `src/**/*.test.ts(x)` only (E2E is excluded).
 - **Playwright** — two projects, `desktop` at 1440×900 and `mobile` at 390×844, both driven against `pnpm build && pnpm start`. `e2e/screenshots.spec.ts` writes the fidelity screenshots the end-of-session protocol requires.
 - **Git** — `.gitattributes` normalises to LF (`.cmd` stays CRLF), so the Windows checkout does not produce whitespace-only diffs.
+
+---
+
+## Deployment
+
+The app is deployed to **Hostinger**, on the same host as its MySQL database, at
+`https://pm.apqrinu-co.com`. Git remote:
+`github.com/Abdallah-Abdelsalaam/project-management`, branch `main`.
+
+### Do not build on the host
+
+`pnpm build` uses Turbopack, which spawns worker processes for the PostCSS
+transform. Shared and cloud Hostinger plans cap process count and memory, and
+the workers are killed before they connect — the build dies with
+
+```
+FATAL: An unexpected Turbopack error occurred
+Caused by: creating new process
+- node process exited before we could connect to it with exit status: 0
+```
+
+which names `src/app/globals.css` and looks like a CSS problem. It is not; it is
+a resource limit.
+
+Two ways around it, in order of reliability:
+
+1. **Build elsewhere, ship the output.** `output: "standalone"` in
+   `next.config.ts` emits `.next/standalone` — a server with only the traced
+   dependencies, so the host needs no toolchain and no `node_modules` install.
+   **`next build` does not copy two directories into it**, and the app 404s on
+   every asset without them:
+
+   ```bash
+   pnpm build
+   cp -r public       .next/standalone/public
+   cp -r .next/static .next/standalone/.next/static
+   # upload .next/standalone/, start with:  node server.js
+   ```
+
+2. **`pnpm build:webpack` on the host.** Webpack does not spawn the worker
+   processes Turbopack does, and it built cleanly here. If it still dies, memory
+   is the cap rather than process count — try
+   `NODE_OPTIONS=--max-old-space-size=2048 pnpm build:webpack`.
+
+Turbopack remains the default for local development and for `pnpm check`; it is
+faster and nothing local is constrained.
+
+### Environment on the host
+
+`.env*` is gitignored, so **a git deploy carries none of these up** — they have
+to be set once in hPanel's Node.js environment section or in a `.env` file
+created over SSH.
+
+| Variable             | Value on the host                                                                              |
+| -------------------- | ---------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`       | `mysql://…@localhost:3306/u774058186_pm` — `localhost`, so Remote MySQL never has to be opened |
+| `BETTER_AUTH_SECRET` | the same value as local, because both share one database                                       |
+| `BETTER_AUTH_URL`    | `https://pm.apqrinu-co.com`, exactly                                                           |
+| `RESEND_API_KEY`     | set here and **not** locally — see below                                                       |
+| `EMAIL_FROM`         | `no-reply@pm.apqrinu-co.com` (OPEN_QUESTIONS Q5)                                               |
+| `AUTH_MAIL_OUTBOX`   | **never set in a deployed environment** — it writes live codes to disk                         |
+
+Three values fail silently if they are wrong:
+
+- **The `&` in the database password must be percent-encoded as `%26`.** A URI
+  parser treats a bare `&` as the end of the password.
+- **`BETTER_AUTH_URL` must be the exact origin**, scheme included. A mismatch
+  breaks cookie signing, and sign-in fails with nothing useful in the log.
+- **`RESEND_API_KEY` must not be set alongside `AUTH_MAIL_OUTBOX`.**
+  `src/features/auth/mail.ts` writes to the outbox _and_ sends, so a test run
+  with a key dispatches real email to the seed's fabricated addresses — a bounce
+  rate that gets a sending domain throttled.

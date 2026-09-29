@@ -14,7 +14,10 @@
  * on gets one too.
  */
 
-export * from "./columns";
+// `./columns` is deliberately NOT re-exported. It is an internal helper, and
+// it imports `node:crypto` — so exposing it here would let any client
+// component that imports a type from this barrel drag Node built-ins into the
+// browser bundle. Schema files import it by relative path.
 export * from "./access";
 export * from "./auth";
 export * from "./system";

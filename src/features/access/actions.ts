@@ -3,10 +3,10 @@
 import { and, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { SCOPES, role, rolePermission, user } from "@/db/schema";
+import { role, rolePermission, user } from "@/db/schema";
 import { restoreDefaultGrants, seedRoles } from "@/db/seed-access";
 import { assertLocale } from "@/i18n/routing";
-import { CAPABILITIES, ROLES, grantsInclude, isCapability } from "@/lib/permissions";
+import { CAPABILITIES, ROLES, SCOPES, grantsInclude, isCapability } from "@/lib/permissions";
 import { requireCapability } from "@/features/auth/session";
 import { auditContext, writeAudit, type AuditEntry } from "@/features/access/audit";
 import { accessModel, isAdminRole, revalidateAccessModel } from "@/features/access/model";

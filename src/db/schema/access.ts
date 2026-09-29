@@ -9,6 +9,7 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core";
 import { ID_LENGTH, id, ref } from "./columns";
+import { SCOPES } from "@/lib/permissions";
 
 /**
  * Roles, capabilities and the grants between them — session 3.
@@ -39,14 +40,14 @@ import { ID_LENGTH, id, ref } from "./columns";
  *
  * Stored as a varchar rather than a MySQL `ENUM` so that adding a scope is a
  * data change, not an `ALTER TABLE` on the busiest table in the system. The
- * value is validated by Zod on the way in and narrowed by `$type` on the way
+ * value is validated by Zod on the way in and narrowed by `enum` on the way
  * out.
+ *
+ * `SCOPES` itself lives in `src/lib/permissions.ts`, not here. The add-role
+ * dialog is a client component and needs the four values, and importing them
+ * from this module pulled the whole Drizzle schema — `node:crypto` included —
+ * into the browser bundle.
  */
-export const SCOPES = ["own", "team", "dept", "all"] as const;
-export type Scope = (typeof SCOPES)[number];
-
-/** Ascending reach. `own` ⊂ `team` ⊂ `dept` ⊂ `all`. */
-export const SCOPE_RANK: Record<Scope, number> = { own: 0, team: 1, dept: 2, all: 3 };
 
 /* -------------------------------------------------------------------------- */
 /*  Tables                                                                    */

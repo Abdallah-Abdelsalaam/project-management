@@ -80,8 +80,22 @@ export type RoleDefinition = {
   grants: readonly Grant[];
 };
 
-/** Reach, mirroring `SCOPES` in `src/db/schema/access.ts`. */
-export type Scope = "own" | "team" | "dept" | "all";
+/**
+ * How far a role can see. **Not a capability** — see `DECISIONS.md` ADR-021:
+ * a team leader and a department head both hold `tasks.assign`, and no
+ * capability string distinguishes whose tasks.
+ *
+ * It lives here rather than beside the column that stores it because the
+ * add-role dialog is a client component and needs the four values. Importing
+ * them from `src/db/schema` dragged the whole Drizzle schema — and
+ * `node:crypto` with it — into the browser bundle.
+ */
+export const SCOPES = ["own", "team", "dept", "all"] as const;
+
+export type Scope = (typeof SCOPES)[number];
+
+/** Ascending reach. `own` ⊂ `team` ⊂ `dept` ⊂ `all`. */
+export const SCOPE_RANK: Record<Scope, number> = { own: 0, team: 1, dept: 2, all: 3 };
 
 export type RoleIcon = "user" | "medal" | "crown" | "bank" | "shieldCheck" | "badge";
 

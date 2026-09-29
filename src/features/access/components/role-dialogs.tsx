@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldHelp, FieldLabel, Input, Select } from "@/components/ui/field";
 import { Alert } from "@/components/ui/feedback";
 import { Modal } from "@/components/ui/modal";
-import { SCOPES, type Scope } from "@/db/schema";
+import { SCOPES, type Scope } from "@/lib/permissions";
 import { createRoleAction, deleteRoleAction, updateRoleAction } from "@/features/access/actions";
 import type { ActionResult } from "@/features/access/actions";
 import type { Locale } from "@/i18n/routing";

@@ -8,20 +8,21 @@
 
 ## Commands
 
-| Task             | Command                     |
-| ---------------- | --------------------------- |
-| Dev server       | `pnpm dev`                  |
-| Production build | `pnpm build`                |
-| Lint             | `pnpm lint`                 |
-| Types            | `pnpm typecheck`            |
-| Unit tests       | `pnpm test`                 |
-| E2E              | `pnpm test:e2e`             |
-| Screenshots      | `pnpm test:e2e screenshots` |
-| Format           | `pnpm format`               |
-| Everything       | `pnpm check`                |
-| New migration    | `pnpm db:generate`          |
-| Apply migrations | `pnpm db:migrate`           |
-| Browse data      | `pnpm db:studio`            |
+| Task                    | Command                     |
+| ----------------------- | --------------------------- |
+| Dev server              | `pnpm dev`                  |
+| Production build        | `pnpm build`                |
+| Build without Turbopack | `pnpm build:webpack`        |
+| Lint                    | `pnpm lint`                 |
+| Types                   | `pnpm typecheck`            |
+| Unit tests              | `pnpm test`                 |
+| E2E                     | `pnpm test:e2e`             |
+| Screenshots             | `pnpm test:e2e screenshots` |
+| Format                  | `pnpm format`               |
+| Everything              | `pnpm check`                |
+| New migration           | `pnpm db:generate`          |
+| Apply migrations        | `pnpm db:migrate`           |
+| Browse data             | `pnpm db:studio`            |
 
 `pnpm check` must pass before every commit.
 

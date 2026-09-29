@@ -2,10 +2,9 @@ import { headers } from "next/headers";
 import { redirectLocale } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { securityPolicy } from "@/lib/policy";
-import { grantsInclude, type Capability } from "@/lib/permissions";
+import { grantsInclude, type Capability, type Scope } from "@/lib/permissions";
 import { accessModel, type ResolvedRole } from "@/features/access/model";
 import { withinScope, type ScopeSubject } from "@/features/access/scope";
-import type { Scope } from "@/db/schema";
 import type { Locale } from "@/i18n/routing";
 
 /**
