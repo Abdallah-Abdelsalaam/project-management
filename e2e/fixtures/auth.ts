@@ -1,5 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { expect, type Page } from "@playwright/test";
+import { SEED_EMAIL_BY_ROLE, SEED_PASSWORD, SEED_SACRIFICIAL } from "../../src/db/seed-identities";
+
+export { SEED_PASSWORD };
 
 /**
  * Shared sign-in helpers for the E2E suite.
@@ -20,15 +23,18 @@ import { expect, type Page } from "@playwright/test";
  * that is where `latestCode` reads it from.
  */
 
-export const SEED_PASSWORD = process.env.SEED_PASSWORD ?? "Nuwa!Ops2026x";
+/**
+ * The identities come from the seed itself rather than being repeated here.
+ *
+ * They used to be repeated, and they drifted: the database was edited to use
+ * deliverable addresses and this list was not, so every spec below signed in
+ * as an account that did not exist. `src/db/seed-identities.ts` carries the
+ * full account of it.
+ */
+export const SEEDED = SEED_EMAIL_BY_ROLE;
 
-export const SEEDED = {
-  admin: "n.alotaibi@nuwa.sa",
-  manager: "a.salem@nuwa.sa",
-  head: "r.alqahtani@nuwa.sa",
-  lead: "k.aldosari@nuwa.sa",
-  agent: "s.alharbi@nuwa.sa",
-} as const;
+/** The account the destructive password-reset spec is allowed to damage. */
+export const SACRIFICIAL = SEED_SACRIFICIAL.email;
 
 export const OUTBOX = process.env.AUTH_MAIL_OUTBOX;
 
@@ -100,20 +106,42 @@ export async function latestResetLink(email: string, since = 0): Promise<string>
   throw new Error(`No reset link for ${email} appeared in the outbox.`);
 }
 
-/** Fills and submits the sign-in form. Does not assume where it lands. */
+/**
+ * The two strings the sign-in form is driven by, per locale.
+ *
+ * `messages/{ar,en}.json` own them; they are repeated here because a test that
+ * imported the message files would assert the app against itself and pass
+ * however the copy was mangled.
+ */
+const LOGIN_COPY = {
+  ar: { email: "بريد العمل", submit: "متابعة" },
+  en: { email: "Work email", submit: "Continue" },
+} as const;
+
+export type TestLocale = keyof typeof LOGIN_COPY;
+
+/**
+ * Fills and submits the sign-in form. Does not assume where it lands.
+ *
+ * `locale` matters for more than copy: the two-factor screen is only reachable
+ * mid-challenge, so it can be screenshotted in English only by starting the
+ * challenge in English. Signing in through `/ar/login` and navigating
+ * afterwards works for every *other* screen and silently does not for that one.
+ */
 export async function submitCredentials(
   page: Page,
   email: string,
   password = SEED_PASSWORD,
-  { trust = false }: { trust?: boolean } = {},
+  { trust = false, locale = "ar" }: { trust?: boolean; locale?: TestLocale } = {},
 ) {
-  await page.goto("/ar/login");
-  await page.getByLabel("بريد العمل").fill(email);
+  const copy = LOGIN_COPY[locale];
+  await page.goto(`/${locale}/login`);
+  await page.getByLabel(copy.email).fill(email);
   await page.locator("#password").fill(password);
   if (trust) {
     await page.getByRole("checkbox").check();
   }
-  await page.getByRole("button", { name: "متابعة" }).click();
+  await page.getByRole("button", { name: copy.submit }).click();
 }
 
 /** Types a code into the six boxes by pasting into the first. */

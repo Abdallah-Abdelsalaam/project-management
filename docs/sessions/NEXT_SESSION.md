@@ -1,49 +1,46 @@
-# Session 03 — Roles, capabilities and the permission matrix
+# Session 04 — Departments, task types and the status machine
 
-Read first: CLAUDE.md, docs/PROGRESS.md (session 2 entry, especially "The thing most likely to bite"), docs/07-ROADMAP.md (Session 3), docs/04-SCREENS.md (الأدوار and الصلاحيات), docs/03-DATABASE.md (Identity and access)
+Read first: CLAUDE.md, docs/PROGRESS.md (the session 3 entry — especially "The bug that verification found"), docs/07-ROADMAP.md (Session 4), docs/04-SCREENS.md (الأقسام وأنواع المهام, الحالات وسير العمل, الأقسام, تفاصيل القسم), docs/03-DATABASE.md
 
-Wireframe screens: `wireframe/pages/settings/roles.html`, `wireframe/pages/settings/permissions.html`
+Wireframe screens: `wireframe/pages/settings/departments.html`, `wireframe/pages/settings/statuses.html`, `wireframe/pages/org/departments.html`, `wireframe/pages/org/department-detail.html`
 
 Carry-over from last session:
 
-- **Vercel and Neon are still not connected — this is now two sessions old and it blocks verification of everything session 2 built.** Do it first (Tasks 1–3). Everything it needs is ready: the migration is committed, `pnpm db:seed` creates one account per role, and `.env.example` documents every variable.
-- **Nothing in the sign-in flow has run against a real database.** 58 E2E specs are written and have never executed. Session 2's PROGRESS entry lists four specific assumptions to check first; the load-bearing one is whether `auth.api.signInEmail` returns `{ twoFactorRedirect: true }` when called server-side. If it does not, sign-in skips the second factor entirely — a security failure, not a cosmetic one.
-- `user.role` is a text key, not a foreign key. Session 3 migrates it to `role_id`.
-- Answers wanted: **Q1** (system identity), **Q5** (email sending domain — `no-reply@nuwa.sa` needs DNS verification in Resend and that takes time, so start it early), **Q12** (post-login landing page per role). Proceed under the stated assumptions if they are still unanswered, and say so.
+- **Deploy first. Nobody can sign in to `https://pm.apqrinu-co.com` right now.** The deployed build predates ADR-023, so `sendTwoFactorOTP` is still called with the incoming request headers, the two-factor cookie is never presented, and every sign-in dies on the error boundary. The fix is committed. Deploy it, then sign in by hand and confirm a code arrives — that is the only proof that matters.
+- **The E2E suite is real now.** 109+ specs run against `DATABASE_URL_TEST` (`u774058186_pmTest`), serially, on their own database. Keep it that way: it creates and deletes roles, toggles permissions and changes a password. ADR-024.
+- **If you widened Hostinger's Remote MySQL allowlist to `%`, narrow it again.**
+- Answers still wanted: **Q9** (the dynamic form builder — see below), **Q1**, **Q5**, **Q12**, and now **Q22** (the seeded accounts are one person's personal mailbox).
 
-Goal: permissions become data — stored, editable by an admin, and enforced on the server — with session 2's auth verified end to end against a real database.
+Goal: the configurability promise, proven — a new department with its own task types and statuses, and no code change to add one.
 
 Tasks:
 
-1. Install the Vercel CLI, link the project, and confirm the session-2 app deploys (`pnpm dlx vercel link`, then `pnpm dlx vercel`). Requires an interactive login — ask the user to run `! pnpm dlx vercel login` if it blocks.
-2. Provision Neon through the Vercel Marketplace; put `DATABASE_URL`, `BETTER_AUTH_SECRET` and `BETTER_AUTH_URL` in `.env.local` and in all three Vercel environments. Then `pnpm db:migrate && pnpm db:seed`.
-3. **Verify session 2 before building on it.** Run the full E2E suite with `DATABASE_URL` and `AUTH_MAIL_OUTBOX` set — 58 specs that have never executed. Sign in once by hand and inspect `login_attempt`, `trusted_device` and `password_history` to confirm the three hooks actually fire. Fix what is broken and record it in PROGRESS before writing new code.
-4. Tick the fidelity boxes in `docs/04-SCREENS.md` that session 2 left unticked with a reason, and capture the `two-factor` screenshots that could not be taken without a live challenge.
-5. Add `role`, `permission` and `role_permission`; seed the 5 roles and 22 capabilities from `CAPABILITIES` and `ROLES` in `src/lib/permissions.ts` — that constant is the source, the table is the copy an admin edits. Migrate `user.role` (text) to `user.role_id` (fk) in the same migration.
-6. Write the `requireCapability` / `requireScope` server helpers. `requireCapability` already exists in `src/features/auth/session.ts` reading the static map; move it to read the tables. **Scope is separate from capability and just as important** — a team leader holds `tasks.assign` but only for their own team, and no capability string expresses that.
-7. Build `/settings/roles` to wireframe fidelity: list, create, edit, delete-when-unused, with the user count per role.
-8. Build `/settings/permissions`: the 22 × 5 matrix, search, dirty state, save, restore defaults. The admin column is not editable.
-9. One audit row per changed cell, written in the same transaction as the change. The audit _screen_ is session 18; the rows start now.
-10. Drive the nav and shell gating from the stored role rather than the static map.
-11. Tests: Vitest over wildcard resolution against the stored rows and over the scope helpers; Playwright over granting a capability and seeing it take effect on the next request, and over an agent being refused an admin route server-side.
+1. Deploy the sign-in fix and verify it by hand against the deployed app. Record the result in PROGRESS before writing new code.
+2. Add `department`, `task_type`, `task_status`, `status_transition` and `app_setting`. Index every foreign key and every column the lists filter or sort on.
+3. Seed 3 departments, their task types, and the 12 statuses with their transitions. The seed is the copy an admin edits, exactly as `role`/`permission` are — the code owns the catalog, the table owns the edits (ADR-020).
+4. Typed `app_setting` accessors, in the shape `src/lib/policy.ts` already uses. Session 20 replaces the function bodies and nothing else changes (ADR-017).
+5. `/settings/departments` and `/settings/statuses`: create, edit, reorder, toggle.
+6. `/org/departments` and `/org/department-detail` (4 tabs).
+7. **The status machine is a state machine, not a field.** Only legal transitions are offered, and the server rejects an illegal one — a transition with no row in `status_transition` is refused, and refused server-side.
+8. Every mutation: Zod, session, capability **and** scope, one transaction, an audit row, revalidate. `src/features/access/actions.ts` is the pattern to copy.
+9. Tests: Vitest over the transition rules as a pure function; Playwright over adding a department and seeing it appear everywhere a department is chosen, over reordering statuses changing board and filter order, and over the server refusing an illegal transition by a request that bypasses the UI.
 
 Acceptance criteria:
 
-- Session 2's auth is verified against a real database: sign-in → 2FA → dashboard, a trusted device skipping the second factor, lockout, and a single-use reset link all confirmed by a passing E2E run, not by a written test.
-- The deployed preview works and someone can sign in to it.
-- Granting a capability changes what that role sees on the next request.
-- The admin column cannot be edited, from the UI or by posting directly.
-- An agent hitting an admin route is refused **server-side**, not merely hidden — verified by a request that bypasses the UI.
-- Every permission change writes an audit row naming who changed what, when, and from what to what.
-- A role in use cannot be deleted.
-- Both screens match their wireframe at 1440px and 390px in AR and EN.
-- `pnpm check` and the full E2E suite pass, with **zero skipped specs** — the database exists now.
+- Adding a department makes it available everywhere a department is chosen, on the next request.
+- Reordering statuses changes board and filter order.
+- A transition with no row is rejected **server-side**, verified by a request that never touches the UI.
+- Disabling a department hides it without deleting its history.
+- Every change writes an audit row naming who changed what, when, and from what to what.
+- All four screens match their wireframes at 1440px and 390px in AR and EN.
+- `pnpm check` passes and the full E2E suite passes with no new skips.
 
 Out of scope:
 
-- The audit log **screen** (session 18). Rows are written now, read later.
-- The security, 2FA and trusted-device settings screens (session 20).
-- Departments, task types and the status machine (session 4).
-- Any task, team or employee feature.
+- **The dynamic form builder behind الحقول — blocked on Q9.** Do not start it. If session 4 makes the answer unavoidable, stop and ask rather than guessing: it is 2–3 sessions of its own and it changes the shape of `task_payload`.
+- Tasks themselves (session 7+), employees (session 5), teams (session 6).
+- The audit log screen (session 18), the security and 2FA settings screens (session 20).
+
+A note on method, earned the hard way last session: a passing test tally is not evidence that a feature works. Three sessions of green output came from specs that had never executed. When something matters — a transition being refused, an audit row being written — read it back out of the database.
 
 End with: /end-session

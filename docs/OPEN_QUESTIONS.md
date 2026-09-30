@@ -381,6 +381,33 @@ role renders scope and permission count only, and falls back to the generic
 
 ---
 
+## Q22 · The seeded accounts are one person's personal mailbox
+
+**Status:** open · raised session 3 closeout · **decided and built, flagged for review**
+
+The five seeded accounts in the deployed database are `apqrinu+<role>@gmail.com`
+— Gmail plus-addressing on a personal account — because the committed defaults
+(`n.alotaibi@nuwa.sa` and friends) are fabricated and cannot receive a real
+second-factor code. Somebody had to be able to sign in to the deploy.
+
+That makes one individual's inbox the only way into the deployed system, and
+every seeded person's mail goes to them. It also means the addresses shown in
+the UI are not the addresses of the people the seed names.
+
+**Assumption:** acceptable while the only users are the people building it.
+`SEED_EMAIL_PATTERN` keeps it out of the repository — the committed default is
+still `@nuwa.sa`, and `src/db/seed-identities.ts` is the single list both the
+seed and the E2E fixture read, so the two cannot drift again the way they did
+between sessions 2 and 3.
+
+**Cost of changing:** small and worth doing before anyone outside the build
+team signs in. Real `@nuwa.sa` mailboxes, or a catch-all on the sending domain,
+replace the pattern with one environment variable and no code change.
+
+**Answer:** _(pending)_
+
+---
+
 ## Resolved
 
 _(none yet)_

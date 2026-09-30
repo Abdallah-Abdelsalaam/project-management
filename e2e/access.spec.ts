@@ -25,28 +25,35 @@ function cell(page: Page, roleId: string, capability: string) {
   return page.locator(`[data-cell="${roleId}::${capability}"]`);
 }
 
-/** Reads a role's id out of the matrix's column order via the roles list. */
+/**
+ * Reads a role's id straight off its row in the roles list.
+ *
+ * This used to find the role's column in the matrix by matching its name
+ * against the column headers, then read the id off a checkbox in that column.
+ * It could not work, for two independent reasons only a real run could show:
+ *
+ *   - `getByRole("columnheader", { name })` matches on substring, so `موظف`
+ *     also matched the group header `الفرق والموظفون` and the locator was
+ *     unresolvable under strict mode. `lead` and `head` happened not to
+ *     collide, which is why this looked fine for three of the five roles.
+ *   - the admin column deliberately contains no checkbox — the very thing the
+ *     `locks the admin column` spec asserts — so reading an id from one could
+ *     only ever time out.
+ *
+ * The roles list carries `data-role-id` for exactly this, so nothing has to be
+ * inferred from layout.
+ *
+ * It leaves the browser on the roles list. The version it replaced happened to
+ * end on the permissions screen, and three specs quietly depended on that;
+ * they now navigate for themselves.
+ */
 async function roleIdFor(page: Page, key: string): Promise<string> {
   await page.goto("/ar/settings/roles");
   const row = page.locator(`[data-role="${key}"]`);
   await expect(row).toBeVisible();
-  // The roles list carries the key; the matrix carries the id. The edit
-  // dialog is the one place both are in the same DOM, so the id is read from
-  // the matrix cell whose label matches this role's name instead.
-  const name = await row.locator("p").first().innerText();
-  await page.goto("/ar/settings/permissions");
-  const column = page.getByRole("columnheader", { name: name.split("\n")[0].trim() });
-  await expect(column).toBeVisible();
-  const index = await column.evaluate((node) =>
-    Array.from(node.parentElement!.children).indexOf(node),
-  );
-  const anyCell = page
-    .getByRole("row")
-    .filter({ hasText: "tasks.approve" })
-    .locator("td")
-    .nth(index - 1)
-    .locator("input[type=checkbox]");
-  return (await anyCell.getAttribute("data-cell"))!.split("::")[0];
+  const id = await row.getAttribute("data-role-id");
+  if (!id) throw new Error(`The roles list has no data-role-id for "${key}".`);
+  return id;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -143,13 +150,20 @@ test.describe("the permission matrix", () => {
 
     await page.getByLabel("ابحث عن صلاحية").fill("audit.view");
 
-    await expect(page.getByText("audit.view")).toBeVisible();
-    await expect(page.getByText("tasks.approve")).toHaveCount(0);
+    // Scoped to the table on purpose. The page's closing note quotes
+    // `data-perm="tasks.approve"` as an example of why capabilities are
+    // strings — that is the wireframe's own copy, not a row the search failed
+    // to filter, and asserting over the whole page would make the note
+    // impossible to keep.
+    const matrix = page.getByRole("table");
+    await expect(matrix.getByText("audit.view")).toBeVisible();
+    await expect(matrix.getByText("tasks.approve")).toHaveCount(0);
   });
 
   test("a change and its reversal leave nothing to save", async ({ page }) => {
     await signIn(page, SEEDED.admin);
     const agentId = await roleIdFor(page, "agent");
+    await page.goto("/ar/settings/permissions");
 
     const box = cell(page, agentId, "tasks.approve");
     const save = page.locator("[data-save-matrix]");
@@ -176,34 +190,61 @@ test.describe("granting takes effect on the next request", () => {
   test("a capability granted to a role changes that role's navigation", async ({
     page,
     browser,
+    viewport,
   }) => {
     await signIn(page, SEEDED.admin);
     const agentId = await roleIdFor(page, "agent");
 
-    // Before: the agent cannot see the activity log.
-    const before = await browser.newContext();
-    const agentPage = await before.newPage();
-    await signIn(agentPage, SEEDED.agent);
-    await expect(agentPage.locator('[data-nav="activity"]')).toHaveCount(0);
-    await before.close();
+    /** Sets the agent's `audit.view` cell and saves, if it is not already there. */
+    async function setAuditView(granted: boolean) {
+      await page.goto("/ar/settings/permissions");
+      const box = cell(page, agentId, "audit.view");
+      if ((await box.isChecked()) === granted) return;
+      await box.setChecked(granted);
+      await page.locator("[data-save-matrix]").click();
+      await expect(page.getByText("حُفظت التغييرات.")).toBeVisible();
+    }
 
-    // Grant it.
-    await cell(page, agentId, "audit.view").check();
-    await page.locator("[data-save-matrix]").click();
-    await expect(page.getByText("حُفظت التغييرات.")).toBeVisible();
+    /**
+     * Start from a known state rather than assuming one.
+     *
+     * The grant lives in a persistent table, and a run that died between
+     * granting and reverting used to leave it in place — which failed the
+     * *next* run on its opening assertion, for a reason that had nothing to do
+     * with that run. Normalising here, and reverting in `finally` below, is
+     * what makes this spec survive its own failures.
+     */
+    await setAuditView(false);
 
-    // After: a fresh session for the same account sees the item.
-    const after = await browser.newContext();
-    const grantedPage = await after.newPage();
-    await signIn(grantedPage, SEEDED.agent);
-    await expect(grantedPage.locator('[data-nav="activity"]')).toBeVisible();
-    await after.close();
+    try {
+      // Before: the agent cannot see the activity log.
+      const before = await browser.newContext();
+      const agentPage = await before.newPage();
+      await signIn(agentPage, SEEDED.agent);
+      await expect(agentPage.locator('[data-nav="activity"]')).toHaveCount(0);
+      await before.close();
 
-    // Put it back, so the spec is repeatable against the same database.
-    await page.goto("/ar/settings/permissions");
-    await cell(page, agentId, "audit.view").uncheck();
-    await page.locator("[data-save-matrix]").click();
-    await expect(page.getByText("حُفظت التغييرات.")).toBeVisible();
+      await setAuditView(true);
+
+      // After: a fresh session for the same account sees the item.
+      //
+      // Presence is the claim being tested — the nav item is now rendered for
+      // a role that could not see it a moment ago. Visibility is a separate
+      // question the viewport answers: below 768px the sidebar is an
+      // off-canvas drawer, so the item is correctly in the DOM and correctly
+      // not on screen until the drawer is opened.
+      const after = await browser.newContext();
+      const grantedPage = await after.newPage();
+      await signIn(grantedPage, SEEDED.agent);
+      const activity = grantedPage.locator('[data-nav="activity"]');
+      await expect(activity).toBeAttached();
+      if ((viewport?.width ?? 0) >= 768) await expect(activity).toBeVisible();
+      await after.close();
+    } finally {
+      // Put it back even if an assertion above threw, so the next run starts
+      // where this one did.
+      await setAuditView(false);
+    }
   });
 });
 
@@ -243,19 +284,31 @@ test.describe("the audit log", () => {
     await signIn(page, SEEDED.admin);
     const leadId = await roleIdFor(page, "lead");
 
-    await cell(page, leadId, "audit.view").check();
-    await page.locator("[data-save-matrix]").click();
-    await expect(page.getByText("حُفظت التغييرات.")).toBeVisible();
+    /** Sets the lead's `audit.view` cell and saves, if it is not already there. */
+    async function setAuditView(granted: boolean) {
+      await page.goto("/ar/settings/permissions");
+      const box = cell(page, leadId, "audit.view");
+      if ((await box.isChecked()) === granted) return;
+      await box.setChecked(granted);
+      await page.locator("[data-save-matrix]").click();
+      await expect(page.getByText("حُفظت التغييرات.")).toBeVisible();
+    }
 
-    // The audit *screen* is session 18, so the row is read back through the
-    // one surface that shows it today: the matrix foot's "last changed" line,
-    // which is a query over `audit_log` and nothing else.
-    await page.reload();
-    await expect(page.getByText(/آخر تعديل:/)).toBeVisible();
-    await expect(page.getByText(/بواسطة نورة العتيبي/)).toBeVisible();
+    // Same reason as the spec above: the grant is a row, so this starts from a
+    // known state and puts it back even if an assertion throws.
+    await setAuditView(false);
 
-    await cell(page, leadId, "audit.view").uncheck();
-    await page.locator("[data-save-matrix]").click();
-    await expect(page.getByText("حُفظت التغييرات.")).toBeVisible();
+    try {
+      await setAuditView(true);
+
+      // The audit *screen* is session 18, so the row is read back through the
+      // one surface that shows it today: the matrix foot's "last changed"
+      // line, which is a query over `audit_log` and nothing else.
+      await page.reload();
+      await expect(page.getByText(/آخر تعديل:/)).toBeVisible();
+      await expect(page.getByText(/بواسطة نورة العتيبي/)).toBeVisible();
+    } finally {
+      await setAuditView(false);
+    }
   });
 });
