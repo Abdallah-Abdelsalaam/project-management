@@ -66,7 +66,12 @@ There is no public-request-link session. The wireframe has no public or anonymou
 - [x] One audit row per changed cell, in the same transaction as the change
 - [x] Nav and shell gating driven by the stored grants, not a role key
 
-**Acceptance:** granting a capability changes what that role sees on the next request · the admin column cannot be edited · every change is in the audit log · an agent hitting an admin route is refused server-side, not just hidden.
+- [x] **Closeout: the E2E suite ran for the first time** — against its own database, `DATABASE_URL_TEST` (ADR-024)
+- [x] **Closeout: found and fixed the bug that made sign-in impossible** — the two-factor cookie was never presented to `sendTwoFactorOTP`, so no code was ever sent (ADR-023)
+- [x] Closeout: session 2's four unverified assumptions checked against a real database, by query rather than by test
+- [x] Closeout: fidelity boxes ticked for roles, permissions, two-factor, login and reset-password
+
+**Acceptance:** granting a capability changes what that role sees on the next request · the admin column cannot be edited · every change is in the audit log · an agent hitting an admin route is refused server-side, not just hidden. **All confirmed by a passing E2E run and by reading the rows back.**
 **Out of scope:** the audit _log screen_ (session 18); rows are written now, read later.
 
 ---

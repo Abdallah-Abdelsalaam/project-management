@@ -52,7 +52,7 @@ for (const locale of ["ar", "en"] as const) {
 
     // The screen only exists mid-challenge, so it has to be reached by signing
     // in and stopping there rather than by navigating to it.
-    await submitCredentials(page, SEEDED.manager);
+    await submitCredentials(page, SEEDED.manager, undefined, { locale });
     await shoot(page, "two-factor", locale, testInfo.project.name);
   });
 

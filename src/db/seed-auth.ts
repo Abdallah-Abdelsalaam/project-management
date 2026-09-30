@@ -4,10 +4,15 @@ import { hashPassword, generateRandomString } from "better-auth/crypto";
 import { db, type Executor } from "@/db";
 import { account, twoFactor, user } from "@/db/schema";
 import { type RoleKey } from "@/lib/permissions";
+import { SEED_ACCOUNTS, SEED_PASSWORD } from "@/db/seed-identities";
 
 /**
- * Seeds one account per role, so the auth flow can be exercised end to end
- * and the E2E suite has something to sign in as.
+ * Seeds one account per role, plus the one account the E2E suite is allowed
+ * to damage, so the auth flow can be exercised end to end.
+ *
+ * The addresses and names come from `@/db/seed-identities`, which the E2E
+ * fixture imports too — see the note there on why they must not be declared
+ * twice.
  *
  * This is **not** the reference organisation. `docs/OPEN_QUESTIONS.md` Q10 asks
  * whether to seed نُوى's 18 employees, 5 teams and 284 tasks; that decision is
@@ -24,18 +29,10 @@ import { type RoleKey } from "@/lib/permissions";
  *   - `emailVerified: true`, since an admin created the account
  */
 
-export const SEED_PASSWORD = process.env.SEED_PASSWORD ?? "Nuwa!Ops2026x";
-
-export const SEED_PEOPLE: ReadonlyArray<{ role: RoleKey; name: string; email: string }> = [
-  { role: "admin", name: "نورة العتيبي", email: "n.alotaibi@nuwa.sa" },
-  { role: "manager", name: "أحمد سالم", email: "a.salem@nuwa.sa" },
-  { role: "head", name: "ريم القحطاني", email: "r.alqahtani@nuwa.sa" },
-  { role: "lead", name: "خالد الدوسري", email: "k.aldosari@nuwa.sa" },
-  { role: "agent", name: "سارة الحربي", email: "s.alharbi@nuwa.sa" },
-];
+export { SEED_PASSWORD, SEED_PEOPLE, SEED_SACRIFICIAL } from "@/db/seed-identities";
 
 /**
- * Creates the five accounts. Takes the role ids rather than looking them up,
+ * Creates the accounts. Takes the role ids rather than looking them up,
  * because `user.role_id` is now a foreign key and the roles must already
  * exist — `src/db/seed.ts` enforces that ordering.
  */
@@ -48,7 +45,7 @@ export async function seedUsers(
   let created = 0;
   let skipped = 0;
 
-  for (const person of SEED_PEOPLE) {
+  for (const person of SEED_ACCOUNTS) {
     const email = person.email.toLowerCase();
 
     const [existing] = await client

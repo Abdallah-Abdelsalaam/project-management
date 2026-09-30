@@ -4,6 +4,226 @@ Newest entry on top.
 
 ---
 
+## Session 3 — Roles, capabilities and the permission matrix · and its verification
+
+**2026-09-30** · branches: `session-03-roles-permissions` (merged as `19508a2`), then `session-03-closeout-verification`
+
+### What this entry covers
+
+Two pieces of work that were never written up together. The feature was built
+and merged in `3f32061`, and four commits followed it — but `/end-session` never
+ran, so `PROGRESS.md` still ended at session 2 and `NEXT_SESSION.md` still asked
+for session 3. The closeout did what that brief still demanded: **verify it.**
+
+That verification is the substantial half. It found a bug that made the product
+unusable.
+
+### Done — the feature (merged in `3f32061`)
+
+**Permissions became data.** `role`, `permission`, `role_permission` and
+`audit_log`; `user.role` migrated from a text key to `user.role_id`, a foreign
+key with `ON DELETE RESTRICT`. Twelve tables, one baseline migration.
+
+**Unplanned: the database moved from Neon Postgres to MySQL on Hostinger** — the
+organisation hosts it. ADR-019 records the four costs and the one gain session 3
+depends on: real interactive transactions.
+
+Wildcards (`tasks.*`, `*`) are stored literally rather than expanded, so "the
+manager can do everything under tasks" stays true when a fifteenth capability is
+added (ADR-020). Scope is checked separately from capability, because a team
+leader and a department head both hold `tasks.assign` and no string distinguishes
+them (ADR-021). Nobody grants a capability they do not hold (ADR-022).
+
+Both screens built to their wireframes; every permission change writes one audit
+row per moved cell, inside the same transaction as the change.
+
+### Done — the closeout
+
+**A test database.** `DATABASE_URL_TEST` → `u774058186_pmTest`, a second MySQL
+database on the same plan. The suite is destructive by design and
+`https://pm.apqrinu-co.com` serves from `DATABASE_URL`. ADR-024.
+
+This was not precautionary. One run reached production before the split existed,
+and only luck — every spec failing at sign-in — held the damage to
+`login_attempt` rows. `role`, `role_permission` and `audit_log` were untouched,
+confirmed by direct query.
+
+**The E2E suite ran for the first time.** 58 specs written in session 2 and 12
+more in session 3 had never executed.
+
+### The bug that verification found
+
+**No verification code had ever been sent. Sign-in had never completed, in any
+environment, since session 2.**
+
+`sendCode()` called `auth().api.sendTwoFactorOTP({ headers: await headers() })`.
+`headers()` returns the request exactly as it arrived and never changes during
+the request; the two-factor challenge cookie is set by `signInEmail` moments
+earlier, into Next's _cookie jar_. So the call presented no challenge, Better
+Auth answered `INVALID_TWO_FACTOR_COOKIE`, and the Server Action threw — the
+user got the generic error boundary on the login screen, naming a cookie rather
+than the request that lacked it.
+
+The fix is `headersWithPendingCookies()`, which rebuilds the cookie header from
+the jar. The send is deliberately **not** wrapped in a `catch`: a swallowed
+failure here means a user waiting for a code that was never sent, and this whole
+class of bug survived three sessions precisely because the failure was invisible.
+ADR-023.
+
+**This is the cost of shipping tests that never ran.** Session 2 listed four
+assumptions to check "the moment a database exists". This was not among them —
+it was not an assumption anyone had thought to doubt. Only execution found it.
+
+### Why the suite had never run, and three other things wrong with it
+
+|     | Defect                                                                                                                                                                                                                                                                                                                                                                                  | Fix                                                                                                          |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| D1  | `e2e/fixtures/auth.ts` re-declared the seed's five addresses instead of importing them. The database was later edited by hand to `apqrinu+*@gmail.com` so a live code could be received, and the two drifted: every spec signed in as an account that did not exist, five failures tripped the lockout, and the failure read "الحساب موقوف مؤقتًا" rather than "this address is wrong". | `src/db/seed-identities.ts` — one list, imported by both, addresses overridable through `SEED_EMAIL_PATTERN` |
+| D2  | `playwright.config.ts` never loaded `.env.local`, so `databaseMissingReason()` reported `DATABASE_URL is not set` on a fully configured machine. Every database spec said **skipped**, which reads as "not applicable" rather than "this never ran".                                                                                                                                    | `config({ path: ".env.local" })` before anything reads `process.env`                                         |
+| D3  | The password-reset spec permanently set a shared account's password to a fixed literal; `password_history` then blocked the next run.                                                                                                                                                                                                                                                   | A dedicated sacrificial account, and a password unique per run                                               |
+| D4  | `reuseExistingServer` handed the suite a server started before `DATABASE_URL_TEST` existed — the run that reached production.                                                                                                                                                                                                                                                           | `reuseExistingServer: false`; the database URL is passed to the server explicitly                            |
+
+D2 is the one that mattered most. It is why "58 specs have never run" survived
+three sessions: the default command reported success-shaped output.
+
+### Test defects the first real run exposed
+
+None of these were product bugs. All five are fixed.
+
+1. **`roleIdFor` could not work for two of the five roles.** It matched a role's
+   name against the matrix column headers, but `getByRole("columnheader", { name })`
+   matches on substring — so `موظف` also matched the group header
+   `الفرق والموظفون`. And the admin column deliberately has no checkbox, which
+   is the very thing the `locks the admin column` spec asserts, so reading an id
+   from one could only time out. `lead` and `head` happened not to collide,
+   which is why it looked fine. Replaced by a `data-role-id` attribute.
+2. **The search spec asserted over the whole page.** The closing note quotes
+   `data-perm="tasks.approve"` — the wireframe's own copy. Scoped to the table.
+3. **The lockout spec never waited.** Its guard was
+   `expect(getByRole("alert")).toBeVisible()`, and the sign-in screen always
+   renders an empty live region, so the locator matched instantly and all six
+   attempts landed inside 650ms. The lockout counts consecutive _committed_
+   failures, so none of them tripped it. Now waits on the message, and uses a
+   fresh address per run so a previous run's lock is not still standing.
+4. **Two specs asserted the topbar name is visible at 390px.** It is
+   deliberately `hidden … sm:flex`. Presence is now checked at every width,
+   visibility only where the design shows it.
+5. **A 5s assertion timeout against a database in Frankfurt.** Submissions were
+   caught mid-flight, the button still reading `جارٍ التحقق…`. Raised to 10s.
+
+### What the database confirms
+
+Queried directly after the run, not inferred from a passing test:
+
+| Claim                                    | Evidence                                                                                                                |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `before /sign-in/email` records attempts | `login_attempt` rows per address, failures and successes distinguished                                                  |
+| `after /sign-in/email` clears the budget | every seeded account has **zero** failures standing since its last success                                              |
+| the lockout accumulates                  | a failing address carried its consecutive failures and was refused                                                      |
+| `before /reset-password` records history | a `password_history` row, written by the reset spec                                                                     |
+| trusted devices register                 | `Windows · Chrome`, `desktop`, expiring 30 days out — session 2's unverified `parseTrustIdentifier` assumption holds    |
+| permission changes are audited           | `permission.granted audit.view false→true` and `permission.revoked true→false`, with actor, entity, field and timestamp |
+| roles created in a test are cleaned up   | `role` back to 5, `role_permission` back to 55                                                                          |
+
+### Verification
+
+| Check            | Result                                                                                  |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| `pnpm lint`      | clean                                                                                   |
+| `pnpm typecheck` | clean                                                                                   |
+| `pnpm test`      | **124 passed**                                                                          |
+| `pnpm build`     | compiled, no warnings                                                                   |
+| `pnpm test:e2e`  | ****121 passed, 0 failed, 1 skipped** — the first time these specs have ever executed** |
+
+The one skip is `the drawer closes on Escape`, which skips at desktop width
+because the drawer only exists below 768px. **No spec skips for want of a
+database any more** — that was the session's headline requirement.
+
+Screenshots for the fidelity pass are in `docs/screenshots/session-03/`:
+every screen at 1440px and 390px in both directions, including the two-factor
+screen, which had never been rendered before this session.
+
+### Not done
+
+**The deployed app still carries the sign-in bug.** `https://pm.apqrinu-co.com`
+is running the code from before ADR-023, which means nobody can complete a
+sign-in on it. The fix is committed but not deployed; deploying is the first
+task of the next session and it is a one-line-behaviour change, not a risk.
+
+**The E2E suite has never run against the deploy.** `PLAYWRIGHT_BASE_URL` exists
+for it, but pointing a destructive suite at the production database is exactly
+what ADR-024 forbids, so it needs the deploy configured against the test
+database first — or, better, a read-only smoke subset.
+
+**Screenshot review is a comparison, not a proof.** The screens were compared
+against their wireframes at both widths in both directions and the fidelity
+boxes ticked on that basis. That is the protocol, and it is still one person
+looking at two images.
+
+### Known issues
+
+**`next start` warns that it does not work with `output: standalone`.** It
+serves correctly and the whole suite runs against it, but the warning means the
+tested server is started differently from the deployed one
+(`node .next/standalone/server.js`). Worth reconciling before trusting the suite
+as a deploy gate. Not logged as a question because it is a build-config detail
+with an obvious fix, not a product decision.
+
+**The suite is serial and takes about eleven minutes.** Deliberate — see
+ADR-024. Making it parallel means one identity set per worker, not more workers.
+
+### Fidelity differences from the wireframe
+
+1. **The matrix shows 30 capabilities, not the wireframe's 22.** The eight it
+   omits include `tasks.submit` and `tasks.comment`, which the server enforces.
+   A matrix that hides a capability the server checks is a matrix that lies.
+   Logged as **Q19**, decided and built.
+2. **A new role gets no description or glyph**, because the add-role modal has
+   no field for either. Logged as **Q21**.
+3. **The roles list shows live counts, not the wireframe's 18 / 5 / 3 / 1 / 1.**
+   The wireframe's numbers describe a populated organisation; the seed has six
+   accounts. Not a difference in the screen, a difference in the data.
+4. **`قائد الفريق` shows two holders, not one** — the second is the account the
+   E2E suite is allowed to damage. It sits on `lead` deliberately: the access
+   spec asserts `agent` has exactly one holder, and a sixth account must not
+   quietly change a number a test reads.
+
+Carried forward unchanged: the component gallery is still out of the nav (Q8),
+the prototype role switcher is still not ported (ADR-004), and the task-creation
+dock still overlaps the sidebar (Q15).
+
+### New open questions
+
+- **Q22** — the seeded accounts are one person's personal mailbox
+
+Still unanswered and still assumed: **Q1** (the build is the نُوى system),
+**Q5** (`no-reply@pm.apqrinu-co.com`), **Q12** (agents land on `/my-work`,
+everyone else on `/dashboard`).
+
+### Carry-over into session 4
+
+1. **Deploy the sign-in fix.** Nobody can sign in to the deployed app until it
+   ships.
+2. Session 4's own work — departments, task types and the status machine.
+3. Consider narrowing the Hostinger Remote MySQL allowlist again if it was
+   widened to `%` during this session.
+
+### The thing most likely to bite next session
+
+**Q9 — the dynamic form builder**, unchanged from session 1 and now one session
+away. The wireframe promises a new department gets its own task types with no
+code change, yet the two creation forms are hard-coded and each task type has an
+unwireframed **الحقول** button. Session 4 is where that lands. If it is in
+scope it is 2–3 sessions of its own and it changes the shape of `task_payload`.
+Worth answering before session 4 starts, not during it.
+
+The second candidate is quieter: **the suite now passes, which is a new kind of
+risk.** Three sessions of green-looking output came from specs that never ran.
+The habit worth keeping is the one that found the bug — query the database and
+look at what actually happened, rather than trusting a tally.
+
+---
+
 ## Session 2 — Authentication
 
 **2026-09-29** · branch: `session-02-authentication`

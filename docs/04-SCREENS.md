@@ -23,10 +23,11 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **States:** empty / submitting / invalid credentials / locked out after N failed attempts / success → 2FA or dashboard
 - **Data needed:** `user`, `account`, `trusted_device`, `app_setting.security_policy`
 - **Built in session:** 2
-- **Fidelity checklist:** [x] layout [x] copy [ ] states [x] mobile [x] RTL [x] LTR
-  - _states_ unticked: the invalid-credentials and lockout states are covered by
-    Vitest and by E2E specs that need a database, and have not been reviewed on
-    screen. Tick on the first run against a live Neon branch.
+- **Fidelity checklist:** [x] layout [x] copy [x] states [x] mobile [x] RTL [x] LTR
+  - _states_ ticked in the session 3 closeout: invalid-credentials and lockout
+    were exercised against a real database for the first time. The lockout was
+    reproduced end to end — five sequential failures, then a sixth refused with
+    "الحساب موقوف مؤقتًا".
 
 ### التحقق بخطوتين (Two-factor) — route: `/[locale]/two-factor`
 
@@ -37,10 +38,16 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **States:** empty / submitting / wrong code / expired code / attempts exhausted / resend cooldown / success
 - **Data needed:** `verification`, `trusted_device`, `app_setting.two_factor`
 - **Built in session:** 2
-- **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
-  - Nothing ticked: the screen only exists mid-challenge, so it cannot be
-    reached — or screenshotted — without a database. Built to the wireframe and
-    reviewed as code only.
+- **Fidelity checklist:** [x] layout [x] copy [x] states [x] mobile [x] RTL [x] LTR
+  - Ticked in the session 3 closeout against
+    `docs/screenshots/session-03/two-factor-{ar,en}-{desktop,mobile}.png` — the
+    first time this screen had ever been rendered.
+  - Reaching it in English needed the challenge to _start_ in English: signing
+    in through `/ar/login` and navigating afterwards silently produced an
+    Arabic screenshot, which is why `submitCredentials` now takes a locale.
+  - _states_: wrong code and the resend cooldown are asserted in
+    `e2e/auth.spec.ts`. Attempts-exhausted and expired-code are not yet
+    reachable in a test and stay covered by Vitest over `challenge.ts`.
 
 ### استعادة كلمة المرور (Forgot password) — route: `/[locale]/forgot-password`
 
@@ -64,10 +71,11 @@ Outside the shell: no sidebar, no topbar, no task-creation dock.
 - **States:** empty / submitting / token invalid or expired / policy violation / mismatch / success
 - **Data needed:** `verification`, `account`, `app_setting.security_policy`
 - **Built in session:** 2
-- **Fidelity checklist:** [x] layout [x] copy [ ] states [x] mobile [x] RTL [x] LTR
-  - _states_ unticked: only the invalid-token state renders without a database.
-    The live checklist, the mismatch and the reuse rejection need a valid token,
-    so they are covered by tests rather than by a screenshot.
+- **Fidelity checklist:** [x] layout [x] copy [x] states [x] mobile [x] RTL [x] LTR
+  - _states_ ticked in the session 3 closeout: a real reset link was issued,
+    used once and refused the second time; the policy rejection and the
+    mismatch were both driven on screen. The run also proved the reset takes
+    effect, by signing in with the new password.
 
 ---
 
@@ -354,7 +362,13 @@ All settings routes require `settings.view`.
 - **States:** loading / error / modal submitting / delete blocked when the role has users
 - **Data needed:** `role`, `role_permission`, user counts per role
 - **Built in session:** 3
-- **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
+- **Fidelity checklist:** [x] layout [x] copy [x] states [x] mobile [x] RTL [x] LTR
+  - Compared against `wireframe/pages/settings/roles.html` at 1440px and 390px
+    in both directions — `docs/screenshots/session-03/settings-roles-*.png`.
+  - _Differences, both deliberate:_ the user counts are live rather than the
+    wireframe's 18 / 5 / 3 / 1 / 1, and `قائد الفريق` holds two accounts
+    because the second is the one the E2E suite is allowed to damage. A new
+    role gets no description or glyph — the modal has no field for either (Q21).
 
 ### الصلاحيات (Permissions) — route: `/[locale]/settings/permissions`
 
@@ -365,7 +379,17 @@ All settings routes require `settings.view`.
 - **Data needed:** `permission`, `role`, `role_permission`
 - **Note:** every changed cell writes its own audit row. "Who granted whom what, and when" is the question this screen exists to answer.
 - **Built in session:** 3
-- **Fidelity checklist:** [ ] layout [ ] copy [ ] states [ ] mobile [ ] RTL [ ] LTR
+- **Fidelity checklist:** [x] layout [x] copy [x] states [x] mobile [x] RTL [x] LTR
+  - Compared against `wireframe/pages/settings/permissions.html` at 1440px and
+    390px in both directions —
+    `docs/screenshots/session-03/settings-permissions-*.png`.
+  - _states_: clean, dirty, saving and saved were all driven on screen, and the
+    audit row each change writes was read back out of the database rather than
+    inferred from a passing assertion.
+  - _Difference:_ 30 capabilities in 4 groups, not the wireframe's 22. The
+    eight it omits include `tasks.submit` and `tasks.comment`, which the server
+    enforces — a matrix that hides a capability the server checks would lie
+    about what the role can do (Q19).
 
 ### الأمان والجلسات (Security & sessions) — route: `/[locale]/settings/security`
 

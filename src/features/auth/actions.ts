@@ -575,11 +575,34 @@ export async function signOutAction(formData: FormData): Promise<void> {
 const RESEND_COOKIE = "pm.2fa_sent";
 
 /**
+ * The incoming headers, with the cookie header rebuilt from the jar.
+ *
+ * `headers()` returns the request exactly as it arrived and never changes
+ * during the request. A cookie set *later in the same action* therefore is not
+ * in it — and `signInEmail` sets exactly such a cookie: the two-factor
+ * challenge, written into Next's jar by the `nextCookies` plugin.
+ *
+ * Calling `sendTwoFactorOTP` with the raw `headers()` hands Better Auth a
+ * request carrying no challenge, so it answers `INVALID_TWO_FACTOR_COOKIE` and
+ * the action throws — which is why sign-in reached the error boundary instead
+ * of the code screen, and why no verification code was ever sent. The jar is
+ * the only view that includes the pending cookie, so the cookie header is
+ * rebuilt from it.
+ */
+async function headersWithPendingCookies(): Promise<Headers> {
+  const merged = new Headers(await headers());
+  const jar = await cookies();
+  const pairs = jar.getAll().map((cookie) => `${cookie.name}=${cookie.value}`);
+  if (pairs.length > 0) merged.set("cookie", pairs.join("; "));
+  return merged;
+}
+
+/**
  * Sends a code and arms the cooldown. The two go together — a send that did not
  * arm the cooldown would let the resend button be held down.
  */
 async function sendCode(): Promise<void> {
-  await auth().api.sendTwoFactorOTP({ body: {}, headers: await headers() });
+  await auth().api.sendTwoFactorOTP({ body: {}, headers: await headersWithPendingCookies() });
 
   const jar = await cookies();
   jar.set(RESEND_COOKIE, String(Date.now()), {

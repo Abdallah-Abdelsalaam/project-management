@@ -256,3 +256,35 @@ The model is cached under one tag and every writer calls `updateTag` after its t
 **Why:** the wireframe puts exactly one capability in front of the permission matrix — `settings.view` — and `04-SCREENS.md` says so plainly. Without this rule, `settings.view` is also a capability to award yourself every other one, which makes it the only capability that matters. Inventing a `permissions.manage` capability would have been a screen-level invention the wireframe does not contain; this is a server rule that changes no screen.
 
 In practice it blocks little: the admin holds `*` and the manager holds all thirty concrete capabilities, so the rule bites only on a crafted request. That is the point — it is a backstop on the path that does not go through the UI. Recorded as `OPEN_QUESTIONS.md` Q20, because the underlying question of who should be able to edit permissions is a product decision nobody has made.
+
+---
+
+## ADR-023 · A Server Action reads its own pending cookies from the jar, not from `headers()`
+
+**2026-09-30 · session 3 closeout**
+
+Any Better Auth endpoint called _after_ another one in the same Server Action is handed headers rebuilt from `cookies()`, not the raw `await headers()`. `headersWithPendingCookies()` in `src/features/auth/actions.ts` is the single place that does it.
+
+**Why:** `headers()` returns the request exactly as it arrived and never changes during the request. `cookies()` is a mutable store, and the `nextCookies` plugin writes Better Auth's `Set-Cookie` into it. So a cookie set earlier in the same action exists in one view and not the other.
+
+Sign-in is precisely that shape: `signInEmail` mints the two-factor challenge cookie, and `sendTwoFactorOTP` must present it. Called with `await headers()` it presented nothing, Better Auth answered `INVALID_TWO_FACTOR_COOKIE`, and the action threw — so **no verification code was ever sent and no sign-in ever completed**, on any environment, from session 2 until this fix. The error surfaced as the generic error boundary on the login screen, naming a cookie rather than the request that lacked it.
+
+The send is deliberately **not** wrapped in a `catch`. A swallowed failure here means a user staring at a code screen for a code that was never sent, and this whole class of bug survived three sessions precisely because the failure was invisible. It should be loud.
+
+**How it stayed hidden:** the assumption was never executed. The specs that would have caught it on their first run had never run — see the four infrastructure defects in the session 3 closeout entry of `PROGRESS.md`, of which this bug was the beneficiary.
+
+---
+
+## ADR-024 · The E2E suite owns a separate database, and runs serially against it
+
+**2026-09-30 · session 3 closeout**
+
+`DATABASE_URL_TEST` points at `u774058186_pmTest`, a second MySQL database on the same Hostinger plan. `playwright.config.ts` prefers it, passes it explicitly to the server it starts, never reuses an already-listening server, and runs `workers: 1`.
+
+**Why, on the separate database:** the suite is destructive by design. It creates and deletes a role, toggles permissions, writes audit rows, trips the lockout ledger and changes an account's password. `DATABASE_URL` is the database `https://pm.apqrinu-co.com` serves from. Pointing a destructive suite at live data is not a risk to manage, it is a mistake to design out. Discovered the hard way: one run reached production before the split existed, and only luck — every spec failing at sign-in — kept the damage to `login_attempt` rows.
+
+**Why `reuseExistingServer: false`:** a server already listening was started with whatever environment it was started with. A reused process that predated `DATABASE_URL_TEST` sent a whole run at production while the config said otherwise. A suite that decides which database it writes to by whatever happens to be listening is not isolated at all. One build per run is the right price.
+
+**Why serial:** the suite shares five seeded identities, and nearly everything authentication owns is global per account rather than per browser context — the lockout ledger counts consecutive failures, a reset consumes a single-use token, `password_history` remembers the last five, and `AUTH_MAIL_OUTBOX` is keyed by address alone, so two tests signing in as the same person can read each other's verification code. Run in parallel the suite is not slow, it is wrong.
+
+Making it parallel again means **one identity set per worker**, not more workers. That is the shape of the fix if the runtime ever justifies it.

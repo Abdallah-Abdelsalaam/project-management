@@ -1,6 +1,7 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import {
   databaseMissingReason,
+  SACRIFICIAL,
   enterCode,
   latestCode,
   latestResetLink,
@@ -83,10 +84,30 @@ test.describe("the auth screens render", () => {
 /*  The flow                                                                  */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * The identity the topbar is rendering, asserted at the width it is drawn for.
+ *
+ * `src/components/shell/topbar.tsx` wraps the name and role in
+ * `hidden … sm:flex`, so below 640px the chip is the avatar initials alone and
+ * the text is present but not visible. A plain visibility assertion passes on
+ * desktop and fails at 390px against a layout behaving exactly as designed —
+ * so presence is checked at every width and visibility only where the design
+ * shows it.
+ */
+async function expectSignedInAs(
+  page: Page,
+  viewport: { width: number; height: number } | null,
+  text: string,
+) {
+  const label = page.getByText(text);
+  await expect(label).toBeAttached();
+  if ((viewport?.width ?? 0) >= 640) await expect(label).toBeVisible();
+}
+
 test.describe("sign in", () => {
   test.skip(() => databaseMissingReason() !== false, "needs a database and an outbox");
 
-  test("credentials then a correct code reaches the dashboard", async ({ page }) => {
+  test("credentials then a correct code reaches the dashboard", async ({ page, viewport }) => {
     const since = Date.now() - 1;
     await submitCredentials(page, SEEDED.manager);
     await expect(page).toHaveURL(/\/two-factor/);
@@ -94,7 +115,7 @@ test.describe("sign in", () => {
     await enterCode(page, await latestCode(SEEDED.manager, since));
 
     await expect(page).toHaveURL(/\/ar\/dashboard/);
-    await expect(page.getByText("أحمد سالم")).toBeVisible();
+    await expectSignedInAs(page, viewport, "أحمد سالم");
   });
 
   test("an agent lands on their own work, not the dashboard", async ({ page }) => {
@@ -103,10 +124,10 @@ test.describe("sign in", () => {
     await expect(page).toHaveURL(/\/ar\/my-work/);
   });
 
-  test("the topbar shows the real signed-in name and role", async ({ page }) => {
+  test("the topbar shows the real signed-in name and role", async ({ page, viewport }) => {
     await signIn(page, SEEDED.lead);
-    await expect(page.getByText("خالد الدوسري")).toBeVisible();
-    await expect(page.getByText("قائد الفريق")).toBeVisible();
+    await expectSignedInAs(page, viewport, "خالد الدوسري");
+    await expectSignedInAs(page, viewport, "قائد الفريق");
   });
 
   test("a wrong password is refused without saying whether the account exists", async ({
@@ -121,12 +142,28 @@ test.describe("sign in", () => {
   });
 
   test("a wrong code is its own state, distinct from a wrong password", async ({ page }) => {
+    const since = Date.now() - 1;
     await submitCredentials(page, SEEDED.head);
     await expect(page).toHaveURL(/\/two-factor/);
 
     await enterCode(page, "000000");
     await expect(page.getByText("الرمز غير صحيح")).toBeVisible();
     await expect(page).toHaveURL(/\/two-factor/);
+
+    // Then finish with the real code — which is not decoration.
+    //
+    // The two-factor plugin keeps a per-account budget of five failed
+    // verifications in `two_factor.failed_verification_count`, and only a
+    // successful verification clears it. Spending one attempt per run and
+    // never clearing it meant the fifth run found the account locked out of
+    // its second factor, so the screen answered with a lock rather than
+    // "الرمز غير صحيح" and this spec failed for a reason it was not testing.
+    // Reload before retyping: the six boxes still hold the rejected digits,
+    // and `enterCode` types rather than replaces, so without this the second
+    // attempt submits the wrong code again.
+    await page.reload();
+    await enterCode(page, await latestCode(SEEDED.head, since));
+    await expect(page).not.toHaveURL(/\/two-factor/);
   });
 
   test("resend is refused until its cooldown has passed", async ({ page }) => {
@@ -142,12 +179,23 @@ test.describe("lockout", () => {
   test.skip(() => databaseMissingReason() !== false, "needs a database and an outbox");
 
   test("locks the account after the configured number of failures", async ({ page }) => {
-    // A dedicated address, so the lock does not bleed into the other specs.
-    const email = "lockout-target@nuwa.sa";
+    // A dedicated address, so the lock does not bleed into the other specs —
+    // and a *fresh* one per run, because the ledger is a persistent table and
+    // the lock it leaves behind would otherwise still be standing next time,
+    // failing the first attempt with the message the last assertion expects.
+    const email = `lockout-${Date.now()}@nuwa.sa`;
 
+    // Each attempt must be answered before the next is sent. The lockout
+    // counts consecutive *committed* failures, so overlapping requests all
+    // read a ledger that is still empty and none of them trips the limit.
+    //
+    // Waiting on `getByRole("alert")` did not do that: the sign-in screen
+    // always renders an empty live region, so the locator matched instantly
+    // and all six attempts landed inside 650ms. Waiting on the message itself
+    // is what makes this sequential.
     for (let attempt = 0; attempt < 5; attempt += 1) {
       await submitCredentials(page, email, "WrongPassword!1x");
-      await expect(page.getByRole("alert")).toBeVisible();
+      await expect(page.getByText("بيانات الدخول غير صحيحة")).toBeVisible();
     }
 
     await submitCredentials(page, email, "WrongPassword!1x");
@@ -185,7 +233,11 @@ test.describe("password reset", () => {
   test.skip(() => databaseMissingReason() !== false, "needs a database and an outbox");
 
   test("a reset link works exactly once and enforces the policy", async ({ page }) => {
-    const email = SEEDED.agent;
+    // Not a shared identity: this spec proves the new password signs in, so it
+    // necessarily leaves the account changed. Against a persistent database
+    // that would break every later spec that expects SEED_PASSWORD, and the
+    // last-five-passwords rule forbids putting the old one back.
+    const email = SACRIFICIAL;
     const since = Date.now() - 1;
 
     await page.goto("/ar/forgot-password");
@@ -202,10 +254,22 @@ test.describe("password reset", () => {
     await page.getByRole("button", { name: "حفظ كلمة المرور" }).click();
     await expect(page.locator('[data-pass="false"]').first()).toBeVisible();
 
-    // A compliant password is accepted.
-    const next = "Nuwa!Reset2026z";
+    // Reload from the link before the second attempt.
+    //
+    // The rejected submit re-renders the form, and that re-render was landing
+    // between the two fills below — clearing `#password` after it had been
+    // filled and leaving `#confirm` set, so the form submitted a blank
+    // password. The checklist assertion above cannot prevent it: those rows
+    // are live as you type, so it is satisfied before the submit is answered.
+    await page.goto(link);
+
+    // A compliant password, and a different one on every run — the account is
+    // reused, and the policy remembers the last five.
+    const next = `Nuwa!R${Date.now()}z`;
     await page.locator("#password").fill(next);
     await page.locator("#confirm").fill(next);
+    await expect(page.locator("#password")).toHaveValue(next);
+    await expect(page.locator("#confirm")).toHaveValue(next);
     await page.getByRole("button", { name: "حفظ كلمة المرور" }).click();
     await expect(page).toHaveURL(/\/ar\/login/);
     await expect(page.getByText("تم حفظ كلمة المرور الجديدة")).toBeVisible();

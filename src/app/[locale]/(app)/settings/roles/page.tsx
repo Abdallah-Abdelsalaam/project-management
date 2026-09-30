@@ -126,7 +126,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               ].filter(Boolean);
 
               return (
-                <ListRow key={role.id} data-role={role.key}>
+                <ListRow key={role.id} data-role={role.key} data-role-id={role.id}>
                   <ListRowGlyph>
                     <RoleGlyph name={role.icon} />
                   </ListRowGlyph>
